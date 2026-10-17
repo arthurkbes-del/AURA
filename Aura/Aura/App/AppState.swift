@@ -5,6 +5,8 @@ import Observation
 @MainActor @Observable public final class AppState {
     public static let shared = AppState()
     public let audio = AudioEngineManager()
+    public let systemAudio: SystemAudioSession
+    public private(set) var sourceErrorMessage: String?
     public private(set) var saved = SavedState()
     public var selectedModule = 0
     public var selectedBandID: UUID?
@@ -17,7 +19,53 @@ import Observation
     @ObservationIgnored private var canSave = true
     @ObservationIgnored private var restoreStarted = false
 
-    public init(store: PresetStore = PresetStore()) { writer = PersistenceWriter(store: store) }
+    public init(store: PresetStore = PresetStore(), systemAudio: SystemAudioSession? = nil) {
+        writer = PersistenceWriter(store: store)
+        self.systemAudio = systemAudio ?? SystemAudioSession(makeBackend: { ProcessTapBackend() })
+    }
+    public var sourceMode: AudioSourceMode { saved.systemAudioPreferences.sourceMode }
+    public var activeSampleRate: Double { sourceMode == .systemAudio ? systemAudio.sampleRate : audio.sampleRate }
+    public var engineRunning: Bool { sourceMode == .systemAudio ? systemAudio.state == .running : audio.engineRunning }
+    public var activeOutputName: String { sourceMode == .systemAudio ? systemAudio.outputName : audio.outputName }
+    public var activeError: String? { sourceErrorMessage ?? (sourceMode == .systemAudio ? systemAudio.errorMessage : audio.errorMessage) }
+    public var activeOverRange: Bool { sourceMode == .systemAudio ? systemAudio.metrics.overRange : audio.overRange }
+    public var transportDescription: String {
+        sourceMode == .systemAudio ? "System audio · \(systemAudio.state.rawValue)" : "\(audio.state.label) · Engine \(audio.engineRunning ? "running" : "stopped")"
+    }
+
+    public func setSourceMode(_ mode: AudioSourceMode) {
+        guard mode != sourceMode else { return }
+        stopAllAudio()
+        saved.systemAudioPreferences.sourceMode = mode; changed()
+    }
+    public func startSystemAudio(selection: SystemAudioSelection) async {
+        audio.stop()
+        saved.systemAudioPreferences.sourceMode = .systemAudio
+        saved.systemAudioPreferences.outputUID = selection.deviceUID
+        saved.systemAudioPreferences.applicationBundleID = selection.applicationBundleID
+        sourceErrorMessage = nil
+        do {
+            try await systemAudio.start(selection: selection, configuration: saved.configuration)
+            saved.configuration.normalize(sampleRate: systemAudio.sampleRate)
+            systemAudio.apply(saved.configuration)
+        } catch { sourceErrorMessage = error.localizedDescription }
+        changed()
+    }
+    public func startPreferredSystemAudio() async {
+        let preferences = saved.systemAudioPreferences
+        let application = preferences.applicationBundleID.flatMap { bundle in
+            (try? SystemAudioInventory.applications())?.first { $0.bundleID == bundle }
+        }
+        await startSystemAudio(selection: SystemAudioSelection(deviceUID: preferences.outputUID,
+            applicationPID: application?.pid, applicationBundleID: preferences.applicationBundleID))
+    }
+    public func playLocalAudio() {
+        systemAudio.stopImmediately()
+        guard systemAudio.state == .idle else { sourceErrorMessage = systemAudio.errorMessage; return }
+        saved.systemAudioPreferences.sourceMode = .localFile
+        sourceErrorMessage = nil; audio.play(); changed()
+    }
+    public func stopAllAudio() { audio.stop(); systemAudio.stopImmediately(); sourceErrorMessage = nil }
     public var module: EqualizerModule { saved.configuration.modules[min(3, max(0, selectedModule))] }
     public var presets: [EqualizerPreset] { EqualizerPreset.factory + saved.presets }
     public var selectedBand: EqualizerBand? {
@@ -42,7 +90,7 @@ import Observation
     public func editModule(_ edit: (inout EqualizerModule) -> Void) {
         selectedModule = min(3, max(0, selectedModule))
         edit(&saved.configuration.modules[selectedModule])
-        saved.configuration.modules[selectedModule].normalize(sampleRate: audio.sampleRate)
+        saved.configuration.modules[selectedModule].normalize(sampleRate: activeSampleRate)
         changed()
     }
 
@@ -54,7 +102,7 @@ import Observation
     }
 
     public func editConfiguration(_ edit: (inout AudioConfiguration) -> Void) {
-        edit(&saved.configuration); saved.configuration.normalize(sampleRate: audio.sampleRate); changed()
+        edit(&saved.configuration); saved.configuration.normalize(sampleRate: activeSampleRate); changed()
     }
 
     public func selectModule(_ index: Int) {
@@ -62,6 +110,9 @@ import Observation
     }
 
     public func loadAudio(_ url: URL) throws {
+        systemAudio.stopImmediately()
+        guard systemAudio.state == .idle else { throw SystemAudioError(systemAudio.errorMessage ?? "Stop system processing before opening a file.") }
+        saved.systemAudioPreferences.sourceMode = .localFile; sourceErrorMessage = nil
         try audio.load(url)
         saved.configuration.normalize(sampleRate: audio.sampleRate)
         audio.apply(saved.configuration)
@@ -121,6 +172,7 @@ import Observation
                 try? await Task.sleep(for: .milliseconds(33))
                 guard let self, !Task.isCancelled else { return }
                 self.audio.apply(self.saved.configuration)
+                self.systemAudio.apply(self.saved.configuration)
                 self.parameterTask = nil
             }
         }
@@ -141,6 +193,7 @@ import Observation
     public func flush() async {
         saveTask?.cancel(); parameterTask?.cancel(); parameterTask = nil
         audio.apply(saved.configuration)
+        systemAudio.apply(saved.configuration)
         if isLoaded && canSave { await persist() }
     }
 }

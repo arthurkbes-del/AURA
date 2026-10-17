@@ -1,0 +1,80 @@
+Building for debugging...
+[Planning deferred tasks]
+[6 / 17] AuraCoreTests-product
+error: SwiftCompile normal arm64 /Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/SystemAudioCapturePolicyTests.swift failed with a nonzero exit code. Command line:     cd /Users/arthurbes/Documents/ChatGPT
+    builtin-SwiftPerFileCompile SystemAudioCapturePolicyTests.swift
+/Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/SystemAudioCapturePolicyTests.swift:7:9: error: cannot find 'SystemAudioApplication' in scope
+ 5 | final class SystemAudioCapturePolicyTests: XCTestCase {
+ 6 |     private let catalog = [
+ 7 |         SystemAudioApplication(objectID: 11, pid: 100, bundleID: "com.evoluere.aura", name: "AURA"),
+   |         `- error: cannot find 'SystemAudioApplication' in scope
+ 8 |         SystemAudioApplication(objectID: 12, pid: 101, bundleID: "com.evoluere.aura.helper", name: "AURA helper"),
+ 9 |         SystemAudioApplication(objectID: 21, pid: 200, bundleID: "example.player", name: "Player")
+
+/Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/SystemAudioCapturePolicyTests.swift:8:9: error: cannot find 'SystemAudioApplication' in scope
+ 6 |     private let catalog = [
+ 7 |         SystemAudioApplication(objectID: 11, pid: 100, bundleID: "com.evoluere.aura", name: "AURA"),
+ 8 |         SystemAudioApplication(objectID: 12, pid: 101, bundleID: "com.evoluere.aura.helper", name: "AURA helper"),
+   |         `- error: cannot find 'SystemAudioApplication' in scope
+ 9 |         SystemAudioApplication(objectID: 21, pid: 200, bundleID: "example.player", name: "Player")
+10 |     ]
+
+/Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/SystemAudioCapturePolicyTests.swift:9:9: error: cannot find 'SystemAudioApplication' in scope
+ 7 |         SystemAudioApplication(objectID: 11, pid: 100, bundleID: "com.evoluere.aura", name: "AURA"),
+ 8 |         SystemAudioApplication(objectID: 12, pid: 101, bundleID: "com.evoluere.aura.helper", name: "AURA helper"),
+ 9 |         SystemAudioApplication(objectID: 21, pid: 200, bundleID: "example.player", name: "Player")
+   |         `- error: cannot find 'SystemAudioApplication' in scope
+10 |     ]
+11 |     func testAllApplicationsExcludesAuraAndItsHelpersBeforeOutputStarts() throws {
+
+/Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/SystemAudioCapturePolicyTests.swift:12:26: error: cannot find 'SystemAudioCapturePolicy' in scope
+10 |     ]
+11 |     func testAllApplicationsExcludesAuraAndItsHelpersBeforeOutputStarts() throws {
+12 |         let policy = try SystemAudioCapturePolicy.make(selection: .init(deviceUID: "output"), ownPID: 100, applications: catalog)
+   |                          `- error: cannot find 'SystemAudioCapturePolicy' in scope
+13 |         XCTAssertTrue(policy.exclusive)
+14 |         XCTAssertEqual(Set(policy.processes), [11, 12])
+
+/Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/SystemAudioCapturePolicyTests.swift:17:34: error: cannot find 'SystemAudioCapturePolicy' in scope
+15 |     }
+16 |     func testMissingOwnAudioRegistrationCannotEnableGlobalCapture() {
+17 |         XCTAssertThrowsError(try SystemAudioCapturePolicy.make(selection: .init(deviceUID: "output"), ownPID: 999, applications: catalog))
+   |                                  `- error: cannot find 'SystemAudioCapturePolicy' in scope
+18 |     }
+19 |     func testSelectedProcessMustStillMatchIdentityAndCannotBeAura() throws {
+
+/Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/SystemAudioCapturePolicyTests.swift:20:26: error: cannot find 'SystemAudioCapturePolicy' in scope
+18 |     }
+19 |     func testSelectedProcessMustStillMatchIdentityAndCannotBeAura() throws {
+20 |         let policy = try SystemAudioCapturePolicy.make(selection: .init(deviceUID: "output", applicationPID: 200, applicationBundleID: "example.player"), ownPID: 100, applications: catalog)
+   |                          `- error: cannot find 'SystemAudioCapturePolicy' in scope
+21 |         XCTAssertFalse(policy.exclusive); XCTAssertEqual(policy.processes, [21])
+22 |         XCTAssertThrowsError(try SystemAudioCapturePolicy.make(selection: .init(deviceUID: "output", applicationPID: 100), ownPID: 100, applications: catalog))
+
+/Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/SystemAudioCapturePolicyTests.swift:22:34: error: cannot find 'SystemAudioCapturePolicy' in scope
+20 |         let policy = try SystemAudioCapturePolicy.make(selection: .init(deviceUID: "output", applicationPID: 200, applicationBundleID: "example.player"), ownPID: 100, applications: catalog)
+21 |         XCTAssertFalse(policy.exclusive); XCTAssertEqual(policy.processes, [21])
+22 |         XCTAssertThrowsError(try SystemAudioCapturePolicy.make(selection: .init(deviceUID: "output", applicationPID: 100), ownPID: 100, applications: catalog))
+   |                                  `- error: cannot find 'SystemAudioCapturePolicy' in scope
+23 |         XCTAssertThrowsError(try SystemAudioCapturePolicy.make(selection: .init(deviceUID: "output", applicationPID: 200, applicationBundleID: "another.app"), ownPID: 100, applications: catalog))
+24 |         XCTAssertThrowsError(try SystemAudioCapturePolicy.make(selection: .init(deviceUID: "output", applicationPID: 300), ownPID: 100, applications: catalog))
+
+/Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/SystemAudioCapturePolicyTests.swift:23:34: error: cannot find 'SystemAudioCapturePolicy' in scope
+21 |         XCTAssertFalse(policy.exclusive); XCTAssertEqual(policy.processes, [21])
+22 |         XCTAssertThrowsError(try SystemAudioCapturePolicy.make(selection: .init(deviceUID: "output", applicationPID: 100), ownPID: 100, applications: catalog))
+23 |         XCTAssertThrowsError(try SystemAudioCapturePolicy.make(selection: .init(deviceUID: "output", applicationPID: 200, applicationBundleID: "another.app"), ownPID: 100, applications: catalog))
+   |                                  `- error: cannot find 'SystemAudioCapturePolicy' in scope
+24 |         XCTAssertThrowsError(try SystemAudioCapturePolicy.make(selection: .init(deviceUID: "output", applicationPID: 300), ownPID: 100, applications: catalog))
+25 |     }
+
+/Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/SystemAudioCapturePolicyTests.swift:24:34: error: cannot find 'SystemAudioCapturePolicy' in scope
+22 |         XCTAssertThrowsError(try SystemAudioCapturePolicy.make(selection: .init(deviceUID: "output", applicationPID: 100), ownPID: 100, applications: catalog))
+23 |         XCTAssertThrowsError(try SystemAudioCapturePolicy.make(selection: .init(deviceUID: "output", applicationPID: 200, applicationBundleID: "another.app"), ownPID: 100, applications: catalog))
+24 |         XCTAssertThrowsError(try SystemAudioCapturePolicy.make(selection: .init(deviceUID: "output", applicationPID: 300), ownPID: 100, applications: catalog))
+   |                                  `- error: cannot find 'SystemAudioCapturePolicy' in scope
+25 |     }
+26 | }
+Failed frontend command:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -frontend -c /Users/arthurbes/Documents/ChatGPT/AURA/.build/out/Intermediates.noindex/Aura.build/Debug/AuraCoreTests-p.build/DerivedSources/test_entry_point.swift /Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/AppStateTests.swift /Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/DSPTests.swift /Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/ModelTests.swift /Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/OfflineGraphTests.swift /Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/PlaybackStateTests.swift /Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/PresetStoreTests.swift -primary-file /Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/SystemAudioCapturePolicyTests.swift /Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/SystemAudioRenderTests.swift /Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/SystemAudioSessionTests.swift -emit-dependencies-path /Users/arthurbes/Documents/ChatGPT/AURA/.build/out/Intermediates.noindex/Aura.build/Debug/AuraCoreTests-p.build/Objects-normal/arm64/SystemAudioCapturePolicyTests.d -emit-const-values-path /Users/arthurbes/Documents/ChatGPT/AURA/.build/out/Intermediates.noindex/Aura.build/Debug/AuraCoreTests-p.build/Objects-normal/arm64/SystemAudioCapturePolicyTests.swiftconstvalues -emit-reference-dependencies-path /Users/arthurbes/Documents/ChatGPT/AURA/.build/out/Intermediates.noindex/Aura.build/Debug/AuraCoreTests-p.build/Objects-normal/arm64/SystemAudioCapturePolicyTests.swiftdeps -serialize-diagnostics-path /Users/arthurbes/Documents/ChatGPT/AURA/.build/out/Intermediates.noindex/Aura.build/Debug/AuraCoreTests-p.build/Objects-normal/arm64/SystemAudioCapturePolicyTests.dia -target arm64-apple-macos15.0 -module-can-import-version Testing 2084 0 -module-can-import-version XCTest 25229 0 -disable-cross-import-overlay-search -swift-module-cross-import Testing /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks/Testing.framework/Modules/Testing.swiftcrossimport/AppKit.swiftoverlay -swift-module-cross-import Testing /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks/Testing.framework/Modules/Testing.swiftcrossimport/CoreGraphics.swiftoverlay -swift-module-cross-import Testing /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks/Testing.framework/Modules/Testing.swiftcrossimport/CoreImage.swiftoverlay -swift-module-cross-import Testing /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks/Testing.framework/Modules/Testing.swiftcrossimport/CoreTransferable.swiftoverlay -swift-module-cross-import Testing /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks/Testing.framework/Modules/Testing.swiftcrossimport/Foundation.swiftoverlay -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib/swift/host/plugins/libFoundationMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/bin/swift-plugin-server\#FoundationMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib/swift/host/plugins/libObservationMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/bin/swift-plugin-server\#ObservationMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib/swift/host/plugins/libPreviewsMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/bin/swift-plugin-server\#PreviewsMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib/swift/host/plugins/libSwiftMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/bin/swift-plugin-server\#SwiftMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib/swift/host/plugins/libSwiftUIMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/bin/swift-plugin-server\#SwiftUIMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib\#\#TestingMacros -disable-implicit-swift-modules -Xcc -fno-implicit-modules -Xcc -fno-implicit-module-maps -explicit-swift-module-map-file /Users/arthurbes/Documents/ChatGPT/AURA/.build/out/Intermediates.noindex/Aura.build/Debug/AuraCoreTests-p.build/Objects-normal/arm64/AuraCoreTests-dependencies-1.json -Xllvm -aarch64-use-tbi -enable-objc-interop -stack-check -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk -I /Users/arthurbes/Documents/ChatGPT/AURA/.build/out/Products/Debug -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib -F /Users/arthurbes/Documents/ChatGPT/AURA/.build/out/Products/Debug/PackageFrameworks -F /Users/arthurbes/Documents/ChatGPT/AURA/.build/out/Products/Debug -F /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks -module-cache-path /Users/arthurbes/Documents/ChatGPT/AURA/.build/out/Intermediates.noindex/SwiftExplicitPrecompiledModules -no-color-diagnostics -Xcc -fno-color-diagnostics -enable-testing -g -debug-info-format\=dwarf -dwarf-version\=5 -swift-version 6 -Onone -D SWIFT_PACKAGE -D DEBUG -D Xcode -serialize-debugging-options -enable-experimental-feature DebugDescriptionMacro -empty-abi-descriptor -validate-clang-modules-once -clang-build-session-file /Users/arthurbes/Documents/ChatGPT/AURA/.build/out/ModuleCache.noindex/Session.modulevalidation -Xcc -working-directory -Xcc /Users/arthurbes/Documents/ChatGPT -enable-anonymous-context-mangled-names -file-compilation-dir /Users/arthurbes/Documents/ChatGPT -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -Xcc -ivfsstatcache -Xcc /Users/arthurbes/Documents/ChatGPT/AURA/.build/out/SDKStatCaches.noindex/macosx27.0-26A425-a0facfad118c1a7a18f0aad9463f65497231f6df4def33e022ae2eb8f782df1a.sdkstatcache -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -Xcc -I/Users/arthurbes/Documents/ChatGPT/AURA/.build/out/Products/Debug/include -Xcc -I/Users/arthurbes/Documents/ChatGPT/AURA/.build/out/Intermediates.noindex/Aura.build/Debug/AuraCoreTests-p.build/DerivedSources-normal/arm64 -Xcc -I/Users/arthurbes/Documents/ChatGPT/AURA/.build/out/Intermediates.noindex/Aura.build/Debug/AuraCoreTests-p.build/DerivedSources/arm64 -Xcc -I/Users/arthurbes/Documents/ChatGPT/AURA/.build/out/Intermediates.noindex/Aura.build/Debug/AuraCoreTests-p.build/DerivedSources -Xcc -DSWIFT_PACKAGE -Xcc -DDEBUG\=1 -no-auto-bridging-header-chaining -module-name AuraCoreTests -package-name aura -const-gather-protocols-file /Users/arthurbes/Documents/ChatGPT/AURA/.build/out/Intermediates.noindex/Aura.build/Debug/AuraCoreTests-p.build/Objects-normal/arm64/AuraCoreTests_const_extract_protocols.json -disable-clang-spi -clang-target arm64-apple-macos27.0 -target-sdk-version 27.0 -target-sdk-name macosx27.0 -in-process-plugin-server-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/libSwiftInProcPluginServer.dylib -parse-as-library -o /Users/arthurbes/Documents/ChatGPT/AURA/.build/out/Intermediates.noindex/Aura.build/Debug/AuraCoreTests-p.build/Objects-normal/arm64/SystemAudioCapturePolicyTests.o -debug-module-path /Users/arthurbes/Documents/ChatGPT/AURA/.build/out/Intermediates.noindex/Aura.build/Debug/AuraCoreTests-p.build/Objects-normal/arm64/AuraCoreTests.swiftmodule -index-unit-output-path /Aura.build/Debug/AuraCoreTests-p.build/Objects-normal/arm64/SystemAudioCapturePolicyTests.o -index-store-path /Users/arthurbes/Documents/ChatGPT/AURA/.build/out -index-system-modules
+error: Build failed
+error: fatalError

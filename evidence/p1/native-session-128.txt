@@ -1,0 +1,47 @@
+Building for production...
+[1 / 2]
+[2 / 5] AuraSystemValidation-product
+[3 / 6] AuraSystemValidation-product
+[5 / 6] AuraSystemValidation-product
+[6 / 6] AuraSystemValidation-product
+Build complete! (1,64 seg)
+Controlled 1 kHz stereo source ready (amplitude 0.001)
+{
+  "latency" : "not measured",
+  "listening" : "not human verified",
+  "results" : [
+    {
+      "bands" : 128,
+      "blocks" : 134,
+      "frames" : 68608,
+      "inputPeak" : 0.00099998549558222294,
+      "invalidBuffers" : 0,
+      "observationWallSeconds" : 1.5640280246734619,
+      "output" : "Alto-falantes (MacBook Pro)",
+      "outputPeak" : 0.0019952520820349122,
+      "peakGainDB" : 6.0000814379800964,
+      "performanceScope" : "validator process including HAL\/control\/metrics, not callback-only CPU or hardware latency",
+      "processPeakResidentBytes" : 17367040,
+      "processUserCPUSeconds" : 0.089099999999999999,
+      "sampleRate" : 44100,
+      "scope" : "controlled process"
+    },
+    {
+      "bands" : 128,
+      "blocks" : 134,
+      "frames" : 68608,
+      "inputPeak" : 0.001021886826492846,
+      "invalidBuffers" : 0,
+      "observationWallSeconds" : 1.5560610294342041,
+      "output" : "Alto-falantes (MacBook Pro)",
+      "outputPeak" : 0.001995234266827503,
+      "peakGainDB" : 5.8118218875128456,
+      "performanceScope" : "validator process including HAL\/control\/metrics, not callback-only CPU or hardware latency",
+      "processPeakResidentBytes" : 17694720,
+      "processUserCPUSeconds" : 0.096465999999999996,
+      "sampleRate" : 44100,
+      "scope" : "all applications except AURA"
+    }
+  ]
+}
+NATIVE SESSION PASS: selected/global capture, four-stage EQ, live bypass and cleanup

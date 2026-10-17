@@ -1,0 +1,1 @@
+Controlled 1 kHz stereo source ready (amplitude 0.001)

@@ -1,0 +1,19 @@
+Building for debugging...
+[2 / 7] AuraCoreTests-product
+[4 / 9] AuraCoreTests-product
+[10 / 14] AuraCoreTests-product
+Build complete! (0,66 seg)
+Test Suite 'Selected tests' started at 2026-10-17 09:55:01.922.
+Test Suite 'AuraCoreTests.xctest' started at 2026-10-17 09:55:01.923.
+Test Suite 'SystemAudioCapturePolicyTests' started at 2026-10-17 09:55:01.923.
+Test Case '-[AuraCoreTests.SystemAudioCapturePolicyTests testUnresolvedSelectedAppCannotFallBackToAllApplications]' started.
+/Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/SystemAudioCapturePolicyTests.swift:7: error: -[AuraCoreTests.SystemAudioCapturePolicyTests testUnresolvedSelectedAppCannotFallBackToAllApplications] : XCTAssertThrowsError failed: did not throw an error
+Test Case '-[AuraCoreTests.SystemAudioCapturePolicyTests testUnresolvedSelectedAppCannotFallBackToAllApplications]' failed (0.096 seconds).
+Test Suite 'SystemAudioCapturePolicyTests' failed at 2026-10-17 09:55:02.019.
+	 Executed 1 test, with 1 failure (0 unexpected) in 0.096 (0.096) seconds
+Test Suite 'AuraCoreTests.xctest' failed at 2026-10-17 09:55:02.019.
+	 Executed 1 test, with 1 failure (0 unexpected) in 0.096 (0.096) seconds
+Test Suite 'Selected tests' failed at 2026-10-17 09:55:02.019.
+	 Executed 1 test, with 1 failure (0 unexpected) in 0.096 (0.097) seconds
+Note: Some test targets reported failures:
+  - AuraCoreTests (XCTest)

@@ -34,17 +34,19 @@ struct EqualizerWindow: View {
                     sidebarButton("Settings", icon: "gearshape", destination: "settings")
                     Spacer()
                     Text("Precision in every\nfrequency.").font(.caption).foregroundStyle(.tertiary).lineSpacing(4)
-                    Text("LOCAL-FILE ENGINE · P0").font(.system(size: 9, weight: .medium)).foregroundStyle(.secondary)
+                    Text("OUTPUT ENGINE · P1").font(.system(size: 9, weight: .medium)).foregroundStyle(.secondary)
                 }
                 .padding(18).frame(width: 180).frame(maxHeight: .infinity)
                 .background(.ultraThinMaterial)
                 Divider()
                 ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
-                    playerBar
-                    if let error = model.audio.errorMessage { notice(error, symbol: "exclamationmark.triangle") }
+                    AudioSourcePicker(model: model).frame(maxWidth: 350)
+                    if model.sourceMode == .systemAudio { SystemAudioControls(model: model) }
+                    else { playerBar }
+                    if let error = model.activeError { notice(error, symbol: "exclamationmark.triangle") }
                     if let warning = model.persistenceMessage { notice(warning, symbol: "externaldrive.badge.exclamationmark") }
-                    if model.audio.overRange { notice("Rendered samples exceeded 0 dBFS. Reduce input, module or master gain. No limiter is active.", symbol: "speaker.badge.exclamationmark") }
+                    if model.activeOverRange { notice("Rendered samples exceeded 0 dBFS. Reduce input, module or master gain. No limiter is active.", symbol: "speaker.badge.exclamationmark") }
                     switch destination {
                     case "presets": PresetView(model: model)
                     case "settings": SettingsView(model: model)
@@ -74,20 +76,21 @@ struct EqualizerWindow: View {
                 .font(.caption.monospacedDigit()).foregroundStyle(.secondary)
             Button { chooseAudioFile(model) } label: { Label("Open File", systemImage: "folder") }
             Button {
-                if model.audio.state == .playing { model.audio.pause() } else { model.audio.play() }
+                if model.audio.state == .playing { model.audio.pause() } else { model.playLocalAudio() }
             } label: { Image(systemName: model.audio.state == .playing ? "pause.fill" : "play.fill").frame(width: 22) }
                 .accessibilityLabel(model.audio.state == .playing ? "Pause" : "Play")
-            Button { model.audio.stop() } label: { Image(systemName: "stop.fill") }.accessibilityLabel("Stop")
+            Button { model.stopAllAudio() } label: { Image(systemName: "stop.fill") }.accessibilityLabel("Stop")
         }
     }
 
     private var footer: some View {
         HStack(spacing: 12) {
             Image(systemName: model.statusSymbol).foregroundStyle(model.statusColor)
-            Text("\(model.audio.state.label) · Engine \(model.audio.engineRunning ? "running" : "stopped")")
+            Text(model.transportDescription)
             Divider().frame(height: 12)
-            Text(model.audio.duration > 0 ? String(format: "%.1f kHz", model.audio.sampleRate / 1_000) : "48 kHz preview")
-            Text(model.audio.outputName).lineLimit(1).foregroundStyle(.secondary)
+            Text(String(format: "%.1f kHz", model.activeSampleRate / 1_000)
+                 + (model.engineRunning || (model.sourceMode == .localFile && model.audio.duration > 0) ? "" : " preview"))
+            Text(model.activeOutputName).lineLimit(1).foregroundStyle(.secondary)
             Spacer()
             Text("Master")
             Slider(value: Binding(get: { model.saved.configuration.masterGain },

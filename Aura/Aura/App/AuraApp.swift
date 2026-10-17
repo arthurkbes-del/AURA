@@ -7,6 +7,7 @@ import SwiftUI
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
         Task { @MainActor in
             await AppState.shared.flush()
+            AppState.shared.stopAllAudio()
             AppState.shared.audio.shutdown()
             sender.reply(toApplicationShouldTerminate: true)
         }

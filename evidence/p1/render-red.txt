@@ -1,0 +1,65 @@
+Building for debugging...
+[Planning deferred tasks]
+[6 / 17] AuraCoreTests-product
+[8 / 19] AuraCoreTests-product
+error: SwiftCompile normal arm64 /Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/SystemAudioRenderTests.swift failed with a nonzero exit code. Command line:     cd /Users/arthurbes/Documents/ChatGPT
+    builtin-SwiftPerFileCompile SystemAudioRenderTests.swift
+/Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/SystemAudioRenderTests.swift:26:30: error: cannot find 'SystemAudioRenderBridge' in scope
+24 |             }
+25 |             var configuration = unity; configuration.inputGain = -6.020599913279624
+26 |             let bridge = try SystemAudioRenderBridge(sampleRate: 48_000, maximumFrames: 512, configuration: configuration)
+   |                              `- error: cannot find 'SystemAudioRenderBridge' in scope
+27 |             bridge.render(input: input.audioBufferList, output: output.mutableAudioBufferList)
+28 |             for frame in 0..<4 {
+
+/Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/SystemAudioRenderTests.swift:40:26: error: cannot find 'SystemAudioRenderBridge' in scope
+38 |             configuration.modules[index].bands = (0..<32).map { _ in EqualizerBand(frequency: 1_000, gain: 0.09375) }
+39 |         }
+40 |         let bridge = try SystemAudioRenderBridge(sampleRate: 48_000, maximumFrames: 512, configuration: configuration)
+   |                          `- error: cannot find 'SystemAudioRenderBridge' in scope
+41 |         let input = buffer(512), output = buffer(512, interleaved: true)
+42 |         var energy = 0.0, count = 0
+
+/Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/SystemAudioRenderTests.swift:61:26: error: cannot find 'SystemAudioRenderBridge' in scope
+59 | 
+60 |     func testOversizedAndMismatchedBuffersBecomeSilenceWithoutReadingPastBounds() throws {
+61 |         let bridge = try SystemAudioRenderBridge(sampleRate: 48_000, maximumFrames: 32, configuration: unity)
+   |                          `- error: cannot find 'SystemAudioRenderBridge' in scope
+62 |         let input = buffer(64), output = buffer(64)
+63 |         for index in 0..<64 { output.floatChannelData![0][index] = 1; output.floatChannelData![1][index] = 1 }
+
+/Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/SystemAudioRenderTests.swift:74:34: error: cannot find 'SystemAudioRenderBridge' in scope
+72 | 
+73 |     func testInvalidFormatAndFrameCapacityAreRejectedBeforeStartingHardware() {
+74 |         XCTAssertThrowsError(try SystemAudioRenderBridge(sampleRate: 0, maximumFrames: 512, configuration: unity))
+   |                                  `- error: cannot find 'SystemAudioRenderBridge' in scope
+75 |         XCTAssertThrowsError(try SystemAudioRenderBridge(sampleRate: 48_000, maximumFrames: 0, configuration: unity))
+76 |         XCTAssertThrowsError(try SystemAudioRenderBridge(sampleRate: 48_000, maximumFrames: 65_537, configuration: unity))
+
+/Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/SystemAudioRenderTests.swift:75:34: error: cannot find 'SystemAudioRenderBridge' in scope
+73 |     func testInvalidFormatAndFrameCapacityAreRejectedBeforeStartingHardware() {
+74 |         XCTAssertThrowsError(try SystemAudioRenderBridge(sampleRate: 0, maximumFrames: 512, configuration: unity))
+75 |         XCTAssertThrowsError(try SystemAudioRenderBridge(sampleRate: 48_000, maximumFrames: 0, configuration: unity))
+   |                                  `- error: cannot find 'SystemAudioRenderBridge' in scope
+76 |         XCTAssertThrowsError(try SystemAudioRenderBridge(sampleRate: 48_000, maximumFrames: 65_537, configuration: unity))
+77 |     }
+
+/Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/SystemAudioRenderTests.swift:76:34: error: cannot find 'SystemAudioRenderBridge' in scope
+74 |         XCTAssertThrowsError(try SystemAudioRenderBridge(sampleRate: 0, maximumFrames: 512, configuration: unity))
+75 |         XCTAssertThrowsError(try SystemAudioRenderBridge(sampleRate: 48_000, maximumFrames: 0, configuration: unity))
+76 |         XCTAssertThrowsError(try SystemAudioRenderBridge(sampleRate: 48_000, maximumFrames: 65_537, configuration: unity))
+   |                                  `- error: cannot find 'SystemAudioRenderBridge' in scope
+77 |     }
+78 | 
+
+/Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/SystemAudioRenderTests.swift:81:26: error: cannot find 'SystemAudioRenderBridge' in scope
+79 |     func testLiveGlobalBypassAndNonfiniteInputRemainFinite() throws {
+80 |         var configuration = unity; configuration.modules[0].outputGain = 6.020599913279624
+81 |         let bridge = try SystemAudioRenderBridge(sampleRate: 48_000, maximumFrames: 2_048, configuration: configuration)
+   |                          `- error: cannot find 'SystemAudioRenderBridge' in scope
+82 |         let input = buffer(2_048), output = buffer(2_048)
+83 |         input.floatChannelData![0].update(repeating: 0.01, count: 2_048)
+Failed frontend command:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -frontend -c /Users/arthurbes/Documents/ChatGPT/AURA/.build/out/Intermediates.noindex/Aura.build/Debug/AuraCoreTests-p.build/DerivedSources/test_entry_point.swift /Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/AppStateTests.swift /Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/DSPTests.swift /Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/ModelTests.swift /Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/OfflineGraphTests.swift /Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/PlaybackStateTests.swift /Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/PresetStoreTests.swift -primary-file /Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/SystemAudioRenderTests.swift /Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/SystemAudioSessionTests.swift -emit-dependencies-path /Users/arthurbes/Documents/ChatGPT/AURA/.build/out/Intermediates.noindex/Aura.build/Debug/AuraCoreTests-p.build/Objects-normal/arm64/SystemAudioRenderTests.d -emit-const-values-path /Users/arthurbes/Documents/ChatGPT/AURA/.build/out/Intermediates.noindex/Aura.build/Debug/AuraCoreTests-p.build/Objects-normal/arm64/SystemAudioRenderTests.swiftconstvalues -emit-reference-dependencies-path /Users/arthurbes/Documents/ChatGPT/AURA/.build/out/Intermediates.noindex/Aura.build/Debug/AuraCoreTests-p.build/Objects-normal/arm64/SystemAudioRenderTests.swiftdeps -serialize-diagnostics-path /Users/arthurbes/Documents/ChatGPT/AURA/.build/out/Intermediates.noindex/Aura.build/Debug/AuraCoreTests-p.build/Objects-normal/arm64/SystemAudioRenderTests.dia -target arm64-apple-macos15.0 -module-can-import-version Testing 2084 0 -module-can-import-version XCTest 25229 0 -disable-cross-import-overlay-search -swift-module-cross-import Testing /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks/Testing.framework/Modules/Testing.swiftcrossimport/AppKit.swiftoverlay -swift-module-cross-import Testing /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks/Testing.framework/Modules/Testing.swiftcrossimport/CoreGraphics.swiftoverlay -swift-module-cross-import Testing /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks/Testing.framework/Modules/Testing.swiftcrossimport/CoreImage.swiftoverlay -swift-module-cross-import Testing /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks/Testing.framework/Modules/Testing.swiftcrossimport/CoreTransferable.swiftoverlay -swift-module-cross-import Testing /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks/Testing.framework/Modules/Testing.swiftcrossimport/Foundation.swiftoverlay -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib/swift/host/plugins/libFoundationMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/bin/swift-plugin-server\#FoundationMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib/swift/host/plugins/libObservationMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/bin/swift-plugin-server\#ObservationMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib/swift/host/plugins/libPreviewsMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/bin/swift-plugin-server\#PreviewsMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib/swift/host/plugins/libSwiftMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/bin/swift-plugin-server\#SwiftMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib/swift/host/plugins/libSwiftUIMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/bin/swift-plugin-server\#SwiftUIMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib\#\#TestingMacros -disable-implicit-swift-modules -Xcc -fno-implicit-modules -Xcc -fno-implicit-module-maps -explicit-swift-module-map-file /Users/arthurbes/Documents/ChatGPT/AURA/.build/out/Intermediates.noindex/Aura.build/Debug/AuraCoreTests-p.build/Objects-normal/arm64/AuraCoreTests-dependencies-1.json -Xllvm -aarch64-use-tbi -enable-objc-interop -stack-check -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk -I /Users/arthurbes/Documents/ChatGPT/AURA/.build/out/Products/Debug -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib -F /Users/arthurbes/Documents/ChatGPT/AURA/.build/out/Products/Debug/PackageFrameworks -F /Users/arthurbes/Documents/ChatGPT/AURA/.build/out/Products/Debug -F /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks -module-cache-path /Users/arthurbes/Documents/ChatGPT/AURA/.build/out/Intermediates.noindex/SwiftExplicitPrecompiledModules -no-color-diagnostics -Xcc -fno-color-diagnostics -enable-testing -g -debug-info-format\=dwarf -dwarf-version\=5 -swift-version 6 -Onone -D SWIFT_PACKAGE -D DEBUG -D Xcode -serialize-debugging-options -enable-experimental-feature DebugDescriptionMacro -empty-abi-descriptor -validate-clang-modules-once -clang-build-session-file /Users/arthurbes/Documents/ChatGPT/AURA/.build/out/ModuleCache.noindex/Session.modulevalidation -Xcc -working-directory -Xcc /Users/arthurbes/Documents/ChatGPT -enable-anonymous-context-mangled-names -file-compilation-dir /Users/arthurbes/Documents/ChatGPT -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -Xcc -ivfsstatcache -Xcc /Users/arthurbes/Documents/ChatGPT/AURA/.build/out/SDKStatCaches.noindex/macosx27.0-26A425-a0facfad118c1a7a18f0aad9463f65497231f6df4def33e022ae2eb8f782df1a.sdkstatcache -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -Xcc -I/Users/arthurbes/Documents/ChatGPT/AURA/.build/out/Products/Debug/include -Xcc -I/Users/arthurbes/Documents/ChatGPT/AURA/.build/out/Intermediates.noindex/Aura.build/Debug/AuraCoreTests-p.build/DerivedSources-normal/arm64 -Xcc -I/Users/arthurbes/Documents/ChatGPT/AURA/.build/out/Intermediates.noindex/Aura.build/Debug/AuraCoreTests-p.build/DerivedSources/arm64 -Xcc -I/Users/arthurbes/Documents/ChatGPT/AURA/.build/out/Intermediates.noindex/Aura.build/Debug/AuraCoreTests-p.build/DerivedSources -Xcc -DSWIFT_PACKAGE -Xcc -DDEBUG\=1 -no-auto-bridging-header-chaining -module-name AuraCoreTests -package-name aura -const-gather-protocols-file /Users/arthurbes/Documents/ChatGPT/AURA/.build/out/Intermediates.noindex/Aura.build/Debug/AuraCoreTests-p.build/Objects-normal/arm64/AuraCoreTests_const_extract_protocols.json -disable-clang-spi -clang-target arm64-apple-macos27.0 -target-sdk-version 27.0 -target-sdk-name macosx27.0 -in-process-plugin-server-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/libSwiftInProcPluginServer.dylib -parse-as-library -o /Users/arthurbes/Documents/ChatGPT/AURA/.build/out/Intermediates.noindex/Aura.build/Debug/AuraCoreTests-p.build/Objects-normal/arm64/SystemAudioRenderTests.o -debug-module-path /Users/arthurbes/Documents/ChatGPT/AURA/.build/out/Intermediates.noindex/Aura.build/Debug/AuraCoreTests-p.build/Objects-normal/arm64/AuraCoreTests.swiftmodule -index-unit-output-path /Aura.build/Debug/AuraCoreTests-p.build/Objects-normal/arm64/SystemAudioRenderTests.o -index-store-path /Users/arthurbes/Documents/ChatGPT/AURA/.build/out -index-system-modules
+error: Build failed
+error: fatalError

@@ -15,8 +15,8 @@ struct AuraBrandMark: View {
 
 extension AppState {
     var menuIconAssetName: String {
-        if audio.state == .failed { return "AuraStatusError" }
+        if activeError != nil { return "AuraStatusError" }
         if !saved.configuration.processingEnabled { return "AuraStatusBypassed" }
-        return audio.engineRunning ? "AuraStatusProcessing" : "AuraStatusStopped"
+        return engineRunning ? "AuraStatusProcessing" : "AuraStatusStopped"
     }
 }

@@ -1,0 +1,43 @@
+Building for production...
+[Planning deferred tasks]
+[9 / 21]
+[10 / 22] AuraCore
+[23 / 37]
+[24 / 37]
+[25 / 37]
+[26 / 37] AuraCore
+[32 / 37] AuraSystemValidation-product
+[34 / 38] AuraSystemValidation-product
+[36 / 38] AuraSystemValidation-product
+[37 / 38] AuraSystemValidation-product
+Build complete! (6,43 seg)
+Controlled 1 kHz stereo source ready (amplitude 0.001)
+{
+  "latency" : "not measured",
+  "listening" : "not human verified",
+  "results" : [
+    {
+      "blocks" : 133,
+      "frames" : 68096,
+      "inputPeak" : 0.0010346283670514822,
+      "invalidBuffers" : 0,
+      "output" : "Alto-falantes (MacBook Pro)",
+      "outputPeak" : 0.0019952342674463787,
+      "peakGainDB" : 5.7041902698864888,
+      "sampleRate" : 44100,
+      "scope" : "controlled process"
+    },
+    {
+      "blocks" : 133,
+      "frames" : 68096,
+      "inputPeak" : 0.00099998549558222294,
+      "invalidBuffers" : 0,
+      "output" : "Alto-falantes (MacBook Pro)",
+      "outputPeak" : 0.0019952344605610596,
+      "peakGainDB" : 6.0000047264435405,
+      "sampleRate" : 44100,
+      "scope" : "all applications except AURA"
+    }
+  ]
+}
+NATIVE SESSION PASS: selected/global capture, four-stage EQ, live bypass and cleanup

@@ -15,10 +15,11 @@ struct MenuBarView: View {
                 Spacer()
                 Image(systemName: model.statusSymbol).foregroundStyle(model.statusColor)
             }
-            Text("LOCAL-FILE AUDIO").font(.caption.weight(.semibold)).foregroundStyle(.secondary)
-            Text("\(model.audio.state.label) · \(model.audio.engineRunning ? "Engine running" : "Engine stopped")")
+            AudioSourcePicker(model: model)
+            Text(model.transportDescription)
                 .font(.callout)
-            Text(model.audio.fileName).font(.caption).foregroundStyle(.secondary).lineLimit(1)
+            if model.sourceMode == .systemAudio { SystemAudioControls(model: model) }
+            else { Text(model.audio.fileName).font(.caption).foregroundStyle(.secondary).lineLimit(1) }
             Toggle("EQ processing", isOn: Binding(get: { model.saved.configuration.processingEnabled },
                                                  set: { value in model.editConfiguration { $0.processingEnabled = value } }))
                 .toggleStyle(.switch)
@@ -35,22 +36,22 @@ struct MenuBarView: View {
                 }
             }
             Text("Preset: \(model.module.presetName)").font(.caption).foregroundStyle(.secondary)
-            HStack {
+            if model.sourceMode == .localFile { HStack {
                 Button { chooseAudioFile(model) } label: { Image(systemName: "folder") }
                     .help("Open local audio file")
                 Button {
-                    if model.audio.state == .playing { model.audio.pause() } else { model.audio.play() }
+                    if model.audio.state == .playing { model.audio.pause() } else { model.playLocalAudio() }
                 } label: { Image(systemName: model.audio.state == .playing ? "pause.fill" : "play.fill") }
-                Button { model.audio.stop() } label: { Image(systemName: "stop.fill") }
-            }
+                Button { model.stopAllAudio() } label: { Image(systemName: "stop.fill") }
+            } }
             VStack(alignment: .leading) {
                 HStack { Text("Master"); Spacer(); Text(dbText(model.saved.configuration.masterGain)).monospacedDigit() }
                 Slider(value: Binding(get: { model.saved.configuration.masterGain },
                                       set: { value in model.editConfiguration { $0.masterGain = value } }), in: -60...12)
                     .accessibilityLabel("Master gain")
             }.font(.caption)
-            Text("Output: \(model.audio.outputName)").font(.caption).foregroundStyle(.secondary).lineLimit(1)
-            if let error = model.audio.errorMessage { Text(error).font(.caption).foregroundStyle(.orange) }
+            Text("Output: \(model.activeOutputName)").font(.caption).foregroundStyle(.secondary).lineLimit(1)
+            if let error = model.activeError { Text(error).font(.caption).foregroundStyle(.orange) }
             Divider()
             Button("Open Equalizer", action: openEditor).frame(maxWidth: .infinity)
             HStack {

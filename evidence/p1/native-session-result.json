@@ -1,0 +1,38 @@
+{
+  "latency" : "not measured",
+  "listening" : "not human verified",
+  "results" : [
+    {
+      "bands" : 128,
+      "blocks" : 134,
+      "frames" : 68608,
+      "inputPeak" : 0.0010395706631243229,
+      "invalidBuffers" : 0,
+      "observationWallSeconds" : 1.5653489828109741,
+      "output" : "Alto-falantes (MacBook Pro)",
+      "outputPeak" : 0.0019952342668275109,
+      "peakGainDB" : 5.6627975957421413,
+      "performanceScope" : "validator process including HAL\/control\/metrics, not callback-only CPU or hardware latency",
+      "processPeakResidentBytes" : 17760256,
+      "processUserCPUSeconds" : 0.109043,
+      "sampleRate" : 44100,
+      "scope" : "controlled process"
+    },
+    {
+      "bands" : 128,
+      "blocks" : 134,
+      "frames" : 68608,
+      "inputPeak" : 0.00099998549558222294,
+      "invalidBuffers" : 0,
+      "observationWallSeconds" : 1.5596009492874146,
+      "output" : "Alto-falantes (MacBook Pro)",
+      "outputPeak" : 0.0019952342668275013,
+      "peakGainDB" : 6.0000038830597564,
+      "performanceScope" : "validator process including HAL\/control\/metrics, not callback-only CPU or hardware latency",
+      "processPeakResidentBytes" : 18022400,
+      "processUserCPUSeconds" : 0.107498,
+      "sampleRate" : 44100,
+      "scope" : "all applications except AURA"
+    }
+  ]
+}

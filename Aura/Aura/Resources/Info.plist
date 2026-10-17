@@ -13,5 +13,6 @@
     <key>LSMinimumSystemVersion</key><string>$(MACOSX_DEPLOYMENT_TARGET)</string>
     <key>LSUIElement</key><true/>
     <key>NSHighResolutionCapable</key><true/>
+    <key>NSAudioCaptureUsageDescription</key><string>AURA processes audio from your selected applications locally through its equalizers and plays it on your selected output. No microphone is captured or recording saved.</string>
     <key>NSPrincipalClass</key><string>NSApplication</string>
 </dict></plist>

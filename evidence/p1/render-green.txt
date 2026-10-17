@@ -1,0 +1,33 @@
+Building for debugging...
+[Planning deferred tasks]
+[5 / 33] AuraCore
+[7 / 35] AuraCore
+[17 / 36] AuraCore
+[20 / 37] AuraValidation-product
+[35 / 53] AURA-product
+[43 / 63] AURA-product
+[52 / 60] AURA-product
+[55 / 60] AuraIconGenerator-product
+[59 / 65] AuraCoreTests-product
+[61 / 63] AURA-product
+[63 / 65] AURA-product
+Build complete! (2,62 seg)
+Test Suite 'Selected tests' started at 2026-10-17 09:47:38.359.
+Test Suite 'AuraCoreTests.xctest' started at 2026-10-17 09:47:38.360.
+Test Suite 'SystemAudioRenderTests' started at 2026-10-17 09:47:38.360.
+Test Case '-[AuraCoreTests.SystemAudioRenderTests testAll128NonflatBandsProcessCapturedPCM]' started.
+Test Case '-[AuraCoreTests.SystemAudioRenderTests testAll128NonflatBandsProcessCapturedPCM]' passed (0.557 seconds).
+Test Case '-[AuraCoreTests.SystemAudioRenderTests testInvalidFormatAndFrameCapacityAreRejectedBeforeStartingHardware]' started.
+Test Case '-[AuraCoreTests.SystemAudioRenderTests testInvalidFormatAndFrameCapacityAreRejectedBeforeStartingHardware]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.SystemAudioRenderTests testLiveGlobalBypassAndNonfiniteInputRemainFinite]' started.
+Test Case '-[AuraCoreTests.SystemAudioRenderTests testLiveGlobalBypassAndNonfiniteInputRemainFinite]' passed (0.001 seconds).
+Test Case '-[AuraCoreTests.SystemAudioRenderTests testOversizedAndMismatchedBuffersBecomeSilenceWithoutReadingPastBounds]' started.
+Test Case '-[AuraCoreTests.SystemAudioRenderTests testOversizedAndMismatchedBuffersBecomeSilenceWithoutReadingPastBounds]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.SystemAudioRenderTests testPlanarAndInterleavedPreserveChannelsAndHeadroom]' started.
+Test Case '-[AuraCoreTests.SystemAudioRenderTests testPlanarAndInterleavedPreserveChannelsAndHeadroom]' passed (0.000 seconds).
+Test Suite 'SystemAudioRenderTests' passed at 2026-10-17 09:47:38.918.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.558 (0.558) seconds
+Test Suite 'AuraCoreTests.xctest' passed at 2026-10-17 09:47:38.918.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.558 (0.558) seconds
+Test Suite 'Selected tests' passed at 2026-10-17 09:47:38.918.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.558 (0.559) seconds

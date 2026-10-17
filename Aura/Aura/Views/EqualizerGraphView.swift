@@ -33,7 +33,7 @@ struct EqualizerGraphView: View {
                         context.draw(Text(label).font(.system(size: 9)).foregroundColor(.gray),
                                      at: CGPoint(x: x, y: plot.maxY + 14))
                     }
-                    let rate = model.audio.sampleRate
+                    let rate = model.activeSampleRate
                     let maximum = min(20_000, rate * 0.49)
                     if maximum < 20_000 {
                         let start = xPosition(maximum, rect: plot)
@@ -82,7 +82,7 @@ struct EqualizerGraphView: View {
                                 let fraction = min(1, max(0, (gesture.location.x - rect.minX) / rect.width))
                                 let gain = min(24, max(-24, (rect.midY - gesture.location.y) / rect.height * 60))
                                 model.editBand(band.id) {
-                                    $0.frequency = min(model.audio.sampleRate * 0.49, 20 * pow(1_000, fraction))
+                                    $0.frequency = min(model.activeSampleRate * 0.49, 20 * pow(1_000, fraction))
                                     if $0.type.supportsGain { $0.gain = gain }
                                 }
                             })

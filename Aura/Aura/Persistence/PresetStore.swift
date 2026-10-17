@@ -2,14 +2,26 @@
 import Foundation
 
 public struct SavedState: Codable, Equatable, Sendable {
-    public static let currentVersion = 2
+    public static let currentVersion = 3
     public var version = currentVersion
     public var configuration = AudioConfiguration()
     public var presets: [EqualizerPreset] = []
+    public var systemAudioPreferences = SystemAudioPreferences()
     public init() {}
+
+    private enum CodingKeys: String, CodingKey { case version, configuration, presets, systemAudioPreferences }
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        version = try container.decode(Int.self, forKey: .version)
+        configuration = try container.decode(AudioConfiguration.self, forKey: .configuration)
+        presets = try container.decode([EqualizerPreset].self, forKey: .presets)
+        systemAudioPreferences = try container.decodeIfPresent(SystemAudioPreferences.self, forKey: .systemAudioPreferences) ?? SystemAudioPreferences()
+    }
 
     public mutating func normalize() {
         version = Self.currentVersion
+        systemAudioPreferences.outputUID = String(systemAudioPreferences.outputUID.prefix(1_024))
+        systemAudioPreferences.applicationBundleID = systemAudioPreferences.applicationBundleID.map { String($0.prefix(256)) }
         for index in configuration.modules.indices {
             configuration.modules[index].name = configuration.modules[index].name
                 .trimmingCharacters(in: .whitespacesAndNewlines)

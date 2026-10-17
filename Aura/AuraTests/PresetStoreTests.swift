@@ -3,6 +3,21 @@ import XCTest
 @testable import AuraCore
 
 final class PresetStoreTests: XCTestCase {
+    func testVersionTwoWithoutCapturePreferencesMigratesWithoutLosingEQ() throws {
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        defer { try? FileManager.default.removeItem(at: directory) }
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        var configuration = AudioConfiguration(); configuration.modules[2].bands[0].gain = 7
+        let data = try JSONEncoder().encode(configuration)
+        let object: [String: Any] = ["version": 2, "configuration": try JSONSerialization.jsonObject(with: data), "presets": []]
+        let store = PresetStore(directory: directory)
+        try JSONSerialization.data(withJSONObject: object).write(to: store.fileURL)
+        let result = try store.load()
+        XCTAssertEqual(result.state.version, SavedState.currentVersion)
+        XCTAssertEqual(result.state.configuration.modules[2].bands[0].gain, 7)
+        XCTAssertEqual(result.state.systemAudioPreferences.outputUID, "aura.system-default")
+        XCTAssertNil(result.state.systemAudioPreferences.applicationBundleID)
+    }
     func withStore(_ body: (PresetStore, URL) throws -> Void) throws {
         let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         defer { try? FileManager.default.removeItem(at: directory) }

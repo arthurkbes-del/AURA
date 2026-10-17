@@ -16,12 +16,12 @@ struct SettingsView: View {
                     .accessibilityLabel("Input headroom")
                 Text("Headroom reduces input level. It is not a peak limiter. Multiple boosts can still cause clipping.")
                     .font(.caption).foregroundStyle(.secondary)
-                LabeledContent("Output", value: model.audio.outputName)
-                Text("Follows the output selected in macOS. Output changes stop playback safely; press Play to reconnect.")
+                LabeledContent("Output", value: model.activeOutputName)
+                Text("Application mode processes the selected output. Device or format changes stop processing; start again to reconnect. Local files follow the macOS default output.")
                     .font(.caption).foregroundStyle(.secondary)
             }
             Section("Local-first") {
-                Text("AURA processes only the local file you open. Other applications and system audio are not captured.")
+                Text("Choose application audio or a local file. Application capture requires macOS permission and excludes AURA's own return. Microphone input is not captured.")
                 Text("Settings and custom presets are stored in Application Support/com.evoluere.aura. No network connection is used.")
                     .font(.caption).foregroundStyle(.secondary)
                 if let message = model.persistenceMessage { Text(message).font(.caption).foregroundStyle(.orange) }
@@ -31,7 +31,7 @@ struct SettingsView: View {
                 Text("Custom presets are retained. Module settings, bypass, input headroom and master gain return to defaults.")
                     .font(.caption).foregroundStyle(.secondary)
             }
-            Section("AURA · P0 Foundation") {
+            Section("AURA · P1 Output Engine") {
                 Text("Four independent modules · 32 bands each · native Swift DSP")
                     .font(.caption).foregroundStyle(.secondary)
             }

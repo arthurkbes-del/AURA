@@ -1,0 +1,9 @@
+Building for production...
+[Planning deferred tasks]
+[3 / 10] AuraCore
+[5 / 11] AuraCore
+[10 / 13] AuraSystemValidation-product
+[11 / 14] AuraSystemValidation-product
+[13 / 14] AuraSystemValidation-product
+[14 / 14] AuraSystemValidation-product
+Build complete! (3,89 seg)

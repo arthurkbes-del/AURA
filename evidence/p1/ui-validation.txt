@@ -1,0 +1,9 @@
+2026-10-17 Native UI observations (CUA), Release P1.
+Opened previous P0 instance, quit normally, reopened newly built P1.
+Four EQ sidebar modules and graph remain present. Applications/Local file source selector is accessible.
+All applications + System default output selected. Started processing from GUI with quiet controlled source in another process.
+Observed Running, 44.1 kHz, Alto-falantes (MacBook Pro), input peak -60.0dBFS, output peak -65.9dBFS with restored user gains (not unity test configuration).
+Output picker inventory showed only System default output and Alto-falantes (MacBook Pro); no Bluetooth device available in that inspection.
+Stopped using Stop Processing. Observed Idle and stopped status icon without error. Did not infer audible dry-path restoration from that UI state.
+Main window screenshot inspected: native selectors, real peak text, graph, bands, footer are legible. Main workspace scrolls while footer remains visible.
+P1 human listening, clean-machine permission denial, forced-exit dry-path restoration and Bluetooth/device-removal acceptance remain unverified.

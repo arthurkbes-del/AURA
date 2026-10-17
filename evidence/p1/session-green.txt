@@ -1,0 +1,35 @@
+Building for debugging...
+[Planning deferred tasks]
+[1 / 1]
+[5 / 33] AuraCore
+[7 / 35] AuraCore
+[20 / 37] AuraValidation-product
+[26 / 43] AuraCoreTests-product
+[43 / 62] AURA-product
+[53 / 61] AURA-product
+[56 / 61] AuraValidation-product
+[60 / 66] AuraCoreTests-product
+[62 / 64] AURA-product
+[64 / 66] AURA-product
+Build complete! (2,65 seg)
+Test Suite 'Selected tests' started at 2026-10-17 09:45:43.501.
+Test Suite 'AuraCoreTests.xctest' started at 2026-10-17 09:45:43.501.
+Test Suite 'SystemAudioSessionTests' started at 2026-10-17 09:45:43.501.
+Test Case '-[AuraCoreTests.SystemAudioSessionTests testFailureAtEveryStartupStepRollsBackInReverseOrder]' started.
+Test Case '-[AuraCoreTests.SystemAudioSessionTests testFailureAtEveryStartupStepRollsBackInReverseOrder]' passed (0.001 seconds).
+Test Case '-[AuraCoreTests.SystemAudioSessionTests testOnlyOwnedResourcesAreDestroyed]' started.
+Test Case '-[AuraCoreTests.SystemAudioSessionTests testOnlyOwnedResourcesAreDestroyed]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.SystemAudioSessionTests testPermissionDeniedDoesNotMuteOrStartOutput]' started.
+Test Case '-[AuraCoreTests.SystemAudioSessionTests testPermissionDeniedDoesNotMuteOrStartOutput]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.SystemAudioSessionTests testProcessDisappearanceOrPermissionRevocationStopsAndReleasesSession]' started.
+Test Case '-[AuraCoreTests.SystemAudioSessionTests testProcessDisappearanceOrPermissionRevocationStopsAndReleasesSession]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.SystemAudioSessionTests testStaleGenerationCannotStopNewSession]' started.
+Test Case '-[AuraCoreTests.SystemAudioSessionTests testStaleGenerationCannotStopNewSession]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.SystemAudioSessionTests testStopIsIdempotent]' started.
+Test Case '-[AuraCoreTests.SystemAudioSessionTests testStopIsIdempotent]' passed (0.000 seconds).
+Test Suite 'SystemAudioSessionTests' passed at 2026-10-17 09:45:43.503.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.002 (0.002) seconds
+Test Suite 'AuraCoreTests.xctest' passed at 2026-10-17 09:45:43.503.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.002 (0.002) seconds
+Test Suite 'Selected tests' passed at 2026-10-17 09:45:43.503.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.002 (0.003) seconds

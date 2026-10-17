@@ -24,23 +24,25 @@ struct AppCommands: Commands {
                 .disabled(!model.isLoaded)
         }
         CommandMenu("Playback") {
-            Button(model.audio.state == .playing ? "Pause" : "Play") {
-                if model.audio.state == .playing { model.audio.pause() } else { model.audio.play() }
+            Button(model.sourceMode == .systemAudio ? (model.engineRunning ? "Stop Processing" : "Start Processing") : (model.audio.state == .playing ? "Pause" : "Play")) {
+                if model.sourceMode == .systemAudio {
+                    if model.engineRunning { model.stopAllAudio() } else { Task { await model.startPreferredSystemAudio() } }
+                } else if model.audio.state == .playing { model.audio.pause() } else { model.playLocalAudio() }
             }.keyboardShortcut("p", modifiers: [.command, .option])
-            Button("Stop") { model.audio.stop() }.keyboardShortcut(".")
+            Button("Stop") { model.stopAllAudio() }.keyboardShortcut(".")
         }
     }
 }
 
 extension AppState {
     var statusSymbol: String {
-        if audio.state == .failed { return "exclamationmark.triangle.fill" }
-        if !audio.engineRunning { return "stop.circle" }
+        if activeError != nil { return "exclamationmark.triangle.fill" }
+        if !engineRunning { return "stop.circle" }
         return saved.configuration.processingEnabled ? "waveform.circle.fill" : "slash.circle"
     }
     var statusColor: Color {
-        if audio.state == .failed { return .red }
-        if !audio.engineRunning { return .secondary }
+        if activeError != nil { return .red }
+        if !engineRunning { return .secondary }
         return saved.configuration.processingEnabled ? .mint : .orange
     }
 }

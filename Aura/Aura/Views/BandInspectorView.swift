@@ -16,7 +16,7 @@ struct BandInspectorView: View {
                     }.labelsHidden().frame(width: 125)
                     Toggle("Active", isOn: binding(band, \.enabled)).font(.caption)
                 }
-                parameter("FREQUENCY", value: binding(band, \.frequency), range: 20...min(20_000, model.audio.sampleRate * 0.49), logarithmic: true)
+                parameter("FREQUENCY", value: binding(band, \.frequency), range: 20...min(20_000, model.activeSampleRate * 0.49), logarithmic: true)
                 parameter("GAIN · dB", value: binding(band, \.gain), range: -24...24)
                     .disabled(!band.type.supportsGain)
                     .help(band.type.supportsGain ? "Band gain" : "Gain does not apply to pass and notch filters.")
