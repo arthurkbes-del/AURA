@@ -50,6 +50,8 @@ The discovery transcript is in `evidence/environment-initial.txt`. No attempt wa
 
 The developer must run `sudo xcodebuild -license` in their own Terminal, review Apple's agreement, and accept if they agree. Afterwards repeat discovery, run the probe, and execute the implementation plan. No dependency install is needed at this stage.
 
+After the Product Owner reported completion, environment discovery and the probe were retried. Both Swift and SDK discovery still exited with code 69. A read-only investigation found no `DEVELOPER_DIR` override, one installed Xcode application, and no system Xcode license-acceptance preference file. See `evidence/toolchain-recheck.txt`. Requested the developer's `swift --version` output after finishing the explicit installation's license prompt. No implementation or test status has changed.
+
 The next execution package is **resume P0-A after toolchain setup**, then P0-B through P0-E. No move to system-wide capture is appropriate while P0 is incomplete.
 
 ## Manual validation after implementation

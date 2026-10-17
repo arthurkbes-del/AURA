@@ -1,0 +1,18 @@
+Toolchain recheck after Product Owner reported license setup complete.
+
+Observed in the AURA execution environment:
+- macOS 27.0.1, build 26A434; arm64.
+- Xcode 27.1, build 27A9275.
+- Active developer directory: /Applications/Xcode.app/Contents/Developer.
+- DEVELOPER_DIR environment override: unset.
+- Only /Applications/Xcode.app matched the installed Xcode application listing.
+- Xcode LicenseInfo.plist: licenseID EA2002, licenseType GM.
+- /Library/Preferences/com.apple.dt.Xcode.plist: file absent.
+- swift --version: license error, exit 69.
+- xcodebuild -showsdks: license error, exit 69.
+- swift Validation/EQCapabilityProbe.swift: license error, exit 69;
+  source was not evaluated.
+
+No license acceptance, administrator operation, or system configuration change
+was performed by the agent. Requested that the developer finish the license
+prompt for the explicitly selected Xcode and share swift --version output.
