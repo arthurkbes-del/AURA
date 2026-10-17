@@ -1,6 +1,6 @@
 # AURA P1 — development validation and crash correction
 
-Date: 2026-10-17. Branch: `codex/aura-p1`. P0 baseline: `aff3f3a4fd33a43837ae960f93ee8c79540c2393`; capture snapshot: `4530f48`; graph crash correction: `b77c149`. The commit containing this report also contains capture-health/recovery hardening. **P1 acceptance remains open.** No publication or distribution occurred.
+Date: 2026-10-17. Branch: `codex/aura-p1`. P0 baseline: `aff3f3a4fd33a43837ae960f93ee8c79540c2393`; capture snapshot: `4530f48`; graph crash correction: `b77c149`; capture-health/recovery hardening: `85ea29a`. **P1 acceptance remains open.** No publication or distribution occurred.
 
 ## Delivered behavior
 
@@ -12,7 +12,9 @@ Initially supported capture format: native stereo Float32, planar/interleaved, m
 
 The user reported that processing worked but AURA closed after seconds, then reported another fall. Two macOS diagnostic reports at 10:01:45 and 10:02:58 show SIGABRT from Swift exclusive-access enforcement on the main thread. Graph dragging held an inout borrow into saved configuration while its closure read activeSampleRate/sourceMode from that same saved value. This was a UI model access conflict, not evidence of DSP overload.
 
-A graph-style regression reproduced the abort before the fix (`evidence/p1/graph-exclusivity-red.txt`). Edit methods now work on local value copies, normalize, then assign back. The regression and full suite passed afterwards (`graph-exclusivity-green.txt`). A native numerical band edit during live capture also remained operational. Native CUA drag automation timed out; human drag/extended-listening confirmation remains necessary rather than claiming that gesture passed UI automation.
+A graph-style regression reproduced the abort before the fix (`evidence/p1/graph-exclusivity-red.txt`). Edit methods now work on local value copies, normalize, then assign back. The regression and full suite passed afterwards (`graph-exclusivity-green.txt`). A native numerical band edit during live capture also remained operational. Native CUA drag automation timed out, so that gesture is not claimed as a UI automation pass.
+
+After receiving the rebuilt app and a request to retry playback/graph editing, the Product Owner confirmed on 2026-10-17: **“já fiz o teste funciona”**. Record this as a successful human retest following the crash correction. The reply does not specify the application, output, exact duration or individual gestures; it does not establish latency, bypass/echo behavior or forced-exit recovery, and does not close all P1 acceptance conditions.
 
 ## Verification evidence
 
@@ -28,6 +30,7 @@ Host: macOS 27.0.1 build 26A434, Apple Silicon arm64, Xcode 27.1/Swift 6.4/macOS
 | Native live bypass and ordinary stop cleanup | Both modes stayed running during bypass and returned idle after stop | `native-session-soak.txt` |
 | Native diagnostics during soak | Each mode: invalid buffers0,missing input0,HAL overload events0,timestamp discontinuities1 | `native-session-soak.txt` |
 | Native GUI | Start/wait/signal/edit/stop and restored settings observed; real input/output peaks | `ui-validation.txt` |
+| Human retest after crash correction | Product Owner: “já fiz o teste funciona”; application/output/duration not specified | `ui-validation.txt` |
 | Performance profile | Time Profiler capture completed; traces remain local under ignored build/P1 | `instruments-128-profile.txt` |
 | Licensing/source audit |46 Swift files with SPDX,unchanged GPLv3 SHA-256,zero external package dependencies | `license-audit.json` |
 
@@ -51,7 +54,7 @@ No minor issue was deferred from this review; the source-mode issue was regraded
 
 ## Remaining acceptance and release conditions
 
-- Product Owner confirmation that graph dragging and several minutes of listening no longer close the app; identify tested application/output. Earlier P0 audible acceptance remains valid; “vou fazer o teste agora” was not a P1 pass.
+- Basic human retest after the crash correction is confirmed above. Application/output, exact duration and gesture coverage remain unspecified; broader sustained-use qualification is pending. Earlier P0 audible acceptance remains valid.
 - Human bypass comparison, no dry duplication/echo, ordinary audio continuing after stop and forced process termination. Successful API cleanup/UI states alone do not prove audible restoration.
 - Clean-host permission grant/denial/revocation and protected/unavailable content behavior.
 - Physical removal/reconnect, sample-rate changes and sleep/wake on actual hardware; USB and Bluetooth qualification beyond preliminary GUI observation.
