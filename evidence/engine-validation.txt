@@ -1,0 +1,24 @@
+2026-10-17 08:57:31.442 AuraValidation[96677:1443791] Audio files cannot be non-interleaved. Ignoring setting AVLinearPCMIsNonInterleaved YES.
+{
+  "benchmark" : {
+    "audioSeconds" : 10,
+    "bands" : 128,
+    "outputEnergy" : 1.5123741379646638,
+    "processPeakResidentBytes" : 14041088,
+    "scope" : "Offline Swift kernel; one thread, no graph\/UI\/hardware. Not a latency measurement.",
+    "userCPUSeconds" : 0.26016499999999998,
+    "wallSeconds" : 0.26183145800000002
+  },
+  "fixture" : "\/Users\/arthurbes\/Documents\/ChatGPT\/AURA\/build\/Validation\/AURA-Test-Tones.wav",
+  "fixtureDescription" : "4-second stereo 120\/1000\/8000 Hz synthesized test tones, 48 kHz; not a measurement",
+  "hardwarePlayback" : {
+    "completion" : "verified engine stopped",
+    "duplicatePlay" : "verified",
+    "listening" : "requires Product Owner; no human listening claim",
+    "liveEQAndBypass" : "verified engine remained running",
+    "output" : "Alto-falantes (MacBook Pro)",
+    "pauseResume" : "verified",
+    "sampleRate" : 48000,
+    "stopRewind" : "verified"
+  }
+}

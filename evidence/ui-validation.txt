@@ -1,0 +1,31 @@
+AURA P0 native UI / Product Owner acceptance record
+Date: 2026-10-17. This is a written session observation record, not an audio recording or screenshot.
+
+Observed through native CUA inspection:
+- Main AURA Equalizer window launches and exposes EQ 1, EQ 2, EQ 3, EQ 4, Presets and Settings.
+- Graph is labeled Filter response / Calculated, not a spectrum analyzer.
+- Module enable/bypass, one-of-32 band capacity, filter/frequency/gain/Q and output controls are accessible.
+- Native audio file picker opened; supported test WAV loading and Playing / Engine running were observed in earlier GUI inspection.
+- Presets and settings surfaces were inspected; a normal quit/relaunch was performed. Automated isolated-store tests separately verify latest-change flush/restore and preset persistence.
+- Empty-source footer explicitly shows 48 kHz preview and actual selected output. Files are not automatically reopened after launch.
+- Release was rebuilt and relaunched after the menu image correction.
+
+Menu icon incident:
+- Product Owner reported: "o icone não aparece na barra de menus".
+- Changed MenuBarExtra from a custom SwiftUI shape label to the native named-image initializer, with four bundled 22x18-point assets at 1x/2x/3x.
+- Release build succeeded: evidence/build-release-menu-icon.txt.
+- CUA window screenshots did not include the macOS status bar; no visual status-bar proof was inferred from that capture.
+- Asked Product Owner if the rebuilt/reopened icon appears and opens the panel.
+- Product Owner answered: "Sim, aparece e abre o painel".
+- Visibility and panel opening are therefore human-confirmed on the current machine.
+
+Audible-processing acceptance:
+- Earlier Product Owner response: "Ainda não fiz a escuta". This was retained as pending until superseded.
+- Latest Product Owner statement: "consegui escutar ele muda o som".
+- Accepted scope: the user heard playback and an audible change in sound through AURA.
+- Not asserted: absence of artifacts across all filters/settings, exact fixture/device/settings of the human listening session, end-to-end latency, universal system audio processing.
+
+Governance:
+- No user statement reviewing the final VALIDATION_REPORT.md has yet been received.
+- P0 Definition of Done is met by build/interface/four-stage/persistence evidence plus the user's hearing confirmation.
+- P1 remains not started; final report review is still required.

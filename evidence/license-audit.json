@@ -1,0 +1,22 @@
+{
+  "license": "GPL-3.0-or-later",
+  "licenseSource": "https://www.gnu.org/licenses/gpl-3.0.txt",
+  "licenseBytes": 35149,
+  "licenseSHA256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+  "canonicalByteComparison": "identical",
+  "swiftSourceFilesWithSPDX": 35,
+  "missingSPDX": [],
+  "externalPackageDependencies": 0,
+  "releaseBundleContainsLicenseAndNotices": true,
+  "releaseBundleContainsAppIcon": true,
+  "nativeMenuStatusAssets": [
+    "AuraStatusBypassed",
+    "AuraStatusError",
+    "AuraStatusProcessing",
+    "AuraStatusStopped"
+  ],
+  "rightsHolder": "undetermined; required before publication",
+  "publicationAuthorized": false,
+  "notarizationSubmitted": false,
+  "gitRemotes": ""
+}

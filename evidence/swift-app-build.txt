@@ -1,0 +1,9 @@
+Building for debugging...
+[Planning deferred tasks]
+[9 / 14] AURA-product
+[10 / 26]
+[11 / 26]
+[21 / 26] AURA-product
+[22 / 26] AURA-product
+[24 / 26] AURA-product
+Build complete! (4,91 seg)

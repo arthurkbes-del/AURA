@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 import Foundation
 import Synchronization
 
@@ -58,6 +59,8 @@ public final class EqualizerProcessor: @unchecked Sendable {
     private var next = RenderBank()
     private let headers = UnsafeMutablePointer<PlanHeader>.allocate(capacity: 8)
     private let plans = UnsafeMutablePointer<BiquadCoefficients>.allocate(capacity: 8 * 128)
+    private let lastPublished = UnsafeMutablePointer<BiquadCoefficients>.allocate(capacity: 128)
+    private var lastHeader = PlanHeader()
     private let writeIndex = Atomic<Int>(0)
     private let readIndex = Atomic<Int>(0)
     private var fadePosition = 0
@@ -68,12 +71,14 @@ public final class EqualizerProcessor: @unchecked Sendable {
         self.sampleRate = sampleRate
         headers.initialize(repeating: PlanHeader(), count: 8)
         plans.initialize(repeating: .identity, count: 8 * 128)
+        lastPublished.initialize(repeating: .identity, count: 128)
     }
 
     deinit {
         current.release(); next.release()
         headers.deinitialize(count: 8); headers.deallocate()
         plans.deinitialize(count: 8 * 128); plans.deallocate()
+        lastPublished.deinitialize(count: 128); lastPublished.deallocate()
     }
 
     private func prepare(_ input: AudioConfiguration, into destination: UnsafeMutablePointer<BiquadCoefficients>) -> PlanHeader {
@@ -96,6 +101,8 @@ public final class EqualizerProcessor: @unchecked Sendable {
     public func configureImmediately(_ configuration: AudioConfiguration, sampleRate: Double? = nil) {
         if let sampleRate { self.sampleRate = sampleRate }
         current.header = prepare(configuration, into: current.coefficients)
+        lastHeader = current.header
+        lastPublished.update(from: current.coefficients, count: current.header.count)
         current.clear(); next.clear(); fading = false; fadePosition = 0
         readIndex.store(writeIndex.load(ordering: .relaxed), ordering: .releasing)
     }
@@ -106,6 +113,16 @@ public final class EqualizerProcessor: @unchecked Sendable {
         guard write - readIndex.load(ordering: .acquiring) < 8 else { return false }
         let slot = write % 8
         headers[slot] = prepare(config, into: plans.advanced(by: slot * 128))
+        let header = headers[slot]
+        var identical = header.count == lastHeader.count && header.gain == lastHeader.gain
+        if identical {
+            for index in 0..<header.count where plans[slot * 128 + index] != lastPublished[index] {
+                identical = false; break
+            }
+        }
+        if identical { return true }
+        lastHeader = header
+        lastPublished.update(from: plans.advanced(by: slot * 128), count: header.count)
         writeIndex.store(write + 1, ordering: .releasing)
         return true
     }
@@ -117,13 +134,25 @@ public final class EqualizerProcessor: @unchecked Sendable {
         let slot = (write - 1) % 8
         next.header = headers[slot]
         for index in 0..<next.header.count { next.coefficients[index] = plans[slot * 128 + index] }
+        // Keep only an identical upstream prefix. Reusing state across changed
+        // poles can excite extreme high-Q transients, even for the same type.
         next.clear()
+        let scale = current.header.gain != 0 ? next.header.gain / current.header.gain : 1
+        for index in 0..<min(next.header.count, current.header.count) {
+            if next.coefficients[index] == current.coefficients[index] {
+                let state = current.states[index]
+                next.states[index] = FilterState(l1: state.l1 * scale, l2: state.l2 * scale,
+                                                r1: state.r1 * scale, r2: state.r2 * scale)
+            } else { break }
+        }
         readIndex.store(write, ordering: .releasing)
         fadePosition = 0; fading = true
     }
 
     @inline(__always) public func processStereo(_ left: Double, _ right: Double) -> (Double, Double) {
-        let old = current.render(left.isFinite ? left : 0, right.isFinite ? right : 0)
+        let left = left.isFinite ? left : 0
+        let right = right.isFinite ? right : 0
+        let old = current.render(left, right)
         guard fading else { return old }
         let new = next.render(left, right)
         fadePosition += 1

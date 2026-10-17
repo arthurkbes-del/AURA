@@ -1,13 +1,52 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 import AVFoundation
 import XCTest
 @testable import AuraCore
 
 final class OfflineGraphTests: XCTestCase {
-    func testNativeAudioUnitProcessesActualPlayerSamples() throws {
+    func testMonoPlayerFeedsBothStereoEQChannels() throws {
+        let graph = try AudioGraphManager(sampleRate: 44_100, sourceChannels: 1)
+        var config = AudioConfiguration(); config.inputGain = 0; config.masterGain = 0
+        graph.processor.configureImmediately(config, sampleRate: 44_100)
+        let mono = AVAudioFormat(standardFormatWithSampleRate: 44_100, channels: 1)!
+        let input = AVAudioPCMBuffer(pcmFormat: mono, frameCapacity: 4_096)!
+        input.frameLength = 4_096
+        input.floatChannelData![0].update(repeating: 0.01, count: 4_096)
+        try graph.engine.enableManualRenderingMode(.offline, format: graph.format, maximumFrameCount: 256)
+        defer { graph.player.stop(); graph.engine.stop(); graph.engine.disableManualRenderingMode() }
+        graph.player.scheduleBuffer(input); try graph.engine.start(); graph.player.play()
+        let output = AVAudioPCMBuffer(pcmFormat: graph.format, frameCapacity: 256)!
+        for _ in 0..<8 { XCTAssertEqual(try graph.engine.renderOffline(256, to: output), .success) }
+        XCTAssertGreaterThan(abs(output.floatChannelData![0][255]), 0.001)
+        XCTAssertEqual(output.floatChannelData![0][255], output.floatChannelData![1][255], accuracy: 1e-7)
+    }
+
+    func testRenderedGraphReleasesItsAudioUnit() throws {
+        weak var releasedUnit: AuraAudioUnit?
+        try autoreleasepool {
+            let graph = try AudioGraphManager(sampleRate: 48_000)
+            releasedUnit = graph.unit
+            try graph.engine.enableManualRenderingMode(.offline, format: graph.format, maximumFrameCount: 128)
+            let buffer = try XCTUnwrap(AVAudioPCMBuffer(pcmFormat: graph.format, frameCapacity: 128))
+            buffer.frameLength = 128
+            buffer.floatChannelData![0].update(repeating: 0, count: 128)
+            buffer.floatChannelData![1].update(repeating: 0, count: 128)
+            graph.player.scheduleBuffer(buffer)
+            try graph.engine.start(); graph.player.play()
+            _ = try graph.engine.renderOffline(128, to: buffer)
+            graph.player.stop(); graph.engine.stop(); graph.engine.disableManualRenderingMode()
+        }
+        XCTAssertNil(releasedUnit, "The cached render block must not retain the Audio Unit")
+    }
+
+    func testNativeAudioUnitProcessesAll128BandsFromActualPlayerSamples() throws {
         let graph = try AudioGraphManager(sampleRate: 48_000)
         var config = AudioConfiguration()
         config.inputGain = 0; config.masterGain = 0
-        for index in 0..<4 { config.modules[index].bands[0].gain = 3 }
+        // Four modules × 32 bells × 0.09375 dB = +12 dB at 1 kHz.
+        for index in 0..<4 {
+            config.modules[index].bands = (0..<32).map { _ in EqualizerBand(gain: 0.09375) }
+        }
         graph.processor.configureImmediately(config)
         let format = graph.format
         let source = try XCTUnwrap(AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 48_000))

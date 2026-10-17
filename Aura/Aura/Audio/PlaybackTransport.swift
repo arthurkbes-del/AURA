@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 public enum PlaybackState: String, Sendable {
     case empty, ready, playing, paused, stopped, completed, failed
     public var label: String { rawValue.capitalized }

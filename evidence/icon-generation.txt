@@ -1,0 +1,9 @@
+Building for debugging...
+[1 / 6]
+[2 / 6] AuraIconGenerator-product
+[4 / 8] AuraIconGenerator-product
+[5 / 8] AuraIconGenerator-product
+[7 / 8] AuraIconGenerator-product
+Build complete! (1,16 seg)
+Generated ten macOS icon sizes from the native AuraSymbol vector: /Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura/Resources/Assets.xcassets/AppIcon.appiconset
+Generated four menu-bar state image sets at 1x/2x/3x.

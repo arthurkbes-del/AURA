@@ -1,7 +1,42 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+import AVFoundation
 import XCTest
 @testable import AuraCore
 
 final class AppStateTests: XCTestCase {
+    @MainActor func testTypingPresetRenamePreservesInteriorSpaces() async throws {
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let model = AppState(store: PresetStore(directory: directory))
+        await model.restore(); model.savePreset(name: "V")
+        let id = try XCTUnwrap(model.saved.presets.first?.id)
+        for character in "oice EQ" {
+            let current = try XCTUnwrap(model.saved.presets.first?.name)
+            model.renamePreset(id: id, name: current + String(character))
+        }
+        XCTAssertEqual(model.saved.presets.first?.name, "Voice EQ")
+        await model.flush(); model.audio.shutdown()
+    }
+
+    @MainActor func testFileRateChangeClampsEditableConfigurationToNyquist() async throws {
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        defer { try? FileManager.default.removeItem(at: directory) }
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        let url = directory.appendingPathComponent("rate32.wav")
+        let format = AVAudioFormat(standardFormatWithSampleRate: 32_000, channels: 1)!
+        let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 320)!
+        buffer.frameLength = 320
+        buffer.floatChannelData![0].update(repeating: 0, count: 320)
+        do { let file = try AVAudioFile(forWriting: url, settings: format.settings); try file.write(from: buffer) }
+        let model = AppState(store: PresetStore(directory: directory.appendingPathComponent("settings")))
+        await model.restore()
+        model.editModule { $0.bands[0].frequency = 20_000 }
+        try model.loadAudio(url)
+        XCTAssertEqual(model.audio.sampleRate, 32_000)
+        XCTAssertEqual(model.module.bands[0].frequency, 15_680)
+        await model.flush(); model.audio.shutdown()
+    }
+
     @MainActor func testPresetRenameDeleteAndResetPreserveIndependentModules() async throws {
         let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         defer { try? FileManager.default.removeItem(at: directory) }

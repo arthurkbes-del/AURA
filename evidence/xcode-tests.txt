@@ -1,0 +1,384 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project Aura/Aura.xcodeproj -scheme Aura -configuration Debug -destination platform=macOS,arch=arm64 -derivedDataPath build/DerivedData -resultBundlePath build/AuraTests.xcresult test
+
+Resolve Package Graph
+
+
+Resolved source packages:
+  Aura: /Users/arthurbes/Documents/ChatGPT/AURA @ local
+
+Writing result bundle at path:
+	/Users/arthurbes/Documents/ChatGPT/AURA/build/AuraTests.xcresult
+
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (4 targets)
+    Target 'AuraTests' in project 'Aura'
+        ➜ Explicit dependency on target 'AuraCore-product' in project 'Aura'
+    Target 'Aura' in project 'Aura'
+        ➜ Explicit dependency on target 'AuraCore-product' in project 'Aura'
+    Target 'AuraCore-product' in project 'Aura'
+        ➜ Explicit dependency on target 'AuraCore' in project 'Aura'
+    Target 'AuraCore' in project 'Aura' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc --version
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+
+Build description signature: 1bcceadd8e505aee79e7896e73fa2e26
+Build description path: /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/XCBuildData/1bcceadd8e505aee79e7896e73fa2e26.xcbuilddata
+ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/SDKStatCaches.noindex/macosx27.0-26A425-7231f6df4def33e022ae2eb8f782df1a.sdkstatcache
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk -o /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/SDKStatCaches.noindex/macosx27.0-26A425-7231f6df4def33e022ae2eb8f782df1a.sdkstatcache
+
+WriteAuxiliaryFile /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/AuraTests.hmap (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    write-file /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/AuraTests.hmap
+
+WriteAuxiliaryFile /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/AuraTests-project-headers.hmap (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    write-file /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/AuraTests-project-headers.hmap
+
+WriteAuxiliaryFile /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/empty-AuraTests.plist (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    write-file /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/empty-AuraTests.plist
+
+WriteAuxiliaryFile /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/AuraTests.DependencyStaticMetadataFileList (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    write-file /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/AuraTests.DependencyStaticMetadataFileList
+
+WriteAuxiliaryFile /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests_const_extract_protocols.json (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    write-file /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests_const_extract_protocols.json
+
+WriteAuxiliaryFile /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests.SwiftFileList (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    write-file /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests.SwiftFileList
+
+WriteAuxiliaryFile /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/AuraTests-all-target-headers.hmap (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    write-file /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/AuraTests-all-target-headers.hmap
+
+WriteAuxiliaryFile /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/AuraTests-all-non-framework-target-headers.hmap (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    write-file /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/AuraTests-all-non-framework-target-headers.hmap
+
+WriteAuxiliaryFile /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests-OutputFileMap.json (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    write-file /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests-OutputFileMap.json
+
+WriteAuxiliaryFile /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests.LinkFileList (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    write-file /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests.LinkFileList
+
+WriteAuxiliaryFile /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/AuraTests.DependencyMetadataFileList (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    write-file /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/AuraTests.DependencyMetadataFileList
+
+WriteAuxiliaryFile /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/AuraTests-own-target-headers.hmap (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    write-file /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/AuraTests-own-target-headers.hmap
+
+WriteAuxiliaryFile /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/AuraTests-generated-files.hmap (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    write-file /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/AuraTests-generated-files.hmap
+
+MkDir /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AuraTests.xctest (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    /bin/mkdir -p /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AuraTests.xctest
+
+WriteAuxiliaryFile /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests.SwiftConstValuesFileList (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    write-file /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests.SwiftConstValuesFileList
+
+MkDir /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AuraTests.xctest/Contents (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    /bin/mkdir -p /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AuraTests.xctest/Contents
+
+MkDir /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AuraTests.xctest/Contents/MacOS (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    /bin/mkdir -p /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AuraTests.xctest/Contents/MacOS
+
+note: Disabling hardened runtime with ad-hoc codesigning. (in target 'Aura' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+ProcessProductPackaging "" /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/Aura.build/AURA.app.xcent (in target 'Aura' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    
+    Entitlements:
+    
+    {
+    "com.apple.security.get-task-allow" = 1;
+}
+    
+    builtin-productPackagingUtility -entitlements -format xml -o /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/Aura.build/AURA.app.xcent
+
+ProcessProductPackagingDER /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/Aura.build/AURA.app.xcent /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/Aura.build/AURA.app.xcent.der (in target 'Aura' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    /usr/bin/derq query -f xml -i /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/Aura.build/AURA.app.xcent -o /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/Aura.build/AURA.app.xcent.der --raw
+
+SwiftDriver AuraTests normal arm64 com.apple.xcode.tools.swift.compiler (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name AuraTests -Onone @/Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests.SwiftFileList -DDEBUG -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk -target arm64-apple-macos15.0 -g -module-cache-path /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Index.noindex/DataStore -swift-version 6 -I /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib -F /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/PackageFrameworks -F /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug -F /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks -c -j18 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/SDKStatCaches.noindex/macosx27.0-26A425-7231f6df4def33e022ae2eb8f782df1a.sdkstatcache -output-file-map /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests_const_extract_protocols.json -Xcc -iquote -Xcc /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/AuraTests-generated-files.hmap -Xcc -I/Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/AuraTests-own-target-headers.hmap -Xcc -I/Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/AuraTests-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/Aura-ba842ff15fab77183cf46dc16f3f0dc2-VFS/all-product-headers.yaml -Xcc -iquote -Xcc /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/AuraTests-project-headers.hmap -Xcc -I/Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/include -Xcc -I/Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/DerivedSources-normal/arm64 -Xcc -I/Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/DerivedSources/arm64 -Xcc -I/Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/DerivedSources -emit-objc-header -emit-objc-header-path /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests-Swift.h -working-directory /Users/arthurbes/Documents/ChatGPT/AURA/Aura -experimental-emit-module-separately -disable-cmo
+
+ProcessInfoPlistFile /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AuraTests.xctest/Contents/Info.plist /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/empty-AuraTests.plist (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    builtin-infoPlistUtility /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/empty-AuraTests.plist -producttype com.apple.product-type.bundle.unit-test -expandbuildsettings -platform macosx -o /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AuraTests.xctest/Contents/Info.plist
+
+CopySwiftLibs /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AURA.app (in target 'Aura' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    builtin-swiftStdLibTool --copy --verbose --sign - --scan-executable /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AURA.app/Contents/MacOS/AURA.debug.dylib --scan-folder /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AURA.app/Contents/Frameworks --scan-folder /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AURA.app/Contents/PlugIns --scan-folder /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AURA.app/Contents/Library/SystemExtensions --scan-folder /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AURA.app/Contents/Extensions --platform macosx --toolchain /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AURA.app/Contents/Frameworks --strip-bitcode --strip-bitcode-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/Aura.build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os --back-deploy-swift-span
+
+ProcessInfoPlistFile /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AURA.app/Contents/Info.plist /Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura/Resources/Info.plist (in target 'Aura' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    builtin-infoPlistUtility /Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura/Resources/Info.plist -producttype com.apple.product-type.application -genpkginfo /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AURA.app/Contents/PkgInfo -expandbuildsettings -platform macosx -o /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AURA.app/Contents/Info.plist
+
+CodeSign /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AURA.app (in target 'Aura' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    
+    Signing Identity:     "Sign to Run Locally"
+    
+    /usr/bin/codesign --force --sign - --entitlements /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/Aura.build/AURA.app.xcent --timestamp\=none --generate-entitlement-der /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AURA.app
+/Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AURA.app: replacing existing signature
+
+Validate /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AURA.app (in target 'Aura' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    builtin-validationUtility /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AURA.app -no-validate-extension -infoplist-subpath Contents/Info.plist
+
+RegisterWithLaunchServices /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AURA.app (in target 'Aura' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    builtin-lsregisterurl --record-path /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/XCBuildData/registered-launchservices.txt -- /System/Library/Frameworks/CoreServices.framework/Versions/Current/Frameworks/LaunchServices.framework/Versions/Current/Support/lsregister -f -R -trusted /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AURA.app
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules/XCUIAutomation-6W3IGDB93DSBB6SFBG5CX17UV.pcm
+
+SwiftExplicitDependencyCompileModuleFromInterface arm64 /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules/XCUIAutomation-17OQV2D0ODLD3.swiftmodule
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules/XCTest-293PJ504D77SZU4KAFSMWC0F5.pcm
+
+SwiftExplicitDependencyCompileModuleFromInterface arm64 /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules/XCTest-2CQ5SQT1FP9YB.swiftmodule
+
+SwiftEmitModule normal arm64 Emitting\ module\ for\ AuraTests (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+
+SwiftCompile normal arm64 (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    
+
+SwiftCompile normal arm64 Compiling\ DSPTests.swift /Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/DSPTests.swift (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+
+SwiftCompile normal arm64 /Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/DSPTests.swift (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    builtin-SwiftPerFileCompile DSPTests.swift
+
+SwiftCompile normal arm64 Compiling\ AppStateTests.swift /Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/AppStateTests.swift (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+
+SwiftCompile normal arm64 /Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/AppStateTests.swift (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    builtin-SwiftPerFileCompile AppStateTests.swift
+
+SwiftCompile normal arm64 Compiling\ PresetStoreTests.swift /Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/PresetStoreTests.swift (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+
+SwiftCompile normal arm64 /Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/PresetStoreTests.swift (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    builtin-SwiftPerFileCompile PresetStoreTests.swift
+
+SwiftCompile normal arm64 Compiling\ ModelTests.swift /Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/ModelTests.swift (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+
+SwiftCompile normal arm64 /Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/ModelTests.swift (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    builtin-SwiftPerFileCompile ModelTests.swift
+
+SwiftCompile normal arm64 Compiling\ PlaybackStateTests.swift /Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/PlaybackStateTests.swift (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+
+SwiftCompile normal arm64 /Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/PlaybackStateTests.swift (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    builtin-SwiftPerFileCompile PlaybackStateTests.swift
+
+SwiftCompile normal arm64 Compiling\ OfflineGraphTests.swift /Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/OfflineGraphTests.swift (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+
+SwiftCompile normal arm64 /Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/OfflineGraphTests.swift (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    builtin-SwiftPerFileCompile OfflineGraphTests.swift
+
+SwiftDriverJobDiscovery normal arm64 Emitting module for AuraTests (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+
+SwiftDriver\ Compilation\ Requirements AuraTests normal arm64 com.apple.xcode.tools.swift.compiler (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    builtin-Swift-Compilation-Requirements -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name AuraTests -Onone @/Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests.SwiftFileList -DDEBUG -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk -target arm64-apple-macos15.0 -g -module-cache-path /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Index.noindex/DataStore -swift-version 6 -I /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib -F /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/PackageFrameworks -F /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug -F /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks -c -j18 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/SDKStatCaches.noindex/macosx27.0-26A425-7231f6df4def33e022ae2eb8f782df1a.sdkstatcache -output-file-map /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests_const_extract_protocols.json -Xcc -iquote -Xcc /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/AuraTests-generated-files.hmap -Xcc -I/Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/AuraTests-own-target-headers.hmap -Xcc -I/Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/AuraTests-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/Aura-ba842ff15fab77183cf46dc16f3f0dc2-VFS/all-product-headers.yaml -Xcc -iquote -Xcc /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/AuraTests-project-headers.hmap -Xcc -I/Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/include -Xcc -I/Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/DerivedSources-normal/arm64 -Xcc -I/Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/DerivedSources/arm64 -Xcc -I/Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/DerivedSources -emit-objc-header -emit-objc-header-path /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests-Swift.h -working-directory /Users/arthurbes/Documents/ChatGPT/AURA/Aura -experimental-emit-module-separately -disable-cmo
+
+Copy /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AuraTests.swiftmodule/arm64-apple-macos.abi.json /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests.abi.json (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -strip-unsigned-binaries -strip-deterministic -strip-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip -resolve-src-symlinks -rename /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests.abi.json /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AuraTests.swiftmodule/arm64-apple-macos.abi.json
+
+Copy /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AuraTests.swiftmodule/arm64-apple-macos.swiftmodule /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests.swiftmodule (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -strip-unsigned-binaries -strip-deterministic -strip-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip -resolve-src-symlinks -rename /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests.swiftmodule /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AuraTests.swiftmodule/arm64-apple-macos.swiftmodule
+
+SwiftMergeGeneratedHeaders /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/DerivedSources/AuraTests-Swift.h /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests-Swift.h (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    builtin-swiftHeaderTool -arch arm64 /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests-Swift.h -o /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/DerivedSources/AuraTests-Swift.h
+
+Copy /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AuraTests.swiftmodule/arm64-apple-macos.swiftdoc /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests.swiftdoc (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -strip-unsigned-binaries -strip-deterministic -strip-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip -resolve-src-symlinks -rename /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests.swiftdoc /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AuraTests.swiftmodule/arm64-apple-macos.swiftdoc
+
+Copy /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AuraTests.swiftmodule/Project/arm64-apple-macos.swiftsourceinfo /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests.swiftsourceinfo (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -strip-unsigned-binaries -strip-deterministic -strip-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip -resolve-src-symlinks -rename /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests.swiftsourceinfo /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AuraTests.swiftmodule/Project/arm64-apple-macos.swiftsourceinfo
+
+SwiftDriverJobDiscovery normal arm64 Compiling DSPTests.swift (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+
+SwiftDriverJobDiscovery normal arm64 Compiling ModelTests.swift (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+
+SwiftDriverJobDiscovery normal arm64 Compiling PresetStoreTests.swift (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+
+SwiftDriverJobDiscovery normal arm64 Compiling AppStateTests.swift (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+
+SwiftDriverJobDiscovery normal arm64 Compiling PlaybackStateTests.swift (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+
+SwiftDriverJobDiscovery normal arm64 Compiling OfflineGraphTests.swift (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+
+SwiftDriver\ Compilation AuraTests normal arm64 com.apple.xcode.tools.swift.compiler (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    builtin-Swift-Compilation -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name AuraTests -Onone @/Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests.SwiftFileList -DDEBUG -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk -target arm64-apple-macos15.0 -g -module-cache-path /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Index.noindex/DataStore -swift-version 6 -I /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib -F /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/PackageFrameworks -F /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug -F /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks -c -j18 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/SDKStatCaches.noindex/macosx27.0-26A425-7231f6df4def33e022ae2eb8f782df1a.sdkstatcache -output-file-map /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests_const_extract_protocols.json -Xcc -iquote -Xcc /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/AuraTests-generated-files.hmap -Xcc -I/Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/AuraTests-own-target-headers.hmap -Xcc -I/Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/AuraTests-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/Aura-ba842ff15fab77183cf46dc16f3f0dc2-VFS/all-product-headers.yaml -Xcc -iquote -Xcc /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/AuraTests-project-headers.hmap -Xcc -I/Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/include -Xcc -I/Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/DerivedSources-normal/arm64 -Xcc -I/Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/DerivedSources/arm64 -Xcc -I/Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/DerivedSources -emit-objc-header -emit-objc-header-path /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests-Swift.h -working-directory /Users/arthurbes/Documents/ChatGPT/AURA/Aura -experimental-emit-module-separately -disable-cmo
+
+Ld /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AuraTests.xctest/Contents/MacOS/AuraTests normal (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-macos15.0 -bundle -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk -Os -Xlinker -no_warn_duplicate_libraries -L/Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/EagerLinkingTBDs/Debug -L/Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug -L/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib -F/Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/EagerLinkingTBDs/Debug -F/Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/PackageFrameworks -F/Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug -iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks -filelist /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests.LinkFileList -Xlinker -rpath -Xlinker /usr/lib/swift -Xlinker -rpath -Xlinker @loader_path -Xlinker -rpath -Xlinker /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/PackageFrameworks -Xlinker -rpath -Xlinker @loader_path/../Frameworks -Xlinker -rpath -Xlinker @executable_path/../Frameworks -Xlinker -object_path_lto -Xlinker /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests_lto.o -rdynamic -Xlinker -dependency_info -Xlinker /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests_dependency_info.dat -fobjc-link-runtime -L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx -L/usr/lib/swift -Xlinker -add_ast_path -Xlinker /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests.swiftmodule -Xlinker -needed_framework -Xlinker XCTest -framework XCTest -Xlinker -needed-lXCTestSwiftSupport -lXCTestSwiftSupport -Xlinker -no_adhoc_codesign -o /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AuraTests.xctest/Contents/MacOS/AuraTests
+
+CopySwiftLibs /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AuraTests.xctest (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    builtin-swiftStdLibTool --copy --verbose --sign - --scan-executable /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AuraTests.xctest/Contents/MacOS/AuraTests --scan-folder /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AuraTests.xctest/Contents/Frameworks --scan-folder /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AuraTests.xctest/Contents/PlugIns --scan-folder /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AuraTests.xctest/Contents/Library/SystemExtensions --scan-folder /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AuraTests.xctest/Contents/Extensions --platform macosx --toolchain /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AuraTests.xctest/Contents/Frameworks --strip-bitcode --scan-executable /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib/libXCTestSwiftSupport.dylib --strip-bitcode-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os --back-deploy-swift-span
+
+ExtractAppIntentsMetadata (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsmetadataprocessor --toolchain-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --module-name AuraTests --sdk-root /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk --xcode-version 27A9275 --platform-family macOS --deployment-target 15.0 --bundle-identifier com.evoluere.aura.tests --output /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AuraTests.xctest/Contents/Resources --target-triple arm64-apple-macos15.0 --binary-file /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AuraTests.xctest/Contents/MacOS/AuraTests --dependency-file /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests_dependency_info.dat --stringsdata-file /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/ExtractedAppShortcutsMetadata.stringsdata --source-file-list /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests.SwiftFileList --metadata-file-list /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/AuraTests.DependencyMetadataFileList --static-metadata-file-list /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/AuraTests.DependencyStaticMetadataFileList --swift-const-vals-list /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/Aura.build/Debug/AuraTests.build/Objects-normal/arm64/AuraTests.SwiftConstValuesFileList --compile-time-extraction --deployment-aware-processing --no-app-shortcuts-localization
+2026-10-17 08:58:00.514 appintentsmetadataprocessor[97766:1449358] Starting appintentsmetadataprocessor export
+2026-10-17 08:58:00.516 appintentsmetadataprocessor[97766:1449358] warning: Metadata extraction skipped, no AppIntents.framework dependency found
+
+CodeSign /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AuraTests.xctest (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    
+    Signing Identity:     "Sign to Run Locally"
+    
+    /usr/bin/codesign --force --sign - -o runtime --timestamp\=none --generate-entitlement-der /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AuraTests.xctest
+
+RegisterExecutionPolicyException /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AuraTests.xctest (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    builtin-RegisterExecutionPolicyException /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AuraTests.xctest
+
+Touch /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AuraTests.xctest (in target 'AuraTests' from project 'Aura' at path '/Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura.xcodeproj')
+    cd /Users/arthurbes/Documents/ChatGPT/AURA/Aura
+    /usr/bin/touch -c /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AuraTests.xctest
+
+PruneExplicitPrecompiledModules /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/SDKExplicitPrecompiledModules
+
+PruneExplicitPrecompiledModules /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/ExplicitPrecompiledModules
+
+PruneExplicitPrecompiledModules /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules
+
+2026-10-17 08:58:00.642 xcodebuild[97683:1448958]  DVTAssertions: Warning in IDEFrameworks/IDEFoundation/Execution/LaunchSystem/IDELaunchSession.m:395
+Details:  setRunnablePIDWithDiagnostics:logSection:andCompletionHandler: called without a completion handler - blocking until diagnostics setup completes. Callers should migrate to using a completion handler for better performance.
+Object:   <IDELaunchSession: 0x7cbb336100>
+Method:   -setRunnablePIDWithDiagnostics:logSection:andCompletionHandler:
+Thread:   <NSThread: 0x7cb7f7ec00>{number = 7, name = (null)}
+Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
+Resolve Package Graph
+
+Test Suite 'All tests' started at 2026-10-17 08:58:04.169.
+Test Suite 'AuraTests.xctest' started at 2026-10-17 08:58:04.169.
+Test Suite 'AppStateTests' started at 2026-10-17 08:58:04.170.
+Test Case '-[AuraTests.AppStateTests testFlushPersistsLatestChangeAndRelaunchRestoresIt]' started.
+2026-10-17 08:58:04.188685-0300 xctest[97771:1449385] [plugin] AddInstanceForFactory: No factory registered for id <CFUUID 0x764cdc9040> F8BB1C28-BAE8-11D6-9C31-00039315CD46
+Test Case '-[AuraTests.AppStateTests testFlushPersistsLatestChangeAndRelaunchRestoresIt]' passed (0.035 seconds).
+Test Case '-[AuraTests.AppStateTests testPresetRenameDeleteAndResetPreserveIndependentModules]' started.
+Test Case '-[AuraTests.AppStateTests testPresetRenameDeleteAndResetPreserveIndependentModules]' passed (0.002 seconds).
+Test Suite 'AppStateTests' passed at 2026-10-17 08:58:04.207.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.036 (0.037) seconds
+Test Suite 'DSPTests' started at 2026-10-17 08:58:04.207.
+Test Case '-[AuraTests.DSPTests testAllFiltersStableAtParameterExtremes]' started.
+Test Case '-[AuraTests.DSPTests testAllFiltersStableAtParameterExtremes]' passed (0.001 seconds).
+Test Case '-[AuraTests.DSPTests testBellCenterAndShelvesHaveSpecifiedGain]' started.
+Test Case '-[AuraTests.DSPTests testBellCenterAndShelvesHaveSpecifiedGain]' passed (0.000 seconds).
+Test Case '-[AuraTests.DSPTests testCombinedResponseRespectsModuleAndGlobalBypass]' started.
+Test Case '-[AuraTests.DSPTests testCombinedResponseRespectsModuleAndGlobalBypass]' passed (0.001 seconds).
+Test Case '-[AuraTests.DSPTests testFlatBellIsUnityAtAllFrequencies]' started.
+Test Case '-[AuraTests.DSPTests testFlatBellIsUnityAtAllFrequencies]' passed (0.000 seconds).
+Test Case '-[AuraTests.DSPTests testKernelRendersGainAndSmoothsBypassWithoutNonfiniteSamples]' started.
+Resolve Package Graph
+Test Case '-[AuraTests.DSPTests testKernelRendersGainAndSmoothsBypassWithoutNonfiniteSamples]' passed (0.011 seconds).
+Test Case '-[AuraTests.DSPTests testPassCutoffAndNotch]' started.
+Test Case '-[AuraTests.DSPTests testPassCutoffAndNotch]' passed (0.000 seconds).
+Test Suite 'DSPTests' passed at 2026-10-17 08:58:04.221.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.014 (0.015) seconds
+Test Suite 'ModelTests' started at 2026-10-17 08:58:04.222.
+Test Case '-[AuraTests.ModelTests testBandCapacityAndLastBandProtection]' started.
+Test Case '-[AuraTests.ModelTests testBandCapacityAndLastBandProtection]' passed (0.000 seconds).
+Test Case '-[AuraTests.ModelTests testConfigurationNormalizesToFourIndependentModules]' started.
+Test Case '-[AuraTests.ModelTests testConfigurationNormalizesToFourIndependentModules]' passed (0.000 seconds).
+Test Case '-[AuraTests.ModelTests testFactoryPresetsContainActualDistinctParameters]' started.
+Test Case '-[AuraTests.ModelTests testFactoryPresetsContainActualDistinctParameters]' passed (0.000 seconds).
+Test Case '-[AuraTests.ModelTests testInvalidParametersAreFiniteAndClampedBelowNyquist]' started.
+Test Case '-[AuraTests.ModelTests testInvalidParametersAreFiniteAndClampedBelowNyquist]' passed (0.000 seconds).
+
+Test Case '-[AuraTests.ModelTests testNormalizationRepairsDuplicateIdentifiersAndEmptyBands]' started.
+Test Case '-[AuraTests.ModelTests testNormalizationRepairsDuplicateIdentifiersAndEmptyBands]' passed (0.000 seconds).
+Test Suite 'ModelTests' passed at 2026-10-17 08:58:04.224.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.002 (0.003) seconds
+Test Suite 'OfflineGraphTests' started at 2026-10-17 08:58:04.225.
+Test Case '-[AuraTests.OfflineGraphTests testNativeAudioUnitProcessesActualPlayerSamples]' started.
+Test Case '-[AuraTests.OfflineGraphTests testNativeAudioUnitProcessesActualPlayerSamples]' passed (0.055 seconds).
+Test Suite 'OfflineGraphTests' passed at 2026-10-17 08:58:04.280.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.055 (0.055) seconds
+Test Suite 'PlaybackStateTests' started at 2026-10-17 08:58:04.280.
+Test Case '-[AuraTests.PlaybackStateTests testEmptyPlaybackProducesRecoverableError]' started.
+Test Case '-[AuraTests.PlaybackStateTests testEmptyPlaybackProducesRecoverableError]' passed (0.001 seconds).
+Test Case '-[AuraTests.PlaybackStateTests testInvalidAndMissingFileDoNotStartEngine]' started.
+2026-10-17 08:58:04.281915-0300 xctest[97771:1449385] [avae]            AVAEInternal.h:109   [AVAudioFile.mm:305:AVAudioFileImpl: (ExtAudioFileOpenURL((__bridge CFURLRef)fileURL, &_extAudioFile)): error 2003334207
+2026-10-17 08:58:04.285758-0300 xctest[97771:1449385] [carc] Reporter disconnected or already stopped. { func=stop, reporterID=419923247497220 }
+2026-10-17 08:58:04.289248-0300 xctest[97771:1449385] [avae]            AVAEInternal.h:109   [AVAudioFile.mm:305:AVAudioFileImpl: (ExtAudioFileOpenURL((__bridge CFURLRef)fileURL, &_extAudioFile)): error 1954115647
+Test Case '-[AuraTests.PlaybackStateTests testInvalidAndMissingFileDoNotStartEngine]' passed (0.009 seconds).
+Test Case '-[AuraTests.PlaybackStateTests testLoadingRealWAVAndStopStateWithoutHardwarePlayback]' started.
+Test Case '-[AuraTests.PlaybackStateTests testLoadingRealWAVAndStopStateWithoutHardwarePlayback]' passed (0.005 seconds).
+Test Case '-[AuraTests.PlaybackStateTests testTransportRejectsStaleCompletionAndMakesPlayIdempotent]' started.
+Test Case '-[AuraTests.PlaybackStateTests testTransportRejectsStaleCompletionAndMakesPlayIdempotent]' passed (0.000 seconds).
+Test Suite 'PlaybackStateTests' passed at 2026-10-17 08:58:04.295.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 0.014 (0.015) seconds
+Test Suite 'PresetStoreTests' started at 2026-10-17 08:58:04.295.
+Test Case '-[AuraTests.PresetStoreTests testCorruptFileIsQuarantinedAndRecoversDefaults]' started.
+Test Case '-[AuraTests.PresetStoreTests testCorruptFileIsQuarantinedAndRecoversDefaults]' passed (0.001 seconds).
+Test Case '-[AuraTests.PresetStoreTests testFutureVersionIsPreservedAndCannotBeOverwritten]' started.
+Test Case '-[AuraTests.PresetStoreTests testFutureVersionIsPreservedAndCannotBeOverwritten]' passed (0.001 seconds).
+Test Case '-[AuraTests.PresetStoreTests testRoundTripPreservesBypassAndCustomPresets]' started.
+Test Case '-[AuraTests.PresetStoreTests testRoundTripPreservesBypassAndCustomPresets]' passed (0.001 seconds).
+Test Case '-[AuraTests.PresetStoreTests testVersionOneMigratesWithoutLosingParameters]' started.
+Test Case '-[AuraTests.PresetStoreTests testVersionOneMigratesWithoutLosingParameters]' passed (0.001 seconds).
+Test Suite 'PresetStoreTests' passed at 2026-10-17 08:58:04.300.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 0.004 (0.005) seconds
+Test Suite 'AuraTests.xctest' passed at 2026-10-17 08:58:04.300.
+	 Executed 22 tests, with 0 failures (0 unexpected) in 0.125 (0.130) seconds
+Test Suite 'All tests' passed at 2026-10-17 08:58:04.300.
+	 Executed 22 tests, with 0 failures (0 unexpected) in 0.125 (0.131) seconds
+2026-10-17 08:58:04.571 xcodebuild[97683:1448828] [MT] IDETestOperationsObserverDebug: 4.020 elapsed -- Testing started completed.
+2026-10-17 08:58:04.571 xcodebuild[97683:1448828] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-10-17 08:58:04.571 xcodebuild[97683:1448828] [MT] IDETestOperationsObserverDebug: 4.020 sec, +4.020 sec -- end
+
+Test session results, code coverage, and logs:
+	/Users/arthurbes/Documents/ChatGPT/AURA/build/AuraTests.xcresult
+
+** TEST SUCCEEDED **
+
+Testing started

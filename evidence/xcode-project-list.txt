@@ -1,0 +1,25 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -list -project Aura/Aura.xcodeproj
+
+Resolve Package Graph
+
+
+Resolved source packages:
+  Aura: /Users/arthurbes/Documents/ChatGPT/AURA @ local
+
+Information about project "Aura":
+    Targets:
+        Aura
+        AuraTests
+
+    Build Configurations:
+        Debug
+        Release
+
+    If no build configuration is specified and -scheme is not passed then "Release" is used.
+
+    Schemes:
+        Aura
+        AURA
+        AuraCore
+

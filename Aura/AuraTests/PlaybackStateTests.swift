@@ -1,8 +1,17 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 import AVFoundation
 import XCTest
 @testable import AuraCore
 
 final class PlaybackStateTests: XCTestCase {
+    func testDelayedOldCompletionCannotOverwriteNewestCompletion() {
+        let signal = PlaybackCompletionSignal()
+        signal.publish(5)
+        signal.publish(3)
+        XCTAssertEqual(signal.consume(), 5)
+        XCTAssertEqual(signal.consume(), 0)
+    }
+
     @MainActor func testEmptyPlaybackProducesRecoverableError() async {
         let manager = AudioEngineManager()
         manager.play()

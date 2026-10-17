@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 // Standalone SDK feasibility experiment. This is not the AURA application.
 // Run after Xcode setup: swift Validation/EQCapabilityProbe.swift
 // Offline rendering only; no output-device or system-routing modifications.

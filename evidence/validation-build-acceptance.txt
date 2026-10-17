@@ -1,0 +1,11 @@
+warning: 'aura': found 1 file(s) which are unhandled; explicitly declare them as resources or exclude from the target
+    /Users/arthurbes/Documents/ChatGPT/AURA/Aura/Aura/Branding/AuraSymbol.swift
+Building for production...
+[Planning deferred tasks]
+[6 / 13] AuraCore
+[8 / 14] AuraCore
+[14 / 17] AuraValidation-product
+[15 / 18] AuraValidation-product
+[17 / 18] AuraValidation-product
+[20 / 20] AuraValidation-product
+Build complete! (2,77 seg)

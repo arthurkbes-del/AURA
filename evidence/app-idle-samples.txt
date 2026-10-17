@@ -1,0 +1,6 @@
+Five ps samples, one second apart; %CPU is ps-reported, RSS in KiB. Debug GUI process after playback inspection; no playback was deliberately initiated during sampling. UI state was not captured at each individual sample. Not a realtime callback CPU/latency benchmark.
+99020   0.0 142784   0:25.32 05:41 /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AURA.app/Contents/MacOS/AURA
+99020   0.0 142784   0:25.32 05:42 /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AURA.app/Contents/MacOS/AURA
+99020   0.0 142784   0:25.32 05:43 /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AURA.app/Contents/MacOS/AURA
+99020   0.0 142768   0:25.32 05:44 /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AURA.app/Contents/MacOS/AURA
+99020   0.0 142768   0:25.32 05:45 /Users/arthurbes/Documents/ChatGPT/AURA/build/DerivedData/Build/Products/Debug/AURA.app/Contents/MacOS/AURA

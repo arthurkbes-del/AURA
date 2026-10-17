@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 import Foundation
 
 /// Normalized RBJ biquads. Q controls damping for all six types, including

@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 import Foundation
 import Observation
 
@@ -14,6 +15,7 @@ import Observation
     @ObservationIgnored private var saveTask: Task<Void, Never>?
     @ObservationIgnored private var parameterTask: Task<Void, Never>?
     @ObservationIgnored private var canSave = true
+    @ObservationIgnored private var restoreStarted = false
 
     public init(store: PresetStore = PresetStore()) { writer = PersistenceWriter(store: store) }
     public var module: EqualizerModule { saved.configuration.modules[min(3, max(0, selectedModule))] }
@@ -23,7 +25,8 @@ import Observation
     }
 
     public func restore() async {
-        guard !isLoaded else { return }
+        guard !restoreStarted else { return }
+        restoreStarted = true
         do {
             let result = try await writer.load()
             saved = result.state; persistenceMessage = result.warning
@@ -58,6 +61,13 @@ import Observation
         selectedModule = min(3, max(0, index)); selectedBandID = module.bands.first?.id
     }
 
+    public func loadAudio(_ url: URL) throws {
+        try audio.load(url)
+        saved.configuration.normalize(sampleRate: audio.sampleRate)
+        audio.apply(saved.configuration)
+        changed()
+    }
+
     public func addBand() {
         editModule { $0.addBand() }; selectedBandID = module.bands.last?.id
     }
@@ -81,8 +91,9 @@ import Observation
     }
 
     public func renamePreset(id: UUID, name: String) {
-        let clean = String(name.trimmingCharacters(in: .whitespacesAndNewlines).prefix(64))
-        guard !clean.isEmpty, let index = saved.presets.firstIndex(where: { $0.id == id }) else { return }
+        let clean = String(name.prefix(64))
+        guard !clean.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
+              let index = saved.presets.firstIndex(where: { $0.id == id }) else { return }
         saved.presets[index].name = clean
         for moduleIndex in 0..<4 where saved.configuration.modules[moduleIndex].presetID == id {
             saved.configuration.modules[moduleIndex].presetName = clean

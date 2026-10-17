@@ -1,10 +1,16 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 import AVFoundation
 import Foundation
 import Observation
 import Synchronization
 
-private final class CompletionSignal: Sendable {
-    let generation = Atomic<Int>(0)
+final class PlaybackCompletionSignal: Sendable {
+    private let generation = Atomic<Int>(0)
+    // A delayed callback from a stopped schedule must never erase a newer
+    // completion before the main actor consumes it.
+    func publish(_ value: Int) { _ = generation.max(value, ordering: .releasing) }
+    func consume() -> Int { generation.exchange(0, ordering: .acquiringAndReleasing) }
+    func clear() { generation.store(0, ordering: .relaxed) }
 }
 
 @MainActor @Observable public final class AudioEngineManager {
@@ -23,7 +29,7 @@ private final class CompletionSignal: Sendable {
     @ObservationIgnored private var scopedURL: URL?
     @ObservationIgnored private var configuration = AudioConfiguration()
     @ObservationIgnored private var transport = PlaybackTransport()
-    @ObservationIgnored private let completion = CompletionSignal()
+    @ObservationIgnored private let completion = PlaybackCompletionSignal()
     @ObservationIgnored private var timer: Timer?
     @ObservationIgnored private var observer: NSObjectProtocol?
     @ObservationIgnored private var startFrame: AVAudioFramePosition = 0
@@ -86,12 +92,12 @@ private final class CompletionSignal: Sendable {
             graph.processor.configureImmediately(configuration, sampleRate: sampleRate)
             let generation = transport.beginPlayback()
             let signal = completion
-            signal.generation.store(0, ordering: .relaxed)
+            signal.clear()
             graph.player.scheduleSegment(file, startingFrame: startFrame,
                                          frameCount: AVAudioFrameCount(file.length - startFrame),
                                          at: nil, completionCallbackType: .dataPlayedBack) { _ in
                 // Scheduling completion never touches UI or dispatches work.
-                signal.generation.store(generation, ordering: .releasing)
+                signal.publish(generation)
             }
             graph.engine.prepare()
             try graph.engine.start()
@@ -165,7 +171,7 @@ private final class CompletionSignal: Sendable {
 
     private func tick() {
         guard let graph else { return }
-        let completed = completion.generation.exchange(0, ordering: .acquiringAndReleasing)
+        let completed = completion.consume()
         if completed != 0 && transport.complete(generation: completed) {
             graph.player.stop(); graph.engine.stop()
             timer?.invalidate(); timer = nil
@@ -178,7 +184,7 @@ private final class CompletionSignal: Sendable {
         }
         updatePosition()
         if let pendingConfiguration, graph.processor.submit(pendingConfiguration) { self.pendingConfiguration = nil }
-        if graph.unit.overRange.exchange(false, ordering: .relaxed) { overRange = true }
+        if graph.unit.metrics.overRange.exchange(false, ordering: .relaxed) { overRange = true }
         engineRunning = graph.engine.isRunning
     }
 

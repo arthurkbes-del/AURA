@@ -1,0 +1,29 @@
+Building for debugging...
+[Planning deferred tasks]
+[6 / 33] AuraCore
+[8 / 35] AuraCore
+[16 / 37] AuraIconGenerator-product
+[33 / 52] AuraIconGenerator-product
+[34 / 52] AuraCore
+[43 / 55] AURA-product
+[45 / 55] AuraIconGenerator-product
+[54 / 64] AuraCoreTests-product
+[58 / 66] AuraCoreTests-product
+[60 / 66] AuraCoreTests-product
+[62 / 66] AURA-product
+[64 / 66] AURA-product
+Build complete! (2,76 seg)
+Test Suite 'Selected tests' started at 2026-10-17 09:15:51.020.
+Test Suite 'AuraCoreTests.xctest' started at 2026-10-17 09:15:51.021.
+Test Suite 'PlaybackStateTests' started at 2026-10-17 09:15:51.021.
+Test Case '-[AuraCoreTests.PlaybackStateTests testDelayedOldCompletionCannotOverwriteNewestCompletion]' started.
+/Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/PlaybackStateTests.swift:11: error: -[AuraCoreTests.PlaybackStateTests testDelayedOldCompletionCannotOverwriteNewestCompletion] : XCTAssertEqual failed: ("3") is not equal to ("5")
+Test Case '-[AuraCoreTests.PlaybackStateTests testDelayedOldCompletionCannotOverwriteNewestCompletion]' failed (0.041 seconds).
+Test Suite 'PlaybackStateTests' failed at 2026-10-17 09:15:51.062.
+	 Executed 1 test, with 1 failure (0 unexpected) in 0.041 (0.041) seconds
+Test Suite 'AuraCoreTests.xctest' failed at 2026-10-17 09:15:51.062.
+	 Executed 1 test, with 1 failure (0 unexpected) in 0.041 (0.041) seconds
+Test Suite 'Selected tests' failed at 2026-10-17 09:15:51.062.
+	 Executed 1 test, with 1 failure (0 unexpected) in 0.041 (0.042) seconds
+Note: Some test targets reported failures:
+  - AuraCoreTests (XCTest)

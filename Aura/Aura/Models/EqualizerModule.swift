@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 import Foundation
 
 public struct EqualizerModule: Codable, Equatable, Identifiable, Sendable {
@@ -27,8 +28,8 @@ public struct EqualizerModule: Codable, Equatable, Identifiable, Sendable {
     }
 
     public mutating func normalize(sampleRate: Double = 48_000) {
-        name = String(name.trimmingCharacters(in: .whitespacesAndNewlines).prefix(64))
-        if name.isEmpty { name = "Equalizer" }
+        name = String(name.prefix(64))
+        if name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty { name = "Equalizer" }
         bands = Array(bands.prefix(32))
         if bands.isEmpty { bands = [EqualizerBand()] }
         var seen = Set<UUID>()

@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 import Foundation
 
 public struct SavedState: Codable, Equatable, Sendable {
@@ -9,6 +10,10 @@ public struct SavedState: Codable, Equatable, Sendable {
 
     public mutating func normalize() {
         version = Self.currentVersion
+        for index in configuration.modules.indices {
+            configuration.modules[index].name = configuration.modules[index].name
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+        }
         configuration.normalize()
         presets = presets.filter { !$0.isFactory }.map {
             var preset = $0
@@ -22,6 +27,12 @@ public struct SavedState: Codable, Equatable, Sendable {
         var seen = Set<UUID>()
         for index in presets.indices {
             if !seen.insert(presets[index].id).inserted { presets[index].id = UUID() }
+        }
+        for index in configuration.modules.indices {
+            if let id = configuration.modules[index].presetID,
+               let preset = presets.first(where: { $0.id == id }) {
+                configuration.modules[index].presetName = preset.name
+            }
         }
     }
 }

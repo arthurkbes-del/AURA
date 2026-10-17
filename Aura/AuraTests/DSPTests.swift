@@ -1,7 +1,81 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 import XCTest
 @testable import AuraCore
 
 final class DSPTests: XCTestCase {
+    func testAll128NonflatBandsProcessActualSamples() {
+        var config = AudioConfiguration()
+        config.inputGain = 0; config.masterGain = 0
+        for module in 0..<4 {
+            config.modules[module].bands = (0..<32).map { _ in EqualizerBand(frequency: 1_000, gain: 0.25) }
+        }
+        let kernel = EqualizerProcessor()
+        kernel.configureImmediately(config)
+        var energy = 0.0
+        for frame in 0..<48_000 {
+            let input = 0.00001 * sin(2 * .pi * 1_000 * Double(frame) / 48_000)
+            let output = kernel.processStereo(input, input)
+            XCTAssertTrue(output.0.isFinite && output.1.isFinite)
+            if frame >= 12_000 { energy += output.0 * output.0 }
+        }
+        // 128 bells × 0.25 dB at their common center = +32 dB.
+        XCTAssertEqual(20 * log10(sqrt(energy / 36_000) / (0.00001 / sqrt(2))), 32, accuracy: 0.02)
+    }
+
+    func testNonfiniteInputIsSanitizedDuringGainTransition() {
+        let processor = EqualizerProcessor()
+        var config = AudioConfiguration()
+        processor.configureImmediately(config)
+        config.masterGain = -12
+        XCTAssertTrue(processor.submit(config)); processor.beginBlock()
+        let output = processor.processStereo(.nan, .infinity)
+        XCTAssertEqual(output.0, 0)
+        XCTAssertEqual(output.1, 0)
+    }
+
+    func testLargeHighQFrequencyChangeDoesNotReuseIncompatibleHistory() {
+        var config = AudioConfiguration()
+        config.inputGain = 0; config.masterGain = 0
+        config.modules[0].bands = [EqualizerBand(type: .lowPass, frequency: 20_000, q: 30)]
+        let kernel = EqualizerProcessor()
+        kernel.configureImmediately(config)
+        for frame in 0..<48_000 {
+            let input = 0.001 * sin(2 * .pi * 20_000 * Double(frame) / 48_000)
+            _ = kernel.processStereo(input, input)
+        }
+        config.modules[0].bands[0].frequency = 20
+        XCTAssertTrue(kernel.submit(config)); kernel.beginBlock()
+        var peak = 0.0
+        for frame in 48_000..<96_000 {
+            let input = 0.001 * sin(2 * .pi * 20_000 * Double(frame) / 48_000)
+            peak = max(peak, abs(kernel.processStereo(input, input).0))
+        }
+        XCTAssertLessThan(peak, 0.05)
+    }
+
+    func testMetadataEditsPreserveEstablishedHighQFilterState() {
+        var configuration = AudioConfiguration()
+        configuration.inputGain = 0; configuration.masterGain = 0
+        configuration.modules[0].bands = [EqualizerBand(type: .lowPass, frequency: 20, q: 30)]
+        let reference = EqualizerProcessor()
+        let edited = EqualizerProcessor()
+        reference.configureImmediately(configuration); edited.configureImmediately(configuration)
+        var maximumDifference = 0.0
+        for sample in 0..<240_000 {
+            if sample > 96_000 && sample.isMultiple(of: 1_600) {
+                configuration.modules[0].name = "Rename \(sample)"
+                configuration.modules[0].presetName = "Custom \(sample)"
+                XCTAssertTrue(edited.submit(configuration))
+                edited.beginBlock()
+            }
+            let input = 0.001 * sin(2 * .pi * 20 * Double(sample) / 48_000)
+            let expected = reference.processStereo(input, input)
+            let actual = edited.processStereo(input, input)
+            maximumDifference = max(maximumDifference, abs(expected.0 - actual.0))
+        }
+        XCTAssertLessThan(maximumDifference, 1e-12)
+    }
+
     func testFlatBellIsUnityAtAllFrequencies() {
         let coefficients = BiquadCoefficients.make(EqualizerBand(), sampleRate: 48_000)
         for frequency in [20.0, 100, 1_000, 10_000, 20_000] {

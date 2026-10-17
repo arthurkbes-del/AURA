@@ -1,0 +1,2 @@
+2026-10-17 09:13:37.336 AuraValidation[1989:1486298] Audio files cannot be non-interleaved. Ignoring setting AVLinearPCMIsNonInterleaved YES.
+Swift/ErrorType.swift:254: Fatal error: Error raised at top level: AuraValidation.ValidationError.failed("Natural playback completion did not stop the engine")

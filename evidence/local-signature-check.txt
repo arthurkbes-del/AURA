@@ -1,0 +1,2 @@
+build/DerivedData/Build/Products/Release/AURA.app: valid on disk
+build/DerivedData/Build/Products/Release/AURA.app: satisfies its Designated Requirement

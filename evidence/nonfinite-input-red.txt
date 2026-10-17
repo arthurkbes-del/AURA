@@ -1,0 +1,28 @@
+Building for debugging...
+[1 / 15]
+[2 / 16] AuraCore
+[4 / 18] AuraCore
+[14 / 23] AuraValidation-product
+[17 / 24] AuraValidation-product
+[31 / 38] AuraValidation-product
+[33 / 40] AuraCoreTests-product
+[33 / 40] AURA-product
+[38 / 43] AURA-product
+[40 / 43] AURA-product
+[42 / 43] AURA-product
+Build complete! (3,12 seg)
+Test Suite 'Selected tests' started at 2026-10-17 09:06:33.804.
+Test Suite 'AuraCoreTests.xctest' started at 2026-10-17 09:06:33.805.
+Test Suite 'DSPTests' started at 2026-10-17 09:06:33.805.
+Test Case '-[AuraCoreTests.DSPTests testNonfiniteInputIsSanitizedDuringGainTransition]' started.
+/Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/DSPTests.swift:13: error: -[AuraCoreTests.DSPTests testNonfiniteInputIsSanitizedDuringGainTransition] : XCTAssertEqual failed: ("nan") is not equal to ("0.0")
+/Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/DSPTests.swift:14: error: -[AuraCoreTests.DSPTests testNonfiniteInputIsSanitizedDuringGainTransition] : XCTAssertEqual failed: ("inf") is not equal to ("0.0")
+Test Case '-[AuraCoreTests.DSPTests testNonfiniteInputIsSanitizedDuringGainTransition]' failed (0.054 seconds).
+Test Suite 'DSPTests' failed at 2026-10-17 09:06:33.859.
+	 Executed 1 test, with 2 failures (0 unexpected) in 0.054 (0.054) seconds
+Test Suite 'AuraCoreTests.xctest' failed at 2026-10-17 09:06:33.859.
+	 Executed 1 test, with 2 failures (0 unexpected) in 0.054 (0.054) seconds
+Test Suite 'Selected tests' failed at 2026-10-17 09:06:33.859.
+	 Executed 1 test, with 2 failures (0 unexpected) in 0.054 (0.055) seconds
+Note: Some test targets reported failures:
+  - AuraCoreTests (XCTest)

@@ -1,12 +1,17 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 import AVFoundation
 import AudioToolbox
 import Synchronization
 
 /// One in-process Audio Unit hosts four logical EQ stages. The render block
 /// only pulls PCM, processes preallocated state and writes PCM.
+public final class RenderMetrics: Sendable {
+    public let overRange = Atomic<Bool>(false)
+}
+
 public final class AuraAudioUnit: AUAudioUnit, @unchecked Sendable {
     public let processor = EqualizerProcessor()
-    public let overRange = Atomic<Bool>(false)
+    public let metrics = RenderMetrics()
     private var inputs: AUAudioUnitBusArray!
     private var outputs: AUAudioUnitBusArray!
     private let scratch: AVAudioPCMBuffer
@@ -49,9 +54,12 @@ public final class AuraAudioUnit: AUAudioUnit, @unchecked Sendable {
 
     public override var internalRenderBlock: AUInternalRenderBlock {
         let kernel = processor
+        let metrics = metrics
+        let scratchOwner = scratch
         let leftScratch = scratch.floatChannelData![0]
         let rightScratch = scratch.floatChannelData![1]
-        return { [self] flags, timestamp, frames, bus, output, _, pullInput in
+        return { [scratchOwner] flags, timestamp, frames, bus, output, _, pullInput in
+            _ = scratchOwner // Independently owned PCM storage; never capture the AU.
             guard bus == 0, frames <= 65_536, let pullInput else { return kAudioUnitErr_NoConnection }
             let buffers = UnsafeMutableAudioBufferListPointer(output)
             guard buffers.count == 2 else { return kAudioUnitErr_FormatNotSupported }
@@ -73,7 +81,7 @@ public final class AuraAudioUnit: AUAudioUnit, @unchecked Sendable {
                 left[frame] = Float(min(bound, max(-bound, result.0)))
                 right[frame] = Float(min(bound, max(-bound, result.1)))
             }
-            if exceeded { self.overRange.store(true, ordering: .relaxed) }
+            if exceeded { metrics.overRange.store(true, ordering: .relaxed) }
             return noErr
         }
     }

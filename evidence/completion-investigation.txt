@@ -1,0 +1,31 @@
+Building for production...
+[1 / 2]
+[2 / 5] AuraValidation-product
+[3 / 6] AuraValidation-product
+[5 / 6] AuraValidation-product
+[8 / 8] AuraValidation-product
+Build complete! (1,37 seg)
+2026-10-17 09:15:39.126 AuraValidation[2959:1492159] Audio files cannot be non-interleaved. Ignoring setting AVLinearPCMIsNonInterleaved YES.
+{
+  "benchmark" : {
+    "audioSeconds" : 10,
+    "bands" : 128,
+    "outputEnergy" : 1.5123741379646638,
+    "processPeakResidentBytes" : 14073856,
+    "scope" : "Offline Swift kernel; one thread, no graph\/UI\/hardware. Not a latency measurement.",
+    "userCPUSeconds" : 0.26280100000000001,
+    "wallSeconds" : 0.26818049999999999
+  },
+  "fixture" : "\/Users\/arthurbes\/Documents\/ChatGPT\/AURA\/build\/Validation\/AURA-Test-Tones.wav",
+  "fixtureDescription" : "4-second stereo 120\/1000\/8000 Hz synthesized test tones, 48 kHz; not a measurement",
+  "hardwarePlayback" : {
+    "completion" : "verified engine stopped",
+    "duplicatePlay" : "verified",
+    "listening" : "requires Product Owner; no human listening claim",
+    "liveEQAndBypass" : "verified engine remained running",
+    "output" : "JBL Wave Buds 2",
+    "pauseResume" : "verified",
+    "sampleRate" : 48000,
+    "stopRewind" : "verified"
+  }
+}

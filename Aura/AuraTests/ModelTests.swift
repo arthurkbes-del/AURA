@@ -1,7 +1,17 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 import XCTest
 @testable import AuraCore
 
 final class ModelTests: XCTestCase {
+    func testTypingModuleNamePreservesInteriorSpaces() {
+        var module = EqualizerModule(name: "V")
+        for character in "oice EQ" {
+            module.name.append(character)
+            module.normalize()
+        }
+        XCTAssertEqual(module.name, "Voice EQ")
+    }
+
     func testConfigurationNormalizesToFourIndependentModules() {
         var config = AudioConfiguration()
         XCTAssertEqual(config.modules.count, 4)

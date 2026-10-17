@@ -1,0 +1,14 @@
+{
+  "identity": "aura",
+  "name": "Aura",
+  "url": "/Users/arthurbes/Documents/ChatGPT/AURA",
+  "version": "unspecified",
+  "path": "/Users/arthurbes/Documents/ChatGPT/AURA",
+  "traits": [
+    "default"
+  ],
+  "dependencies": [
+
+  ]
+}
+
