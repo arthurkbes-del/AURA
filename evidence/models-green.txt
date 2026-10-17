@@ -1,0 +1,43 @@
+Building for debugging...
+[Planning deferred tasks]
+[5 / 29] AuraCore
+[11 / 35] AuraCore
+[20 / 31] AuraCoreTests-product
+[24 / 35] AuraCoreTests-product
+[29 / 35] AuraCoreTests-product
+[31 / 35] AuraCoreTests-product
+Build complete! (2,12 seg)
+Test Suite 'All tests' started at 2026-10-17 08:46:29.427.
+Test Suite 'AuraCoreTests.xctest' started at 2026-10-17 08:46:29.428.
+Test Suite 'ModelTests' started at 2026-10-17 08:46:29.428.
+Test Case '-[AuraCoreTests.ModelTests testBandCapacityAndLastBandProtection]' started.
+Test Case '-[AuraCoreTests.ModelTests testBandCapacityAndLastBandProtection]' passed (0.001 seconds).
+Test Case '-[AuraCoreTests.ModelTests testConfigurationNormalizesToFourIndependentModules]' started.
+Test Case '-[AuraCoreTests.ModelTests testConfigurationNormalizesToFourIndependentModules]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.ModelTests testFactoryPresetsContainActualDistinctParameters]' started.
+Test Case '-[AuraCoreTests.ModelTests testFactoryPresetsContainActualDistinctParameters]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.ModelTests testInvalidParametersAreFiniteAndClampedBelowNyquist]' started.
+Test Case '-[AuraCoreTests.ModelTests testInvalidParametersAreFiniteAndClampedBelowNyquist]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.ModelTests testNormalizationRepairsDuplicateIdentifiersAndEmptyBands]' started.
+Test Case '-[AuraCoreTests.ModelTests testNormalizationRepairsDuplicateIdentifiersAndEmptyBands]' passed (0.000 seconds).
+Test Suite 'ModelTests' passed at 2026-10-17 08:46:29.430.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.002 (0.002) seconds
+Test Suite 'PresetStoreTests' started at 2026-10-17 08:46:29.430.
+Test Case '-[AuraCoreTests.PresetStoreTests testCorruptFileIsQuarantinedAndRecoversDefaults]' started.
+Test Case '-[AuraCoreTests.PresetStoreTests testCorruptFileIsQuarantinedAndRecoversDefaults]' passed (0.002 seconds).
+Test Case '-[AuraCoreTests.PresetStoreTests testFutureVersionIsPreservedAndCannotBeOverwritten]' started.
+Test Case '-[AuraCoreTests.PresetStoreTests testFutureVersionIsPreservedAndCannotBeOverwritten]' passed (0.001 seconds).
+Test Case '-[AuraCoreTests.PresetStoreTests testRoundTripPreservesBypassAndCustomPresets]' started.
+Test Case '-[AuraCoreTests.PresetStoreTests testRoundTripPreservesBypassAndCustomPresets]' passed (0.001 seconds).
+Test Case '-[AuraCoreTests.PresetStoreTests testVersionOneMigratesWithoutLosingParameters]' started.
+Test Case '-[AuraCoreTests.PresetStoreTests testVersionOneMigratesWithoutLosingParameters]' passed (0.001 seconds).
+Test Suite 'PresetStoreTests' passed at 2026-10-17 08:46:29.434.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 0.004 (0.004) seconds
+Test Suite 'AuraCoreTests.xctest' passed at 2026-10-17 08:46:29.434.
+	 Executed 9 tests, with 0 failures (0 unexpected) in 0.005 (0.006) seconds
+Test Suite 'All tests' passed at 2026-10-17 08:46:29.434.
+	 Executed 9 tests, with 0 failures (0 unexpected) in 0.005 (0.007) seconds
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.

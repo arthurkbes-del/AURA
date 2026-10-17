@@ -121,7 +121,7 @@ func renderedGain(stageGain: Float, bypass: Bool, allBands: Bool = false) throws
 
 do {
     print("AURA Apple EQ capability probe — offline, stereo, 48 kHz, 1 kHz sine")
-    let maximum = try maximumBands(of: AVAudioUnitEQ(numberOfBands: 1))
+    let maximum = try maximumBands(of: AVAudioUnitEQ(numberOfBands: 32))
     print("Reported maximum bands per Apple EQ: \(maximum)")
     try require(maximum >= 32, "Apple EQ does not support 32 bands; native DSP alternative required")
 

@@ -1,0 +1,41 @@
+Validation/EQCapabilityProbe32.swift:23:19: warning: 'audioUnit' was deprecated in macOS 27.0: Deprecated in favor of withAudioUnit [#DeprecatedDeclaration]
+ 21 |     var size = UInt32(MemoryLayout<UInt32>.size)
+ 22 |     let status = AudioUnitGetProperty(
+ 23 |         equalizer.audioUnit, kAUNBandEQProperty_MaxNumberOfBands,
+    |                   `- warning: 'audioUnit' was deprecated in macOS 27.0: Deprecated in favor of withAudioUnit [#DeprecatedDeclaration]
+ 24 |         kAudioUnitScope_Global, 0, &maximum, &size
+ 25 |     )
+
+Validation/EQCapabilityProbe32.swift:57:16: warning: 'connect(_:to:format:)' was deprecated in macOS 27.0 [#DeprecatedDeclaration]
+ 55 |         try require(stage.bands.count == 32, "Stage \(index + 1) did not allocate 32 bands")
+ 56 |         engine.attach(stage)
+ 57 |         engine.connect(previous, to: stage, format: format)
+    |                `- warning: 'connect(_:to:format:)' was deprecated in macOS 27.0 [#DeprecatedDeclaration]
+ 58 |         for (bandIndex, band) in stage.bands.enumerated() {
+ 59 |             band.filterType = .parametric
+
+Validation/EQCapabilityProbe32.swift:67:12: warning: 'connect(_:to:format:)' was deprecated in macOS 27.0 [#DeprecatedDeclaration]
+ 65 |         previous = stage
+ 66 |     }
+ 67 |     engine.connect(previous, to: engine.mainMixerNode, format: format)
+    |            `- warning: 'connect(_:to:format:)' was deprecated in macOS 27.0 [#DeprecatedDeclaration]
+ 68 |     engine.mainMixerNode.outputVolume = 1
+ 69 |     try engine.enableManualRenderingMode(.offline, format: format, maximumFrameCount: 4_096)
+
+Validation/EQCapabilityProbe32.swift:77:12: warning: 'play()' was deprecated in macOS 27.0 [#DeprecatedDeclaration]
+ 75 |     player.scheduleBuffer(source)
+ 76 |     try engine.start()
+ 77 |     player.play()
+    |            `- warning: 'play()' was deprecated in macOS 27.0 [#DeprecatedDeclaration]
+ 78 | 
+ 79 |     var outputEnergy = 0.0
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+AURA Apple EQ capability probe — offline, stereo, 48 kHz, 1 kHz sine
+Reported maximum bands per Apple EQ: 32
+four-stage unity: measured 0.0000 dB; expected 0.0 ±0.25 dB
+four stages × +6 dB bell: measured 24.0000 dB; expected 24.0 ±0.25 dB
+four stages × −6 dB bell: measured -24.0000 dB; expected -24.0 ±0.25 dB
+bypassed boosted bands: measured 0.0000 dB; expected 0.0 ±0.25 dB
+128 enabled flat bands: measured 0.0000 dB; expected 0.0 ±0.25 dB
+Capability fixtures passed. Q range, other filters, coefficients, smoothing, UI and audible playback remain unverified.

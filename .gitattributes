@@ -1,0 +1,3 @@
+# Preserve diagnostic logs and the user's original Markdown exactly.
+evidence/** -whitespace
+docs/MASTER_EXECUTION_PROMPT.md -whitespace
