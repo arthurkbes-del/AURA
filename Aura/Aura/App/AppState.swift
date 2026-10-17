@@ -89,8 +89,11 @@ import Observation
 
     public func editModule(_ edit: (inout EqualizerModule) -> Void) {
         selectedModule = min(3, max(0, selectedModule))
-        edit(&saved.configuration.modules[selectedModule])
-        saved.configuration.modules[selectedModule].normalize(sampleRate: activeSampleRate)
+        let index = selectedModule
+        var module = saved.configuration.modules[index]
+        edit(&module)
+        module.normalize(sampleRate: activeSampleRate)
+        saved.configuration.modules[index] = module
         changed()
     }
 
@@ -102,7 +105,10 @@ import Observation
     }
 
     public func editConfiguration(_ edit: (inout AudioConfiguration) -> Void) {
-        edit(&saved.configuration); saved.configuration.normalize(sampleRate: activeSampleRate); changed()
+        var configuration = saved.configuration
+        edit(&configuration)
+        configuration.normalize(sampleRate: activeSampleRate)
+        saved.configuration = configuration; changed()
     }
 
     public func selectModule(_ index: Int) {

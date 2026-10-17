@@ -1,0 +1,111 @@
+Building for debugging...
+[Planning deferred tasks]
+[5 / 29]
+[6 / 30] AuraCore
+[8 / 31] AuraCore
+[14 / 23] AuraSystemValidation-product
+[30 / 39] AuraCoreTests-product
+[32 / 39] AuraCoreTests-product
+[39 / 44] AURA-product
+[41 / 45] AuraSystemValidation-product
+[43 / 47] AURA-product
+[45 / 47] AURA-product
+Build complete! (3,43 seg)
+Test Suite 'Selected tests' started at 2026-10-17 10:04:17.032.
+Test Suite 'AuraCoreTests.xctest' started at 2026-10-17 10:04:17.032.
+Test Suite 'AppStateTests' started at 2026-10-17 10:04:17.032.
+Test Case '-[AuraCoreTests.AppStateTests testGraphStyleEditCanReadSourceStateWhileUpdatingBand]' started.
+Simultaneous accesses to 0x7bc28702d0, but modification requires exclusive access.
+Previous access (a modification) started at AuraCoreTests`AppState.saved.modify + 236 (0x103cd00a8).
+Current access (a read) started at:
+0    libswiftCore.dylib                 0x000000019efcb69c _swift_reportExclusivityConflict + 332
+1    libswiftCore.dylib                 0x000000019ef62f34 swift_beginAccess + 192
+2    AuraCoreTests                      0x0000000103ccfb64 AppState.saved.getter + 96
+3    AuraCoreTests                      0x0000000103cd2c60 AppState.sourceMode.getter + 36
+4    AuraCoreTests                      0x0000000103cd2cbc AppState.activeSampleRate.getter + 36
+5    AuraCoreTests                      0x0000000103c9b3ec closure #1 in AppStateTests.testGraphStyleEditCanReadSourceStateWhileUpdatingBand() + 72
+6    AuraCoreTests                      0x0000000103cd623c closure #1 in AppState.editBand(_:_:) + 416
+7    AuraCoreTests                      0x0000000103cd5ff0 AppState.editModule(_:) + 288
+8    AuraCoreTests                      0x0000000103cd61d4 AppState.editBand(_:_:) + 92
+9    AuraCoreTests                      0x0000000103c9a9e4 AppStateTests.testGraphStyleEditCanReadSourceStateWhileUpdatingBand() + 540
+10   libswift_Concurrency.dylib         0x00000002b72e7b08 swift::runJobInEstablishedExecutorContext(swift::Job*, swift::SerialExecutorRef, swift::TaskExecutorRef) + 328
+11   libswift_Concurrency.dylib         0x00000002b72e9938 swift_job_runImpl(swift::Job*, swift::SerialExecutorRef) + 156
+12   libdispatch.dylib                  0x000000018a86c658 _dispatch_main_queue_drain.cold.6 + 612
+13   libdispatch.dylib                  0x000000018a843a5c _dispatch_main_queue_drain + 176
+14   libdispatch.dylib                  0x000000018a843a20 _dispatch_main_queue_callback_4CF + 44
+15   CoreFoundation                     0x000000018aaf39bc __CFRUNLOOP_IS_SERVICING_THE_MAIN_DISPATCH_QUEUE__ + 16
+16   CoreFoundation                     0x000000018aab4ea0 __CFRunLoopRun + 1980
+17   CoreFoundation                     0x000000018ab8f614 _CFRunLoopRunSpecificWithOptions + 536
+18   XCTestCore                         0x00000001007ff188 +[XCTWaiter _synchronouslyWaitForTimeInterval:] + 244
+19   XCTestCore                         0x00000001007ff804 -[XCTWaiter _performWait:manager:completionHandler:] + 1000
+20   XCTestCore                         0x00000001007fd594 -[XCTWaiter _waitForExpectations:timeout:enforceOrder:synchronously:completionHandler:] + 572
+21   XCTestCore                         0x00000001007fd4bc -[XCTWaiter waitForExpectations:timeout:enforceOrder:] + 136
+22   XCTestCore                         0x00000001007fd910 +[XCTWaiter waitForExpectations:timeout:enforceOrder:] + 76
+23   XCTestCore                         0x000000010078f47c __81+[XCTFailableInvocation invokeWithAsynchronousWait:lastObservedErrorIssue:block:]_block_invoke + 240
+24   XCTestCore                         0x000000010077eef0 __49+[XCTSwiftErrorObservation observeErrorsInBlock:]_block_invoke + 36
+25   XCTestCore                         0x00000001008098ac specialized static XCTSwiftErrorObservation._observeErrors(in:) + 192
+26   XCTestCore                         0x00000001008099ac @objc static XCTSwiftErrorObservation._observeErrors(in:) + 32
+27   XCTestCore                         0x000000010077ed40 +[XCTSwiftErrorObservation observeErrorsInBlock:] + 208
+28   XCTestCore                         0x000000010078f2a0 +[XCTFailableInvocation invokeWithAsynchronousWait:lastObservedErrorIssue:block:] + 228
+29   XCTestCore                         0x000000010078f9a4 +[XCTFailableInvocation invokeInvocation:withTestMethodConvention:lastObservedErrorIssue:] + 416
+30   XCTestCore                         0x000000010078ff98 +[XCTFailableInvocation invokeInvocation:lastObservedErrorIssue:] + 72
+31   XCTestCore                         0x00000001007a5440 -[XCTestCase invokeTestMethod:] + 60
+32   XCTestCore                         0x00000001007a60ac __24-[XCTestCase invokeTest]_block_invoke_4 + 56
+33   XCTestCore                         0x00000001007d3e64 -[XCTMemoryChecker _assertInvalidObjectsDeallocatedAfterScope:] + 84
+34   XCTestCore                         0x00000001007a95f4 -[XCTestCase assertInvalidObjectsDeallocatedAfterScope:] + 84
+35   XCTestCore                         0x00000001007a5b14 __24-[XCTestCase invokeTest]_block_invoke.124 + 676
+36   XCTestCore                         0x00000001007ac740 -[XCTestCase(XCTIssueHandling) _caughtUnhandledDeveloperExceptionPermittingControlFlowInterruptions:caughtInterruptionException:whileExecutingBlock:] + 160
+37   XCTestCore                         0x00000001007a54c4 -[XCTestCase invokeTest] + 612
+38   XCTestCore                         0x00000001007a7668 __45-[XCTestCase _invokeTestIfSupportedOSVersion]_block_invoke + 36
+39   XCTestCore                         0x00000001007ac740 -[XCTestCase(XCTIssueHandling) _caughtUnhandledDeveloperExceptionPermittingControlFlowInterruptions:caughtInterruptionException:whileExecutingBlock:] + 160
+40   XCTestCore                         0x00000001007a7490 -[XCTestCase _invokeTestIfSupportedOSVersion] + 188
+41   XCTestCore                         0x00000001007a6e70 __26-[XCTestCase performTest:]_block_invoke.167 + 368
+42   XCTestCore                         0x000000010077bcd0 +[XCTContext _runInChildOfContext:forTestCase:markAsReportingBase:block:] + 172
+43   XCTestCore                         0x000000010077bc08 +[XCTContext runInContextForTestCase:markAsReportingBase:block:] + 100
+44   XCTestCore                         0x00000001007a6a20 -[XCTestCase performTest:] + 304
+45   XCTestCore                         0x00000001007a232c -[XCTest runTest] + 44
+46   XCTestCore                         0x00000001007b3220 -[XCTestSuite runTestBasedOnRepetitionPolicy:testRun:] + 68
+47   XCTestCore                         0x00000001007b2fb4 __27-[XCTestSuite performTest:]_block_invoke + 176
+48   XCTestCore                         0x00000001007b2634 __59-[XCTestSuite _performProtectedSectionForTest:testSection:]_block_invoke + 48
+49   XCTestCore                         0x000000010077bcd0 +[XCTContext _runInChildOfContext:forTestCase:markAsReportingBase:block:] + 172
+50   XCTestCore                         0x000000010077bc08 +[XCTContext runInContextForTestCase:markAsReportingBase:block:] + 100
+51   XCTestCore                         0x00000001007b2520 -[XCTestSuite _performProtectedSectionForTest:testSection:] + 180
+52   XCTestCore                         0x00000001007b2a30 -[XCTestSuite performTest:] + 244
+53   XCTestCore                         0x00000001007a232c -[XCTest runTest] + 44
+54   XCTestCore                         0x00000001007b3220 -[XCTestSuite runTestBasedOnRepetitionPolicy:testRun:] + 68
+55   XCTestCore                         0x00000001007b2fb4 __27-[XCTestSuite performTest:]_block_invoke + 176
+56   XCTestCore                         0x00000001007b2634 __59-[XCTestSuite _performProtectedSectionForTest:testSection:]_block_invoke + 48
+57   XCTestCore                         0x000000010077bcd0 +[XCTContext _runInChildOfContext:forTestCase:markAsReportingBase:block:] + 172
+58   XCTestCore                         0x000000010077bc08 +[XCTContext runInContextForTestCase:markAsReportingBase:block:] + 100
+59   XCTestCore                         0x00000001007b2520 -[XCTestSuite _performProtectedSectionForTest:testSection:] + 180
+60   XCTestCore                         0x00000001007b2a30 -[XCTestSuite performTest:] + 244
+61   XCTestCore                         0x00000001007a232c -[XCTest runTest] + 44
+62   XCTestCore                         0x00000001007b3220 -[XCTestSuite runTestBasedOnRepetitionPolicy:testRun:] + 68
+63   XCTestCore                         0x00000001007b2fb4 __27-[XCTestSuite performTest:]_block_invoke + 176
+64   XCTestCore                         0x00000001007b2634 __59-[XCTestSuerror: Process '/Applications/Xcode.app/Contents/Developer/usr/bin/xctest -XCTest AuraCoreTests.AppStateTests/testGraphStyleEditCanReadSourceStateWhileUpdatingBand /Users/arthurbes/Documents/ChatGPT/AURA/.build/out/Products/Debug/AuraCoreTests.xctest' exited with unexpected signal code 6
+ite _performProtectedSectionForTest:testSection:]_block_invoke + 48
+65   XCTestCore                         0x000000010077bcd0 +[XCTContext _runInChildOfContext:forTestCase:markAsReportingBase:block:] + 172
+66   XCTestCore                         0x000000010077bc08 +[XCTContext runInContextForTestCase:markAsReportingBase:block:] + 100
+67   XCTestCore                         0x00000001007b2520 -[XCTestSuite _performProtectedSectionForTest:testSection:] + 180
+68   XCTestCore                         0x00000001007b2a30 -[XCTestSuite performTest:] + 244
+69   XCTestCore                         0x00000001007a232c -[XCTest runTest] + 44
+70   XCTestCore                         0x00000001007d0c28 __89-[XCTTestRunSession executeTestsWithIdentifiers:skippingTestsWithIdentifiers:completion:]_block_invoke + 104
+71   XCTestCore                         0x000000010077bcd0 +[XCTContext _runInChildOfContext:forTestCase:markAsReportingBase:block:] + 172
+72   XCTestCore                         0x000000010077bc08 +[XCTContext runInContextForTestCase:markAsReportingBase:block:] + 100
+73   XCTestCore                         0x00000001007d09cc -[XCTTestRunSession executeTestsWithIdentifiers:skippingTestsWithIdentifiers:completion:] + 356
+74   XCTestCore                         0x00000001007c5d78 __72-[XCTExecutionWorker enqueueTestIdentifiersToRun:testIdentifiersToSkip:]_block_invoke_2 + 148
+75   XCTestCore                         0x00000001007c6e00 __XCTAsyncEnumerateWithWaiter_block_invoke + 256
+76   XCTestCore                         0x00000001007c7074 __XCTAsyncEnumerate_block_invoke.116 + 64
+77   XCTestCore                         0x00000001007c5a34 XCTAsyncEnumerateWithWaiter + 572
+78   XCTestCore                         0x00000001007c5960 __72-[XCTExecutionWorker enqueueTestIdentifiersToRun:testIdentifiersToSkip:]_block_invoke + 136
+79   XCTestCore                         0x00000001007c5efc -[XCTExecutionWorker runWithError:] + 80
+80   XCTestCore                         0x00000001007c3a50 __25-[XCTestDriver _runTests]_block_invoke.451 + 56
+81   XCTestCore                         0x00000001007dacf4 -[XCTestObservationCenter _observeTestExecutionForTestBundle:inBlock:] + 108
+82   XCTestCore                         0x00000001007c30f8 -[XCTestDriver _runTests] + 1076
+83   XCTestCore                         0x00000001007c5618 _XCTestMain + 88
+84   xctest                             0x00000001006e1df0 static xctest.main() + 368
+85   xctest                             0x00000001006e1fdc lazy protocol witness table accessor for type MainActor and conformance MainActor + 0
+86   dyld                               0x000000018a61e460 start + 6688
+Fatal access conflict detected.
+Note: Some test targets reported failures:
+  - AuraCoreTests (XCTest)

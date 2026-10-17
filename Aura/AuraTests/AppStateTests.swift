@@ -4,6 +4,25 @@ import XCTest
 @testable import AuraCore
 
 final class AppStateTests: XCTestCase {
+    @MainActor func testGraphStyleEditCanReadSourceStateWhileUpdatingBand() async throws {
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let model = AppState(store: PresetStore(directory: directory))
+        await model.restore()
+        let id = try XCTUnwrap(model.selectedBand?.id)
+        for frequency in [100.0, 1_000, 20_000] {
+            model.editBand(id) { band in
+                band.frequency = min(model.activeSampleRate * 0.49, frequency)
+                band.gain = model.saved.configuration.masterGain
+            }
+        }
+        model.editConfiguration { configuration in
+            configuration.masterGain = model.saved.configuration.inputGain
+        }
+        XCTAssertEqual(model.selectedBand?.frequency, 20_000)
+        XCTAssertEqual(model.saved.configuration.masterGain, model.saved.configuration.inputGain)
+        await model.flush(); model.stopAllAudio()
+    }
     @MainActor func testTypingPresetRenamePreservesInteriorSpaces() async throws {
         let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         defer { try? FileManager.default.removeItem(at: directory) }
