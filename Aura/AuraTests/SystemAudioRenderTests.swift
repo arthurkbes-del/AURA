@@ -4,6 +4,37 @@ import XCTest
 @testable import AuraCore
 
 final class SystemAudioRenderTests: XCTestCase {
+    func testUnverifiedCaptureIsOutputGatedAndValidatedActivationFadesIn() throws {
+        let bridge = try SystemAudioRenderBridge(sampleRate: 48_000, maximumFrames: 1_024, configuration: unity, outputEnabled: false)
+        let input = buffer(1_024), output = buffer(1_024)
+        input.floatChannelData![0].update(repeating: 0.01, count: 1_024)
+        input.floatChannelData![1].update(repeating: 0.01, count: 1_024)
+        bridge.render(input: input.audioBufferList, output: output.mutableAudioBufferList)
+        XCTAssertEqual(output.floatChannelData![0][1_023], 0)
+        XCTAssertEqual(bridge.metrics.inputPeak, 0.01, accuracy: 1e-7)
+        bridge.setOutputEnabled(true)
+        bridge.render(input: input.audioBufferList, output: output.mutableAudioBufferList)
+        XCTAssertLessThan(output.floatChannelData![0][0], 0.0001)
+        XCTAssertEqual(output.floatChannelData![0][1_023], 0.01, accuracy: 1e-7)
+        bridge.setOutputEnabled(false)
+        bridge.render(input: input.audioBufferList, output: output.mutableAudioBufferList)
+        XCTAssertEqual(output.floatChannelData![0][1_023], 0)
+    }
+    func testMissingInputAndTimingGapsHaveAccuratelyNamedCounters() throws {
+        let bridge = try SystemAudioRenderBridge(sampleRate: 48_000, maximumFrames: 8, configuration: unity)
+        let input = buffer(8), output = buffer(8)
+        bridge.render(input: input.audioBufferList, output: output.mutableAudioBufferList, sampleTime: 0)
+        bridge.render(input: input.audioBufferList, output: output.mutableAudioBufferList, sampleTime: 8)
+        bridge.render(input: input.audioBufferList, output: output.mutableAudioBufferList, sampleTime: 24)
+        var empty = AudioBufferList(mNumberBuffers: 0, mBuffers: AudioBuffer(mNumberChannels: 0, mDataByteSize: 0, mData: nil))
+        withUnsafePointer(to: &empty) { bridge.render(input: $0, output: output.mutableAudioBufferList, sampleTime: 32) }
+        bridge.recordOverload()
+        let metrics = bridge.metrics
+        XCTAssertEqual(metrics.timingDiscontinuities, 1)
+        XCTAssertEqual(metrics.missingInputBlocks, 1)
+        XCTAssertEqual(metrics.overloadEvents, 1)
+        XCTAssertEqual(metrics.invalidBuffers, 0)
+    }
     private func buffer(_ frames: Int, interleaved: Bool = false) -> AVAudioPCMBuffer {
         let format = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: 48_000, channels: 2, interleaved: interleaved)!
         let result = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: AVAudioFrameCount(frames))!

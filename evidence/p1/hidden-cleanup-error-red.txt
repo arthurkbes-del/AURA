@@ -1,0 +1,22 @@
+Building for debugging...
+[1 / 1]
+[2 / 8] AuraCoreTests-product
+[4 / 10] AuraCoreTests-product
+[8 / 12] AuraCoreTests-product
+[10 / 12] AuraCoreTests-product
+Build complete! (1,10 seg)
+Test Suite 'Selected tests' started at 2026-10-17 10:07:14.166.
+Test Suite 'AuraCoreTests.xctest' started at 2026-10-17 10:07:14.167.
+Test Suite 'SystemAudioSessionTests' started at 2026-10-17 10:07:14.167.
+Test Case '-[AuraCoreTests.SystemAudioSessionTests testFailedSystemStopDoesNotHideErrorBySwitchingToLocalFile]' started.
+/Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/SystemAudioSessionTests.swift:52: error: -[AuraCoreTests.SystemAudioSessionTests testFailedSystemStopDoesNotHideErrorBySwitchingToLocalFile] : XCTAssertEqual failed: ("localFile") is not equal to ("systemAudio")
+/Users/arthurbes/Documents/ChatGPT/AURA/Aura/AuraTests/SystemAudioSessionTests.swift:53: error: -[AuraCoreTests.SystemAudioSessionTests testFailedSystemStopDoesNotHideErrorBySwitchingToLocalFile] : XCTAssertNotNil failed
+Test Case '-[AuraCoreTests.SystemAudioSessionTests testFailedSystemStopDoesNotHideErrorBySwitchingToLocalFile]' failed (0.115 seconds).
+Test Suite 'SystemAudioSessionTests' failed at 2026-10-17 10:07:14.282.
+	 Executed 1 test, with 2 failures (0 unexpected) in 0.115 (0.116) seconds
+Test Suite 'AuraCoreTests.xctest' failed at 2026-10-17 10:07:14.283.
+	 Executed 1 test, with 2 failures (0 unexpected) in 0.115 (0.116) seconds
+Test Suite 'Selected tests' failed at 2026-10-17 10:07:14.283.
+	 Executed 1 test, with 2 failures (0 unexpected) in 0.115 (0.116) seconds
+Note: Some test targets reported failures:
+  - AuraCoreTests (XCTest)

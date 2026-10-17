@@ -8,7 +8,7 @@
 - Minimum deployment target: macOS 15.0; built locally using Swift 6.4 and Xcode 27.1/macOS 27 SDK.
 - Xcode project: `Aura/Aura.xcodeproj`, shared scheme `Aura`.
 - Current identity `-` is an **ad hoc development signature**. It is not a Developer ID signature and does not establish Gatekeeper acceptance or notarization.
-- The app is menu-bar oriented (`LSUIElement`), has no installer/driver, and does not request audio-capture permission or change system routing.
+- The app is menu-bar oriented (`LSUIElement`), has no installer/driver, and requests system audio capture permission in Applications mode through NSAudioCaptureUsageDescription. P1 creates only session-owned private tap/aggregate resources; it does not change the global default output or use microphone input.
 - LICENSE and THIRD_PARTY_NOTICES.md are included as app resources in Xcode builds.
 
 Build without sending anything externally:
@@ -24,7 +24,7 @@ The bundle is `build/DerivedData/Build/Products/Release/AURA.app`. Keep generate
 
 1. Record confirmed rights holders and contribution provenance. Do not infer ownership from authorship of a prompt, a Git identity, a bundle identifier, or the selected license.
 2. Obtain explicit Product Owner authorization for the exact source publication and binary distribution/channel. Notarization itself uploads software to Apple and must be authorized.
-3. Complete P0 acceptance, hardware/listening checks, license/dependency review, and any relevant GPL installation-information assessment.
+3. Preserve P0 acceptance and complete P1 hardware/listening/recovery checks, license/dependency review, and any relevant GPL installation-information assessment.
 4. Select a release version and immutable Git commit; assemble its complete Corresponding Source, build instructions and notices. Agree how every binary recipient receives GPL-compliant source access before distributing the binary.
 5. Use the owner's own Apple Developer membership and Developer ID Application certificate. Configure identity/team explicitly; never commit certificates, private keys, credentials, or a guessed identity.
 6. Build Release with Developer ID signing and hardened runtime enabled. Inspect entitlements and signatures of the actual bundle, including nested code. Debug build logs and ad hoc signatures do not establish release readiness; the current local Release signature contains a runtime flag but has no Developer ID or team identity.

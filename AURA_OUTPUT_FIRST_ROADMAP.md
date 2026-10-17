@@ -28,18 +28,18 @@ Microphone processing, virtual microphone, HDMI video capture, multitrack record
 
 1. Do not interrupt or weaken P0. Its supported local-file source, four modules, 128-band capacity, tests and human audible-processing acceptance remain required.
 2. **Do not start P1 before P0 is complete and its validation report has been reviewed.** Current state: P0's audible-processing criterion is now confirmed by the Product Owner ("consegui escutar ele muda o som"). Menu icon visibility/panel opening are also confirmed. The subsequent Product Owner instruction "vamos para o p1" releases the report-review entry gate and authorizes P1 execution.
-3. At the P0 handoff, provide a proposed P1 architecture and execution package for review. Preparation is documentation only; it does not authorize starting capture, creating aggregate devices or changing routing now.
+3. At the P0 handoff, provide a proposed P1 architecture and execution package for review. That P0 preparation was documentation only. The subsequent explicit P1 instruction authorizes capture implementation and local validation.
 4. No system-wide compatibility claim is valid until measured on the stated OS, hardware, application and output mode. Preserve evidence and state limitations.
 5. Repository publication, binary distribution and external notarization uploads still require explicit authorization. Confirm copyright ownership and artwork provenance before publication. Preparing a free/open-source release does not itself authorize publishing it.
 
 ## Prepared handoff
 
 - P0 acceptance/evidence: [VALIDATION_REPORT.md](VALIDATION_REPORT.md).
-- Proposed P1 architecture: [docs/P1_ARCHITECTURE.md](docs/P1_ARCHITECTURE.md).
+- P1 architecture: [docs/P1_ARCHITECTURE.md](docs/P1_ARCHITECTURE.md).
 - Gated execution package: [docs/superpowers/plans/2026-10-17-aura-p1.md](docs/superpowers/plans/2026-10-17-aura-p1.md).
 - Current graph and future API assessment: [ARCHITECTURE.md](ARCHITECTURE.md).
 
-**P1 execution status: STARTED by Product Owner instruction "vamos para o p1"; feasibility/implementation underway.**
+**P1 execution status: implemented development candidate, with hardware/listening/recovery acceptance still pending.** See [P1 validation](docs/P1_VALIDATION_REPORT.md).
 
 ## Optional neural processing — future decision
 

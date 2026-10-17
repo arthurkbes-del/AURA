@@ -27,6 +27,11 @@ public struct SystemAudioMetrics: Equatable, Sendable {
     public var inputPeak = 0.0
     public var outputPeak = 0.0
     public var overRange = false
+    public var processingOutputActive = false
+    public var missingInputBlocks = 0
+    public var timingDiscontinuities = 0
+    public var overloadEvents = 0
+    public var overloadMonitoringAvailable = false
     public init() {}
 }
 
@@ -50,6 +55,7 @@ public struct SystemAudioError: LocalizedError {
     func prepareIO(_ configuration: AudioConfiguration) throws
     func addListeners(_ changed: @escaping @MainActor (String) -> Void) throws
     func start() throws
+    func service() throws
     func apply(_ configuration: AudioConfiguration) -> Bool
     func stop() throws
     func removeListeners()
@@ -113,6 +119,8 @@ public struct SystemAudioError: LocalizedError {
     public func refreshMetrics() {
         guard state == .running, let backend else { return }
         if let pendingConfiguration, backend.apply(pendingConfiguration) { self.pendingConfiguration = nil }
+        do { try backend.service() }
+        catch { halt(reason: error.localizedDescription); return }
         metrics = backend.metrics
         if metrics.invalidBuffers > 0 { halt(reason: "Audio callback format or capacity changed. Processing stopped safely; start again to reconnect.") }
     }

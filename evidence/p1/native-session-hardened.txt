@@ -1,0 +1,59 @@
+Building for production...
+[Planning deferred tasks]
+[6 / 13] AuraCore
+[8 / 14] AuraCore
+[13 / 16] AuraSystemValidation-product
+[14 / 17] AuraSystemValidation-product
+[16 / 17] AuraSystemValidation-product
+[17 / 17] AuraSystemValidation-product
+Build complete! (4,55 seg)
+Controlled 1 kHz stereo source ready (amplitude 0.001)
+{
+  "latency" : "not measured",
+  "listening" : "not human verified",
+  "results" : [
+    {
+      "bands" : 128,
+      "blocks" : 127,
+      "frames" : 65024,
+      "halOverloadEvents" : 0,
+      "halOverloadMonitoring" : true,
+      "inputPeak" : 0.0010049032280221581,
+      "invalidBuffers" : 0,
+      "missingInputBlocks" : 0,
+      "observationWallSeconds" : 1.5699800252914429,
+      "output" : "Alto-falantes (MacBook Pro)",
+      "outputPeak" : 0.0019952342668275143,
+      "peakGainDB" : 5.9573930723889141,
+      "performanceScope" : "validator process including HAL\/control\/metrics, not callback-only CPU or hardware latency",
+      "processingOutputActive" : true,
+      "processPeakResidentBytes" : 17711104,
+      "processUserCPUSeconds" : 0.079934000000000005,
+      "sampleRate" : 44100,
+      "scope" : "controlled process",
+      "timestampGaps" : 1
+    },
+    {
+      "bands" : 128,
+      "blocks" : 124,
+      "frames" : 63488,
+      "halOverloadEvents" : 0,
+      "halOverloadMonitoring" : true,
+      "inputPeak" : 0.00099998549558222294,
+      "invalidBuffers" : 0,
+      "missingInputBlocks" : 0,
+      "observationWallSeconds" : 1.5424649715423584,
+      "output" : "Alto-falantes (MacBook Pro)",
+      "outputPeak" : 0.00199523426682751,
+      "peakGainDB" : 6.0000038830597946,
+      "performanceScope" : "validator process including HAL\/control\/metrics, not callback-only CPU or hardware latency",
+      "processingOutputActive" : true,
+      "processPeakResidentBytes" : 18219008,
+      "processUserCPUSeconds" : 0.050155999999999999,
+      "sampleRate" : 44100,
+      "scope" : "all applications except AURA",
+      "timestampGaps" : 1
+    }
+  ]
+}
+NATIVE SESSION PASS: selected/global capture, four-stage EQ, live bypass and cleanup

@@ -31,7 +31,7 @@ import SwiftUI
         .windowResizability(.contentMinSize)
         .commands { AppCommands(model: model) }
 
-        MenuBarExtra("AURA · Local-file EQ", image: model.menuIconAssetName) {
+        MenuBarExtra("AURA · Audio EQ", image: model.menuIconAssetName) {
             MenuBarView(model: model)
                 .task { await model.restore() }
                 .preferredColorScheme(.dark)

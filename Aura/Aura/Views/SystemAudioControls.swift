@@ -45,9 +45,12 @@ struct SystemAudioControls: View {
                 Text(model.systemAudio.state.rawValue.capitalized).font(.caption).foregroundStyle(.secondary)
             }
             if model.systemAudio.state == .running {
-                Text(model.systemAudio.metrics.inputPeak > 0
+                Text(model.systemAudio.metrics.processingOutputActive
                      ? String(format: "Input peak %.1f dBFS · Output peak %.1f dBFS", 20 * log10(max(1e-12, model.systemAudio.metrics.inputPeak)), 20 * log10(max(1e-12, model.systemAudio.metrics.outputPeak)))
-                     : "Waiting for audio signal or capture permission")
+                     : "Waiting for capture signal · ordinary audio remains active. If audio is playing, check capture permission.")
+                    .font(.caption.monospacedDigit()).foregroundStyle(.secondary)
+                let metrics = model.systemAudio.metrics
+                Text("Diagnostics · missing input blocks: \(metrics.missingInputBlocks) · timestamp gaps: \(metrics.timingDiscontinuities) · HAL overload events: \(metrics.overloadMonitoringAvailable ? String(metrics.overloadEvents) : "unavailable")")
                     .font(.caption.monospacedDigit()).foregroundStyle(.secondary)
             }
             if let inventoryError { Text(inventoryError).font(.caption).foregroundStyle(.orange) }

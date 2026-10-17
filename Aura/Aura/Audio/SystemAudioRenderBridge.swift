@@ -15,12 +15,23 @@ public final class SystemAudioRenderBridge: @unchecked Sendable {
     private let inputPeak = Atomic<UInt64>(0)
     private let outputPeak = Atomic<UInt64>(0)
     private let overRange = Atomic<Bool>(false)
+    private let missingInput = Atomic<Int>(0)
+    private let timingGaps = Atomic<Int>(0)
+    private let overloads = Atomic<Int>(0)
+    private let outputEnabled: Atomic<Bool>
+    private var outputEnvelope: Double
+    private let envelopeStep: Double
+    private var lastSampleTime: Double?
+    private var lastFrameCount = 0
 
-    public init(sampleRate: Double, maximumFrames: Int, configuration: AudioConfiguration) throws {
+    public init(sampleRate: Double, maximumFrames: Int, configuration: AudioConfiguration, outputEnabled: Bool = true) throws {
         guard sampleRate.isFinite, (8_000...192_000).contains(sampleRate), (1...65_536).contains(maximumFrames) else {
             throw SystemAudioError("Unsupported system-audio sample rate or callback capacity.")
         }
         self.maximumFrames = maximumFrames
+        self.outputEnabled = Atomic(outputEnabled)
+        outputEnvelope = outputEnabled ? 1 : 0
+        envelopeStep = 1 / max(1, sampleRate * 0.02)
         processor = EqualizerProcessor(sampleRate: sampleRate)
         processor.configureImmediately(configuration)
     }
@@ -32,8 +43,14 @@ public final class SystemAudioRenderBridge: @unchecked Sendable {
         result.inputPeak = Double(bitPattern: inputPeak.exchange(0, ordering: .relaxed))
         result.outputPeak = Double(bitPattern: outputPeak.exchange(0, ordering: .relaxed))
         result.overRange = overRange.load(ordering: .relaxed)
+        result.missingInputBlocks = missingInput.load(ordering: .relaxed)
+        result.timingDiscontinuities = timingGaps.load(ordering: .relaxed)
+        result.overloadEvents = overloads.load(ordering: .relaxed)
         return result
     }
+
+    public func setOutputEnabled(_ enabled: Bool) { outputEnabled.store(enabled, ordering: .relaxed) }
+    public func recordOverload() { _ = overloads.wrappingAdd(1, ordering: .relaxed) }
 
     @discardableResult public func apply(_ configuration: AudioConfiguration) -> Bool { processor.submit(configuration) }
 
@@ -64,7 +81,7 @@ public final class SystemAudioRenderBridge: @unchecked Sendable {
         data[frame * Int(buffers[index].mNumberChannels) + (buffers.count == 1 ? channel : 0)] = Float(bounded)
     }
 
-    public func render(input: UnsafePointer<AudioBufferList>, output: UnsafeMutablePointer<AudioBufferList>) {
+    public func render(input: UnsafePointer<AudioBufferList>, output: UnsafeMutablePointer<AudioBufferList>, sampleTime: Double? = nil) {
         let inputs = UnsafeMutableAudioBufferListPointer(UnsafeMutablePointer(mutating: input))
         let outputs = UnsafeMutableAudioBufferListPointer(output)
         for buffer in outputs { if let data = buffer.mData { memset(data, 0, Int(buffer.mDataByteSize)) } }
@@ -76,15 +93,25 @@ public final class SystemAudioRenderBridge: @unchecked Sendable {
         guard absent || frameCount(inputs) == count else {
             _ = invalid.wrappingAdd(1, ordering: .relaxed); return
         }
+        if inputs.isEmpty || inputs.contains(where: { $0.mData == nil }) { _ = missingInput.wrappingAdd(1, ordering: .relaxed) }
+        if let sampleTime, sampleTime.isFinite {
+            if let lastSampleTime, abs(sampleTime - lastSampleTime - Double(lastFrameCount)) > 1.5 {
+                _ = timingGaps.wrappingAdd(1, ordering: .relaxed)
+            }
+            lastSampleTime = sampleTime; lastFrameCount = count
+        } else { lastSampleTime = nil }
         processor.beginBlock()
+        let enabled = outputEnabled.load(ordering: .relaxed)
         var peakIn = 0.0, peakOut = 0.0
         for frame in 0..<count {
             let left = absent ? 0 : sample(inputs, frame, 0)
             let right = absent ? 0 : sample(inputs, frame, 1)
             peakIn = max(peakIn, max(abs(left), abs(right)))
             let value = processor.processStereo(left, right)
-            peakOut = max(peakOut, max(abs(value.0), abs(value.1)))
-            write(outputs, frame, 0, value.0); write(outputs, frame, 1, value.1)
+            outputEnvelope = enabled ? min(1, outputEnvelope + envelopeStep) : 0
+            let leftOut = value.0 * outputEnvelope, rightOut = value.1 * outputEnvelope
+            peakOut = max(peakOut, max(abs(leftOut), abs(rightOut)))
+            write(outputs, frame, 0, leftOut); write(outputs, frame, 1, rightOut)
         }
         _ = frames.wrappingAdd(count, ordering: .relaxed)
         _ = inputPeak.max(peakIn.bitPattern, ordering: .relaxed)

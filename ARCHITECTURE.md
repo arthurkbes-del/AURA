@@ -19,7 +19,7 @@ The AU supports planar Float32 stereo buses at 8–192 kHz, processing filter st
 
 `BiquadCoefficients` implements normalized digital bell, low/high shelf, high/low-pass and notch coefficients using the [W3C Audio EQ Cookbook](https://www.w3.org/TR/audio-eq-cookbook/) mathematical reference. Q controls damping, including resonant shelves; high-Q shelves need not be monotonic. Pass/notch filters ignore gain, and the UI disables that control. Frequency, gain and Q are finite-clamped to 20…min(20,000, 0.49 × sampleRate), −24…+24 dB and 0.1…30.
 
-The response graph evaluates the exact coefficients used by the processor. It displays the selected module, selected filter and optional whole-chain response with headroom/master gain. It is a steady-state calculation, not a live spectrum or measurement of an external device. Its visible range clips responses outside the plot, and its high-frequency shaded area identifies frequencies above the source's usable Nyquist margin. Before a file loads, 48 kHz is explicitly a preview rate.
+The response graph evaluates the exact coefficients used by the processor. It displays the selected module, selected filter and optional whole-chain response with headroom/master gain. It is a steady-state calculation, not a live spectrum or measurement of an external device. Its visible range clips responses outside the plot, and its high-frequency shaded area identifies frequencies above the source's usable Nyquist margin. Before either source starts, 48 kHz is a preview rate. During capture the graph follows its actual session rate. Value-copy editing prevents overlapping Swift access to saved configuration during graph gestures.
 
 The processor uses transposed direct form II with separate left/right histories, flushes extremely small states and prevents nonfinite input/state propagation. Automated tests check literal gain/cutoff expectations, stability inequalities, rendered sine response, all 128 nonflat bands and actual Audio Unit output. These do not prove the absence of audible artifacts.
 
@@ -33,7 +33,7 @@ Audio buffers, coefficients, states and snapshots are preallocated. The render b
 
 ## State and lifecycle
 
-`@MainActor @Observable AppState` owns versioned value models, selection and user presets. It coalesces audio configuration changes to at most about 30 updates/second and debounces persistence by 400 ms. `PersistenceWriter` serializes disk operations on an actor; atomic JSON writes use Application Support. Shutdown flushes the latest settings before normal termination. Corrupted JSON is quarantined, and unsupported future versions/oversized files are preserved rather than overwritten. Version 1 of the same envelope migrates to version 2; there is no claim to migrate arbitrary older third-party schemas.
+`@MainActor @Observable AppState` owns versioned value models, selection and user presets. It coalesces audio configuration changes to at most about 30 updates/second and debounces persistence by 400 ms. `PersistenceWriter` serializes disk operations on an actor; atomic JSON writes use Application Support. Shutdown flushes the latest settings before normal termination. Corrupted JSON is quarantined, and unsupported future versions/oversized files are preserved rather than overwritten. Versions 1 and 2 of the same envelope migrate to version 3 with default capture preferences; there is no claim to migrate arbitrary older third-party schemas.
 
 `AudioEngineManager` coordinates the graph and explicit transport states: empty, ready, playing, paused, stopped, completed, failed. Generation tokens ignore stale completions. The scheduling completion only publishes an atomic token; the main-actor timer consumes it. Pausing records the frame, stops hardware rendering and resumes via a new segment. Stopping rewinds. A timer exists only during playback; completion and errors stop it. Security-scoped file access is released on replacement/shutdown.
 
@@ -55,18 +55,15 @@ Input/headroom and master gain reduce or increase amplitude. They are **not** tr
 
 A true limiter needs independently validated peak detection, gain envelopes, lookahead/latency policy and listening tests in a later package.
 
-## Future system audio feasibility — outside P0
+## P1 application output processing
 
-Apple's [Core Audio taps sample](https://developer.apple.com/documentation/coreaudio/capturing-system-audio-with-core-audio-taps) requires macOS 14.2 or later. It creates a CATapDescription, uses AudioHardwareCreateProcessTap, and adds the tap to a HAL aggregate device. Descriptions support process lists, mixdown, device/stream selection, visibility and mute behavior. NSAudioCaptureUsageDescription explains capture; recording through the aggregate prompts for permission. Tap/aggregate resources require cleanup.
+The implemented [P1 architecture](docs/P1_ARCHITECTURE.md) uses public process taps and a single private aggregate at a common rate on the selected output. The local-file Audio Unit path remains available; the main-actor source coordinator prevents simultaneous playback paths. Both share EqualizerProcessor and the four-module configuration.
 
-Engineering assessment for a separate package:
+Capture begins unmuted with AURA’s output gated. The control-side health policy verifies nonzero PCM before switching to mutedWhenTapped and fading in the processed return. After 0.5 seconds without signal it gates the return and unmutes ordinary playback; after 2 seconds without callback progress it stops with a recovery message. Silence alone is not classified as denied permission. These thresholds are recovery policy, not measured hardware latency. Clean-host permission revocation and forced-exit restoration still need qualification.
 
-- Resolve and select processes/devices explicitly; exclude AURA's own output to prevent feedback.
-- Prevent simultaneous original dry playback and processed playback; investigate mute behavior with reversible cleanup and device-loss/crash recovery. P0 does not exercise these routing changes.
-- Prefer a coherent output clock. Measure drift compensation, conversion/buffering and end-to-end latency instead of inferring delay from a nominal buffer size.
-- Validate physical/USB outputs separately from Bluetooth, whose buffering, formats and reconnect behavior may differ.
-- Protected content may be unavailable or silent. Apple Music, Spotify, browsers and their output modes require individual compatibility validation; universal support is not promised.
-- Test permission, signing, sandbox/distribution and supported OS behavior before selecting a shipping capture design. P0 requests no capture permission and creates no aggregate device.
+A silent never-started output registration establishes AURA’s own HAL identity before exclusive capture. Own PID/helper bundle identities are excluded and monitored; selected sources are also checked against current HAL object IDs. Device/rate/stream/default-output/sleep changes stop the session for explicit restart. Reverse cleanup retains resources on uncertain failure, checks ownership UIDs, and can retire a never-started registration whose device disappeared or object ID was reused without touching a foreign device.
+
+The render callback validates bounded planar/interleaved stereo Float32 buffers, processes the existing EQ, and publishes atomic peaks/overrange, missing-input, timestamp-gap and HAL overload-event counters. Counters do not establish audible dropout counts. No resampling, cross-device queue or microphone path is implemented. See the [validation report](docs/P1_VALIDATION_REPORT.md) for measured scope and pending tests.
 
 ## Licensing and distribution
 
@@ -74,4 +71,4 @@ Project source is designated GPL-3.0-or-later. See LICENSE, CONTRIBUTING.md and 
 
 ## Output-first roadmap and P1 handoff
 
-The Product Owner prioritizes P1 system output capture/processing, P2 professional DSP, P3 advanced routing and P4 Intel/Apple Silicon/Universal 2 optimization and distribution. See [AURA_OUTPUT_FIRST_ROADMAP.md](AURA_OUTPUT_FIRST_ROADMAP.md). P0 audible processing and menu operation are confirmed; P1 still awaits review of the final P0 report. The proposed [P1 architecture](docs/P1_ARCHITECTURE.md) and [execution package](docs/superpowers/plans/2026-10-17-aura-p1.md) are preparation only. No tap or aggregate device has been created.
+The Product Owner prioritizes P1 system output capture/processing, P2 professional DSP, P3 advanced routing and P4 Intel/Apple Silicon/Universal 2 optimization and distribution. See [AURA_OUTPUT_FIRST_ROADMAP.md](AURA_OUTPUT_FIRST_ROADMAP.md). P0 audible processing and menu operation are confirmed; The subsequent instruction “vamos para o p1” authorized P1 execution. Its [architecture](docs/P1_ARCHITECTURE.md) and [execution package](docs/superpowers/plans/2026-10-17-aura-p1.md) now describe an implemented development candidate, not a qualified release.

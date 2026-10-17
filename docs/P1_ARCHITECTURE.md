@@ -1,46 +1,44 @@
-# Proposed P1 architecture — system output processing
+# P1 architecture — application output processing
 
-**Preparation only; not implemented.** Authority: [output-first roadmap](../AURA_OUTPUT_FIRST_ROADMAP.md). Start only after P0 completion and review of its validation report. No tap, aggregate device, capture permission request or routing mutation has been introduced in P0.
-
-## Proposed path and boundaries
+Implemented development candidate after the Product Owner’s “vamos para o p1” instruction. P0 remains intact. This describes the current implementation; [P1 validation](P1_VALIDATION_REPORT.md) distinguishes evidence from pending qualification.
 
 ```text
-Selected supported application outputs
-  → private Core Audio process tap
-  → AURA-owned aggregate device / HAL I/O
-  → validated format conversion and bounded preallocated buffering
-  → existing EqualizerProcessor (4 × 32 bands + headroom/master)
-  → explicitly selected physical/Bluetooth output
+Supported application output on chosen device
+  → private device/stream-scoped process tap
+  → one owned private aggregate (physical input channels disabled)
+  → bounded stereo Float32 HAL render bridge
+  → EqualizerProcessor (4 × 32 bands + input/module/master gains)
+  → same chosen physical output
 ```
 
-This is an engineering proposal. First test a tap and selected output in a coherent HAL clock domain. If separate input/output clocks are necessary, validate a bounded producer/consumer ring, drift compensation and sample-rate conversion; do not assume nominally equal rates remain synchronized. The diagram does not assert that an aggregate device alone solves playback, synchronization or latency.
+## Format and source contract
 
-Retain the P0 local-file path for regression checks and diagnostics. A main-actor coordinator should own exactly one source session at a time. Both paths use the same normalized four-module configuration and coefficient implementation. Device/control operations, allocation and cleanup remain off the real-time callback. Do not route captured audio through an allocating AVAudioPlayerNode scheduling loop.
+Use public CATapDescription, AudioHardwareCreateProcessTap, AudioHardwareCreateAggregateDevice and paired HAL ownership APIs. The installed SDK declares process taps from macOS 14.2; deployment remains macOS 15. Actual validation is on macOS 27.0.1, Apple Silicon. Apple’s [Core Audio taps sample](https://developer.apple.com/documentation/coreaudio/capturing-system-audio-with-core-audio-taps) informed feasibility; the implementation does not import sample code or a third-party library.
 
-## Public API feasibility and unresolved evidence
+The first supported topology uses one selected output, stereo native-endian Float32, matching tap/output rates at 8–192 kHz. Callback capacity is bounded at 65,536 frames. Planar and interleaved layouts are tested. Generic stereo mixdown stayed at 48 kHz while this host’s output was 44.1 kHz, so that topology was rejected rather than assuming aggregate-device conversion. Cross-device capture/playback, resampling, multichannel and arbitrary output formats remain unsupported until independently implemented and validated. This is a technical boundary, not an artificial feature restriction.
 
-Apple's [Core Audio taps sample](https://developer.apple.com/documentation/coreaudio/capturing-system-audio-with-core-audio-taps) describes creating a process tap and using it as aggregate-device input. The installed SDK declares the relevant APIs. Its setup instructions specify macOS 14.2 or later, while current sample-page metadata lists newer SDK/OS availability; verify individual symbols and actual runtime behavior before setting a P1 deployment target. P0 currently targets macOS 15.
+Applications mode selects all supported processes except AURA, or one refreshed audio process. Global capture excludes the current AURA PID and matching helper bundle identities; a silent never-started physical-output IO registration establishes that PID’s HAL object before creating the tap. Process-list monitoring checks actual HAL object IDs as well as PID/bundle identity. A missing saved application never silently expands to all applications. Persist only stable output UID and bundle hints, not ephemeral PID/HAL IDs. Capture never auto-starts after relaunch.
 
-Investigate `CATapDescription`, `AudioHardwareCreateProcessTap`, tap UID properties, `AudioHardwareCreateAggregateDevice`, HAL I/O callbacks and their paired teardown APIs. Resolve process AudioObjectIDs from a refreshed inventory rather than persisting ephemeral IDs. Confirm all selectors, property sizes, muting and aggregate dictionary keys against the SDK/sample used by the experiment.
+AppState owns one active source path. Starting capture stops local playback; file loading/playback stops capture and refuses to proceed if cleanup failed. The P0 AVAudioEngine/Audio Unit file path and the P1 HAL path use the same EqualizerProcessor. Version 1/2 saved settings migrate to version 3. Graph/inspector use the active source rate. Editing uses local value copies before assigning to saved state so graph closures may read source/configuration without overlapping Swift inout access.
 
-The future app must explain capture with `NSAudioCaptureUsageDescription` and handle the macOS permission flow. Denial or revocation must leave the ordinary output usable. Permission availability and protected content cannot be inferred from successful tap creation.
+## Permission, mute and recovery
 
-## Safety and lifecycle design
+NSAudioCaptureUsageDescription explains capture; no microphone input is opened. Tap creation alone is not proof of granted permission or useful PCM. Begin unmuted with the processed return gated. A control timer polls actual callback progress and peaks every 100 ms. Verified nonzero input enables mutedWhenTapped and a 20 ms return fade. After 0.5 seconds without signal, gate the return and unmute ordinary playback; after 2 seconds without callback progress, unmute and fail with a retry message. Silence is not labeled permission denial. These policy intervals are not latency measurements, and transitions still need listening qualification.
 
-- **Session state:** idle → preparing → running → stopping → idle; failures return an actionable failed state after rollback. A generation identifier invalidates callbacks from previous sessions. Repeated start/stop is idempotent.
-- **Feedback:** exclude AURA's own output from capture; verify the actual exclusion at runtime. Begin experiments with an explicitly selected process, rather than broad capture that might capture the processed return.
-- **Dry duplication:** evaluate tap mute behavior, preferably muting only while the tap is consumed. Do not mute the source before the processed path is ready. Prove teardown/crash recovery restores ordinary output; an API name is not evidence of crash safety.
-- **Ownership:** keep a registry of IDs and unique UIDs created by this session. Stop I/O, remove listeners, destroy callback registrations, destroy owned aggregate, then destroy owned tap. Roll back every partial-start failure. Never destroy a user's existing audio device.
-- **Device changes:** stop/fade safely, invalidate stale callbacks, re-query stream format/clock and reconnect only to a valid chosen output. Handle removal, sleep/wake, default-output changes and Bluetooth reconnect. Do not silently change the global default output.
-- **Sample rates:** reuse model clamping and republish coefficients after a rate change. Explicitly define supported formats/channels; report unsupported modes. Keep state/buffers bounded under underrun/overrun.
-- **Levels:** retain headroom and overrange indication. P1 does not inherit a true peak limiter from P0; independently validated limiter development belongs to P2. No automatic volume changes or promise of clipping prevention.
+The coordinator follows idle → preparing → running → stopping → idle, with actionable failed states. Generation tokens invalidate old listener events. Startup rollback and normal stop reverse ownership: stop I/O, remove listeners, destroy I/O registration, destroy private aggregate, destroy tap, release never-started identity registration. Stop failure retains callback resources for explicit retry. Unique UIDs prevent destruction of foreign resources. A vanished/reused physical device retires only its never-started identity registration; uncertain inventory/read/destroy failures remain errors.
 
-## Validation and release boundaries
+Device disappearance, stream/rate changes, default-output changes for the default selection, process identity changes and sleep stop processing. The user refreshes/selects and starts again; automatic profiles/reconnection are P3. No global default-output or volume mutation occurs. Forced-exit restoration and clean-host denial/revocation still require hardware QA; an API name is not proof of crash safety.
 
-Tests must separate deterministic state/buffering/DSP behavior from hardware integration and listening. Capture a known signal from a controlled source; compare dry and processed spectra/gain, channels, timing and silence. Confirm no doubled dry path and no recursive feedback. Keep P0's 32 tests and 128-band rendered checks passing.
+## Real-time work and diagnostics
 
-Measure end-to-end delay using a defined captured/output reference and a reproducible method. Record device, OS, stream rates, buffer sizes, dropout counts, CPU and memory. Compare internal speakers, wired/USB and Bluetooth separately; do not derive audible latency from buffer size or kernel benchmark throughput. Record protected/unavailable sources as unsupported or unverified, without promising universal compatibility.
+The control producer publishes coefficient plans through the existing preallocated SPSC queue; the HAL consumer performs bounded PCM/filter loops. No UI, file work, coefficient creation, blocking locks or control Task dispatch occurs in the render/overload callbacks. Configure buffers and processor before I/O; release them only after quiescing/destroying I/O. A 20 ms DSP-plan crossfade preserves the existing live-edit policy.
 
-Plan Intel-compatible code paths and build checks now. P4 owns full x86_64/arm64/Universal 2 and distribution qualification; P1 evidence on arm64 cannot prove Intel hardware behavior.
+Atomic diagnostics include frames/blocks, invalid buffers, missing input blocks, sample-time discontinuities, HAL processor-overload events when supported, input/output peaks and actual output overrange. Invalid layout/capacity stops the session safely. Missing input, timestamp gaps and overload events are distinct observations, not proven audible dropout counts. Performance numbers cover the stated measurement scope only. No true peak limiter is implemented; P2 owns that work.
 
-Source publication, distribution, Developer ID identity, notarization and ownership remain governed by [DISTRIBUTION.md](../DISTRIBUTION.md). No experiments in this document have been run as P1 work.
+## Qualification and future boundaries
+
+Run deterministic lifecycle/rollback, policy, stereo/bounds, DSP, persistence and model regressions separately from native controlled-source experiments and human hearing checks. Preserve all P0 tests and four independent 32-band modules. Native tests must state device/rate/source, permission context, mute transitions, cleanup, counters and elapsed observation. Whole-path latency requires a defined reference/capture experiment, not buffer-size arithmetic.
+
+Intel x86_64 and Universal 2 remain required product targets; arm64 runtime evidence does not qualify Intel. P4 owns full architecture/distribution qualification. Microphone/video/neural implementation remains deferred. Optional neural processing is recorded only in [the future decision](decisions/2026-10-17-optional-neural-processing.md); no models or heavy dependencies are present.
+
+GPL-3.0-or-later, source/artwork ownership, publication and distribution remain governed by [DISTRIBUTION.md](../DISTRIBUTION.md). No remote publication, binary distribution or notarization upload is authorized or performed.

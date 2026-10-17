@@ -25,17 +25,21 @@ import Observation
     }
     public var sourceMode: AudioSourceMode { saved.systemAudioPreferences.sourceMode }
     public var activeSampleRate: Double { sourceMode == .systemAudio ? systemAudio.sampleRate : audio.sampleRate }
-    public var engineRunning: Bool { sourceMode == .systemAudio ? systemAudio.state == .running : audio.engineRunning }
+    public var engineRunning: Bool { sourceMode == .systemAudio ? systemAudio.state == .running && systemAudio.metrics.processingOutputActive : audio.engineRunning }
     public var activeOutputName: String { sourceMode == .systemAudio ? systemAudio.outputName : audio.outputName }
     public var activeError: String? { sourceErrorMessage ?? (sourceMode == .systemAudio ? systemAudio.errorMessage : audio.errorMessage) }
     public var activeOverRange: Bool { sourceMode == .systemAudio ? systemAudio.metrics.overRange : audio.overRange }
     public var transportDescription: String {
-        sourceMode == .systemAudio ? "System audio · \(systemAudio.state.rawValue)" : "\(audio.state.label) · Engine \(audio.engineRunning ? "running" : "stopped")"
+        if sourceMode == .systemAudio {
+            return "System audio · \(systemAudio.state == .running && !systemAudio.metrics.processingOutputActive ? "waiting for signal" : systemAudio.state.rawValue)"
+        }
+        return "\(audio.state.label) · Engine \(audio.engineRunning ? "running" : "stopped")"
     }
 
     public func setSourceMode(_ mode: AudioSourceMode) {
         guard mode != sourceMode else { return }
         stopAllAudio()
+        guard systemAudio.state == .idle else { sourceErrorMessage = systemAudio.errorMessage; return }
         saved.systemAudioPreferences.sourceMode = mode; changed()
     }
     public func startSystemAudio(selection: SystemAudioSelection) async {

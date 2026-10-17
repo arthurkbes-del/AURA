@@ -25,6 +25,10 @@ public struct SystemAudioApplication: Identifiable, Hashable, Sendable {
 struct SystemAudioCapturePolicy {
     let processes: [AudioObjectID]
     let exclusive: Bool
+    func matchesCurrent(selection: SystemAudioSelection, ownPID: Int32, applications: [SystemAudioApplication]) -> Bool {
+        guard let current = try? Self.make(selection: selection, ownPID: ownPID, applications: applications) else { return false }
+        return exclusive == current.exclusive && Set(processes) == Set(current.processes)
+    }
     static func make(selection: SystemAudioSelection, ownPID: Int32, applications: [SystemAudioApplication]) throws -> Self {
         guard applications.contains(where: { $0.pid == ownPID }) else {
             throw SystemAudioError("AURA's audio process could not be resolved. Capture was not started to prevent feedback.")
@@ -107,20 +111,24 @@ enum HALAccess {
 @MainActor public final class ProcessTapBackend: SystemAudioBackend {
     public private(set) var sampleRate = 48_000.0
     public private(set) var outputName = "No output"
-    public var metrics: SystemAudioMetrics { bridge?.metrics ?? SystemAudioMetrics() }
+    public var metrics: SystemAudioMetrics { latestMetrics }
+    private var latestMetrics = SystemAudioMetrics()
+    private var health = CaptureHealthPolicy(now: 0)
+    private var overloadMonitoring = false
     private var selection: SystemAudioSelection?
     private var device: AudioObjectID = 0
     private var deviceUID = ""
     private var registration: AudioDeviceIOProcID?
     private var tap: AudioObjectID = 0
     private var tapUID = ""
+    private var tapDescription: CATapDescription?
     private var aggregate: AudioObjectID = 0
     private let aggregateUID = "com.evoluere.aura.session.\(UUID().uuidString)"
     private var io: AudioDeviceIOProcID?
     private var startAttempted = false
     private var bridge: SystemAudioRenderBridge?
     private var policy: SystemAudioCapturePolicy?
-    private var listeners: [(AudioObjectID, AudioObjectPropertyAddress, AudioObjectPropertyListenerBlock)] = []
+    private var listeners: [(AudioObjectID, AudioObjectPropertyAddress, DispatchQueue?, AudioObjectPropertyListenerBlock)] = []
     private var sleepObserver: NSObjectProtocol?
 
     public init() {}
@@ -132,7 +140,13 @@ enum HALAccess {
         }
     }
     nonisolated private static func renderBlock(_ bridge: SystemAudioRenderBridge) -> AudioDeviceIOBlock {
-        { @Sendable _, input, _, output, _ in bridge.render(input: input, output: output) }
+        { @Sendable _, input, inputTime, output, _ in
+            let time = inputTime.pointee
+            bridge.render(input: input, output: output, sampleTime: time.mFlags.contains(.sampleTimeValid) ? time.mSampleTime : nil)
+        }
+    }
+    nonisolated private static func overloadBlock(_ bridge: SystemAudioRenderBridge) -> AudioObjectPropertyListenerBlock {
+        { @Sendable _, _ in bridge.recordOverload() }
     }
 
     public func resolve(_ selection: SystemAudioSelection) throws {
@@ -154,7 +168,10 @@ enum HALAccess {
             ? CATapDescription(excludingProcesses: policy.processes, deviceUID: deviceUID, stream: 0)
             : CATapDescription(processes: policy.processes, deviceUID: deviceUID, stream: 0)
         description.isPrivate = true; description.name = "AURA output processing"
-        description.muteBehavior = .mutedWhenTapped
+        // Probe capture without muting the ordinary path. Output remains gated
+        // until real nonzero PCM is verified by the control-side health policy.
+        description.muteBehavior = .unmuted
+        tapDescription = description
         try HALAccess.check(AudioHardwareCreateProcessTap(description, &tap), "Create process tap")
         tapUID = try HALAccess.string(tap, kAudioTapPropertyUID)
     }
@@ -183,7 +200,7 @@ enum HALAccess {
         }
         guard input.mSampleRate == output.mSampleRate else { throw SystemAudioError("Capture and output rates differ; this path needs unvalidated conversion and was not started.") }
         sampleRate = input.mSampleRate
-        let bridge = try SystemAudioRenderBridge(sampleRate: sampleRate, maximumFrames: 65_536, configuration: configuration)
+        let bridge = try SystemAudioRenderBridge(sampleRate: sampleRate, maximumFrames: 65_536, configuration: configuration, outputEnabled: false)
         self.bridge = bridge
         try HALAccess.check(AudioDeviceCreateIOProcIDWithBlock(&io, aggregate, nil, Self.renderBlock(bridge)), "Prepare processing callback")
     }
@@ -197,7 +214,7 @@ enum HALAccess {
             Task { @MainActor in if when?() ?? true { changed(reason) } }
         }
         try HALAccess.check(AudioObjectAddPropertyListenerBlock(object, &address, .main, block), "Monitor audio changes")
-        listeners.append((object, address, block))
+        listeners.append((object, address, .main, block))
     }
     public func addListeners(_ changed: @escaping @MainActor (String) -> Void) throws {
         try listen(device, kAudioDevicePropertyDeviceIsAlive, reason: "Output disconnected. Select an available output and start again.", changed: changed)
@@ -206,13 +223,21 @@ enum HALAccess {
         if selection?.deviceUID == SystemAudioInventory.defaultOutputUID {
             try listen(AudioObjectID(kAudioObjectSystemObject), kAudioHardwarePropertyDefaultOutputDevice, reason: "System output changed. Start again to use the new output.", changed: changed)
         }
-        if let selection, selection.applicationPID != nil {
+        if let selection, let policy {
             try listen(AudioObjectID(kAudioObjectSystemObject), kAudioHardwarePropertyProcessObjectList,
-                       reason: "Selected application exited or changed audio identity. Refresh and start again.",
+                       reason: "Audio process identity changed. Refresh and start again.",
                        when: {
                 guard let applications = try? SystemAudioInventory.applications() else { return true }
-                return !applications.contains { $0.pid == selection.applicationPID && (selection.applicationBundleID == nil || $0.bundleID == selection.applicationBundleID) }
+                return !policy.matchesCurrent(selection: selection, ownPID: getpid(), applications: applications)
             }, changed: changed)
+        }
+        if let bridge {
+            var address = HALAccess.address(kAudioDeviceProcessorOverload)
+            if AudioObjectHasProperty(aggregate, &address) {
+                let block = Self.overloadBlock(bridge)
+                try HALAccess.check(AudioObjectAddPropertyListenerBlock(aggregate, &address, nil, block), "Monitor HAL overload events")
+                listeners.append((aggregate, address, nil, block)); overloadMonitoring = true
+            }
         }
         sleepObserver = NSWorkspace.shared.notificationCenter.addObserver(forName: NSWorkspace.willSleepNotification, object: nil, queue: .main) { _ in
             Task { @MainActor in changed("Mac is going to sleep. Start processing again after waking.") }
@@ -221,16 +246,47 @@ enum HALAccess {
     public func start() throws {
         guard let io else { throw SystemAudioError("Processing callback is not ready.") }
         startAttempted = true
+        health = CaptureHealthPolicy(now: ProcessInfo.processInfo.systemUptime)
         try HALAccess.check(AudioDeviceStart(aggregate, io), "Start output processing")
+    }
+    private func setTapMute(_ behavior: CATapMuteBehavior) throws {
+        guard let tapDescription else { throw SystemAudioError("Capture description is unavailable.") }
+        tapDescription.muteBehavior = behavior
+        var updated: CATapDescription? = tapDescription
+        var address = HALAccess.address(kAudioTapPropertyDescription)
+        try HALAccess.check(withUnsafePointer(to: &updated) {
+            AudioObjectSetPropertyData(tap, &address, 0, nil, UInt32(MemoryLayout<CATapDescription?>.size), $0)
+        }, "Update capture mute behavior")
+    }
+    public func service() throws {
+        guard let bridge else { return }
+        var snapshot = bridge.metrics
+        switch health.evaluate(snapshot, now: ProcessInfo.processInfo.systemUptime) {
+        case .activate:
+            try setTapMute(.mutedWhenTapped)
+            bridge.setOutputEnabled(true)
+        case .deactivate:
+            bridge.setOutputEnabled(false)
+            try setTapMute(.unmuted)
+        case .stalled:
+            bridge.setOutputEnabled(false)
+            try setTapMute(.unmuted)
+            throw SystemAudioError("Audio capture callbacks stopped. Ordinary audio was restored; check permission/device and start again.")
+        case .none: break
+        }
+        snapshot.processingOutputActive = health.outputActive
+        snapshot.overloadMonitoringAvailable = overloadMonitoring
+        latestMetrics = snapshot
     }
     public func apply(_ configuration: AudioConfiguration) -> Bool { bridge?.apply(configuration) ?? false }
     public func stop() throws {
         guard let io, startAttempted else { return }
+        bridge?.setOutputEnabled(false)
         try HALAccess.check(AudioDeviceStop(aggregate, io), "Stop output processing")
         startAttempted = false
     }
     public func removeListeners() {
-        for (object, var address, block) in listeners { _ = AudioObjectRemovePropertyListenerBlock(object, &address, .main, block) }
+        for (object, var address, queue, block) in listeners { _ = AudioObjectRemovePropertyListenerBlock(object, &address, queue, block) }
         listeners.removeAll()
         if let sleepObserver { NSWorkspace.shared.notificationCenter.removeObserver(sleepObserver) }
         sleepObserver = nil
@@ -259,12 +315,16 @@ enum HALAccess {
             throw SystemAudioError("Tap identity changed; refusing to destroy an unowned tap.")
         }
         try HALAccess.check(AudioHardwareDestroyProcessTap(tap), "Release process tap")
-        tap = 0; tapUID = ""
+        tap = 0; tapUID = ""; tapDescription = nil
     }
     public func releaseRegistration() throws {
         guard let registration else { return }
         guard io == nil, aggregate == 0, tap == 0 else { throw SystemAudioError("Session cleanup incomplete; audio identity retained.") }
-        try HALAccess.check(AudioDeviceDestroyIOProcID(device, registration), "Release AURA audio identity")
+        let present = try HALAccess.objects(kAudioHardwarePropertyDevices).contains(device)
+        let observedUID = present ? try HALAccess.string(device, kAudioDevicePropertyDeviceUID) : nil
+        try HALResourceRelease.releaseNeverStartedRegistration(expectedUID: deviceUID, observedUID: observedUID) {
+            try HALAccess.check(AudioDeviceDestroyIOProcID(device, registration), "Release AURA audio identity")
+        }
         self.registration = nil
     }
 }

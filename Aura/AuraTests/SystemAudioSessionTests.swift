@@ -27,6 +27,7 @@ import XCTest
         change = changed; try acquire("listeners")
     }
     func start() throws { starts += 1; try acquire("started") }
+    func service() throws {}
     func apply(_ configuration: AudioConfiguration) -> Bool { true }
     func release(_ name: String) { if resources.remove(name) != nil { released.append(name) } }
     func stop() throws { release("started") }
@@ -41,6 +42,18 @@ import XCTest
 }
 
 final class SystemAudioSessionTests: XCTestCase {
+    @MainActor func testFailedSystemStopDoesNotHideErrorBySwitchingToLocalFile() async throws {
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let hardware = HardwareFixture()
+        let model = AppState(store: PresetStore(directory: directory), systemAudio: SystemAudioSession(makeBackend: { hardware }))
+        await model.restore(); await model.startSystemAudio(selection: .init(deviceUID: "test"))
+        hardware.failReleaseIO = true
+        model.setSourceMode(.localFile)
+        XCTAssertEqual(model.sourceMode, .systemAudio)
+        XCTAssertNotNil(model.activeError)
+        hardware.failReleaseIO = false; model.stopAllAudio(); await model.flush()
+    }
     @MainActor func testAppSwitchesSourcesExclusivelyAndUsesActualCaptureSampleRate() async throws {
         let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         defer { try? FileManager.default.removeItem(at: directory) }

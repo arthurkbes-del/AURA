@@ -13,8 +13,8 @@ Contributors retain their rights unless a separate, explicit written agreement s
 - Keep audio callbacks free of file I/O, blocking locks, UI work, and dynamic allocation.
 - Add regression tests for changes to DSP, state, playback, or persistence. Keep deterministic tests separate from hardware/listening checks.
 - Never present generated test tones as measurements or claim listening results from automated tests.
-- Do not implement system-wide capture/routing within P0.
-- Follow AURA_OUTPUT_FIRST_ROADMAP.md for later packages. P1 starts only after P0 completion and validation-report review. Preserve the path to Intel and Apple Silicon compatibility; P0's current validation is arm64 only.
+- Preserve the P0 file path while developing P1 capture. Use only session-owned taps/aggregates; reject unsupported formats, exclude AURA feedback and keep dry playback available until useful PCM is verified.
+- Follow AURA_OUTPUT_FIRST_ROADMAP.md for later packages. The Product Owner has released P1’s entry gate; current acceptance limits are in docs/P1_VALIDATION_REPORT.md. Preserve the path to Intel and Apple Silicon compatibility; P0's current validation is arm64 only.
 
 From the repository root:
 
