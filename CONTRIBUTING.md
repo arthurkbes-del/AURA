@@ -29,6 +29,8 @@ zsh Scripts/build-universal.sh
 
 Regenerate the checked-in Xcode project with `python3 Scripts/generate-project.py`. Keep Release `ONLY_ACTIVE_ARCH=NO` and standard architectures. Use the Universal 2 build verifier before recording architecture support; compilation or Rosetta execution alone does not establish physical Intel performance or audio-device behavior.
 
+For every new functionality, rebuild and verify the local Universal 2 app after the final source/resource changes so Intel and Apple Silicon stay current together. Run appropriate regression checks and update the relevant documentation/evidence. The standing instruction is recorded in [AGENTS.md](AGENTS.md); generated binaries stay under ignored `build/`, and publication/distribution still requires explicit authorization.
+
 Use `// SPDX-License-Identifier: GPL-3.0-or-later` in Swift files. In Package.swift, keep the `swift-tools-version` directive first and place SPDX immediately below it. Do not modify the GPL license text itself.
 
 Keep commits focused and document evidence, remaining limitations, and performance measurement methods. Do not commit personal audio, credentials, signing certificates, provisioning profiles, private keys, or notarization credentials.
