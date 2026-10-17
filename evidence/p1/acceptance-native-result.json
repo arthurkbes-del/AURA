@@ -1,0 +1,47 @@
+{
+  "halReportedLatency" : [
+    {
+      "bufferFrames" : 512,
+      "deviceLatencyFrames" : 56,
+      "output" : "Alto-falantes (MacBook Pro)",
+      "rate" : 44100,
+      "safetyOffsetFrames" : 48,
+      "scope" : "HAL-reported components only; not measured acoustic or round-trip latency",
+      "streamLatencyFrames" : [
+        639
+      ]
+    }
+  ],
+  "permission" : "existing development host permission; clean denial\/revocation not tested",
+  "physicalLatency" : "not measured; requires independent output reference",
+  "results" : [
+    {
+      "ownedInventoryReturnedToBaseline" : true,
+      "result" : "PASS",
+      "test" : "20 native start-stop cycles with128 bands"
+    },
+    {
+      "message" : "Audio process identity changed. Refresh and start again.",
+      "result" : "PASS",
+      "test" : "actual selected process exit"
+    },
+    {
+      "physicalSleep" : "not exercised",
+      "result" : "PASS",
+      "test" : "native workspace sleep notification delivery"
+    },
+    {
+      "crossProcessPrivateInventory" : "not observable",
+      "physicalDryRestoration" : "requires listening; not inferred from restart",
+      "result" : "PASS",
+      "test" : "production backend worker SIGKILL then capture restart"
+    },
+    {
+      "alternate" : 48000,
+      "original" : 44100,
+      "restored" : 44100,
+      "result" : "PASS",
+      "test" : "actual built-in rate change and restart"
+    }
+  ]
+}

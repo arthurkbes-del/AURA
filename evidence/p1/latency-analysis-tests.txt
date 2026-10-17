@@ -1,0 +1,35 @@
+warning: 'aura': Invalid Exclude '/Users/arthurbes/Documents/ChatGPT/AURA/Validation/DigitalLatencyProbe.swift': File not found.
+warning: 'aura': Invalid Exclude '/Users/arthurbes/Documents/ChatGPT/AURA/Validation/DigitalLatencyProbe.swift': File not found.
+warning: 'aura': Invalid Exclude '/Users/arthurbes/Documents/ChatGPT/AURA/Validation/DigitalLatencyProbe.swift': File not found.
+warning: 'aura': Invalid Exclude '/Users/arthurbes/Documents/ChatGPT/AURA/Validation/DigitalLatencyProbe.swift': File not found.
+Building for debugging...
+[Pre-planning 1 / 269]
+[Planning deferred tasks]
+[23 / 51] AuraSystemValidation-product
+[26 / 53] AuraSystemValidation-product
+[28 / 53] AuraSystemValidation-product
+[34 / 57] AuraSystemValidation
+[42 / 57] AuraSystemValidation
+[47 / 58] AuraValidationTests-product
+[55 / 61] AuraValidationTests-product
+[57 / 61] AuraValidationTests-product
+Build complete! (2,31 seg)
+Test Suite 'Selected tests' started at 2026-10-17 11:00:24.783.
+Test Suite 'AuraValidationTests.xctest' started at 2026-10-17 11:00:24.783.
+Test Suite 'LatencyCorrelationTests' started at 2026-10-17 11:00:24.783.
+Test Case '-[AuraValidationTests.LatencyCorrelationTests testRecoversKnownDelayedAndAdvancedReturnDespiteAmplitudeChange]' started.
+Test Case '-[AuraValidationTests.LatencyCorrelationTests testRecoversKnownDelayedAndAdvancedReturnDespiteAmplitudeChange]' passed (0.016 seconds).
+Test Case '-[AuraValidationTests.LatencyCorrelationTests testSilenceOrMismatchedSignalCannotProduceLatencyPass]' started.
+Test Case '-[AuraValidationTests.LatencyCorrelationTests testSilenceOrMismatchedSignalCannotProduceLatencyPass]' passed (0.016 seconds).
+Test Suite 'LatencyCorrelationTests' passed at 2026-10-17 11:00:24.816.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.032 (0.032) seconds
+Test Suite 'AuraValidationTests.xctest' passed at 2026-10-17 11:00:24.816.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.032 (0.032) seconds
+Test Suite 'Selected tests' passed at 2026-10-17 11:00:24.816.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.032 (0.033) seconds
+Test Suite 'Selected tests' started at 2026-10-17 11:00:24.884.
+Test Suite 'AuraCoreTests.xctest' started at 2026-10-17 11:00:24.885.
+Test Suite 'AuraCoreTests.xctest' passed at 2026-10-17 11:00:24.885.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.000) seconds
+Test Suite 'Selected tests' passed at 2026-10-17 11:00:24.885.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds

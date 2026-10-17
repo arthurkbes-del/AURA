@@ -1,0 +1,35 @@
+Building for production...
+[1 / 2]
+[2 / 3] AuraSystemValidation-product
+[3 / 4] AuraSystemValidation-product
+[6 / 8] AuraSystemValidation-product
+[7 / 8] AuraSystemValidation-product
+Build complete! (3,31 seg)
+{
+  "frames" : 243200,
+  "invalidBuffers" : 0,
+  "observerRate" : 48000,
+  "physicalEndToEndLatency" : "not measured",
+  "results" : [
+    {
+      "correlation" : 0.95539033129182571,
+      "lagFrames" : 1301,
+      "lagMilliseconds" : 27.104166666666668,
+      "referenceSecond" : 1
+    },
+    {
+      "correlation" : 0.95542524848657395,
+      "lagFrames" : 1301,
+      "lagMilliseconds" : 27.104166666666668,
+      "referenceSecond" : 2
+    },
+    {
+      "correlation" : 0.95540444649503664,
+      "lagFrames" : 1301,
+      "lagMilliseconds" : 27.104166666666668,
+      "referenceSecond" : 3
+    }
+  ],
+  "scope" : "Controlled source process tap to unity AURA return process tap, capture-only observer. Includes tap\/aggregate scheduling and conversion; excludes DAC, speaker and acoustic path."
+}
+CONTROLLED DIGITAL MARKER MEASUREMENT COMPLETE

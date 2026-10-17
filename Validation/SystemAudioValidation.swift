@@ -4,12 +4,23 @@ import Foundation
 import Darwin
 
 @main struct SystemAudioValidation {
-    @MainActor static func main() async throws {
+    @MainActor static func main() async {
+        do { try await execute() }
+        catch { NativeAcceptance.log("VALIDATION FAILED: \(error)"); exit(1) }
+    }
+    @MainActor static func execute() async throws {
         let root = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
-        let observationCount = CommandLine.arguments.contains("--soak") ? 300 : 15
+        if CommandLine.arguments.contains("--digital-latency") { try await DigitalLatencyProbe.run(root); return }
+        if CommandLine.arguments.contains("--acceptance") { try await NativeAcceptance.run(root); return }
+        if let index = CommandLine.arguments.firstIndex(of: "--worker"), index + 1 < CommandLine.arguments.count, let pid = Int32(CommandLine.arguments[index + 1]) {
+            try await NativeAcceptance.worker(root, pid: pid); return
+        }
+        var observationCount = CommandLine.arguments.contains("--soak") ? 300 : 15
+        if let index = CommandLine.arguments.firstIndex(of: "--seconds"), index + 1 < CommandLine.arguments.count,
+           let seconds = Int(CommandLine.arguments[index + 1]), (1...300).contains(seconds) { observationCount = seconds * 10 }
         let source = Process()
         source.executableURL = root.appendingPathComponent("build/P1/AURATestSource")
-        source.arguments = ["--source"]
+        source.arguments = ["--source", "--duration", String(observationCount / 5 + 30)]
         try source.run()
         defer { if source.isRunning { source.terminate(); source.waitUntilExit() } }
         try await Task.sleep(for: .seconds(1))
@@ -32,12 +43,13 @@ import Darwin
                 getrusage(RUSAGE_SELF, &usageBefore)
                 let begin = Date()
                 var maxInput = 0.0, maxOutput = 0.0
-                for _ in 0..<observationCount {
+                for tick in 0..<observationCount {
                     try await Task.sleep(for: .milliseconds(100))
                     guard session.state == .running else { throw SystemAudioError(session.errorMessage ?? "Session stopped") }
                     maxInput = max(maxInput, session.metrics.inputPeak); maxOutput = max(maxOutput, session.metrics.outputPeak)
                     // Controlled fixture is quiet; abort promptly if a recursive
                     // path or unrelated loud source invalidates this experiment.
+                    if tick > 0 && tick % 300 == 0 { NativeAcceptance.log("Progress: \(global ? "all-app" : "selected") \(tick / 10)s, frames=\(session.metrics.frames), gaps=\(session.metrics.timingDiscontinuities), overloads=\(session.metrics.overloadEvents)") }
                     guard maxInput < 0.01, maxOutput < 0.03 else { throw SystemAudioError("Unexpected level: possible other audio or recursive capture. Test stopped.") }
                 }
                 let stats = session.metrics

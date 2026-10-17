@@ -1,0 +1,10 @@
+Building for production...
+[2 / 3] AuraSystemValidation-product
+[3 / 4] AuraSystemValidation-product
+[6 / 8] AuraSystemValidation-product
+[8 / 8] AuraSystemValidation-product
+Build complete! (2,59 seg)
+PASS: 20 repeated native sessions, baseline restored
+PASS: actual source exit and fresh-process restart
+PASS: native sleep-notification listener and cleanup
+VALIDATION FAILED: SystemAudioError(message: "Post-crash restart did not clean up")

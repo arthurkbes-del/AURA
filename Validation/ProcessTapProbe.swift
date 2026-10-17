@@ -112,8 +112,12 @@ private final class ProbeMetrics: @unchecked Sendable {
         let format = AVAudioFormat(standardFormatWithSampleRate: 48_000, channels: 2)!
         let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 48_000)!
         buffer.frameLength = 48_000
+        var seed: UInt32 = 0x51A7
         for frame in 0..<48_000 {
-            let value = Float(0.001 * sin(2 * .pi * 1_000 * Double(frame) / 48_000))
+            seed ^= seed << 13; seed ^= seed >> 17; seed ^= seed << 5
+            let value = CommandLine.arguments.contains("--marker")
+                ? Float(Int32(bitPattern: seed)) / Float(Int32.max) * 0.001
+                : Float(0.001 * sin(2 * .pi * 1_000 * Double(frame) / 48_000))
             buffer.floatChannelData![0][frame] = value; buffer.floatChannelData![1][frame] = value
         }
         engine.attach(player); engine.connect(player, to: engine.mainMixerNode, format: format)
@@ -121,7 +125,12 @@ private final class ProbeMetrics: @unchecked Sendable {
         try engine.start(); player.play()
         defer { player.stop(); engine.stop() }
         log("Controlled 1 kHz stereo source ready (amplitude 0.001)")
-        try await Task.sleep(for: .seconds(90))
+        let duration: Double
+        if let index = CommandLine.arguments.firstIndex(of: "--duration"), index + 1 < CommandLine.arguments.count,
+           let requested = Double(CommandLine.arguments[index + 1]), requested.isFinite, (1...900).contains(requested) {
+            duration = requested
+        } else { duration = 90 }
+        try await Task.sleep(for: .seconds(duration))
     }
 
     @MainActor static func probe() async throws {
