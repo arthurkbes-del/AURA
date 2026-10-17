@@ -1,0 +1,15 @@
+Validation/ProcessTapProbe.swift:116:16: warning: consider using asynchronous alternative function
+114 |         }
+115 |         engine.attach(player); engine.connect(player, to: engine.mainMixerNode, format: format)
+116 |         player.scheduleBuffer(buffer, at: nil, options: .loops, completionHandler: nil)
+    |                `- warning: consider using asynchronous alternative function
+117 |         try engine.start(); player.play()
+118 |         defer { player.stop(); engine.stop() }
+
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk/System/Library/Frameworks/AVFAudio.framework/Headers/AVAudioPlayerNode.h:202:1: note: 'scheduleBuffer(_:at:options:)' declared here
+200 | 		or before the buffer is played completely.
+201 | */
+202 | - (void)scheduleBuffer:(AVAudioPCMBuffer *)buffer atTime:(AVAudioTime * __nullable)when options:(AVAudioPlayerNodeBufferOptions)options completionHandler:(AVAudioNodeCompletionHandler __nullable)completionHandler;
+    | `- note: 'scheduleBuffer(_:at:options:)' declared here
+203 | 
+204 | /*! @method scheduleBuffer:atTime:options:completionCallbackType:completionHandler:

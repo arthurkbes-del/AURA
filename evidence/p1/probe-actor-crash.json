@@ -1,0 +1,21 @@
+{
+  "experiment": "device-scoped tap, pre-capture IOProc registration",
+  "failure": "Swift closure inherited MainActor in non-Sendable C block API; hardware callback failed actor isolation assertion",
+  "exception": "EXC_BREAKPOINT",
+  "frames": [
+    "_dispatch_assert_queue_fail",
+    "dispatch_assert_queue$V2.cold.1",
+    "dispatch_assert_queue",
+    "_swift_task_checkIsolatedSwift",
+    "swift_task_isCurrentExecutorWithFlagsImpl(swift::SerialExecutorRef, swift::swift_task_is_current_executor_flag)",
+    "closure #2 in static ProcessTapProbe.probe()",
+    "thunk for @escaping @callee_guaranteed (@unowned UnsafePointer<AudioTimeStamp>, @unowned UnsafePointer<AudioBufferList>, @unowned UnsafePointer<AudioTimeStamp>, @unowned UnsafeMutablePointer<AudioBufferList>, @unowned UnsafePointer<AudioTimeStamp>) -> ()",
+    "HALC_ProxyIOContext::IOWorkLoop()",
+    "invocation function for block in HALC_ProxyIOContext::HALC_ProxyIOContext(unsigned int, unsigned int)",
+    "HALC_IOThread::Entry(void*)",
+    "_pthread_start",
+    "thread_start"
+  ],
+  "fix": "construct explicitly Sendable callback in a nonisolated function; no main-actor access in callback",
+  "privacy": "extracted stack only; raw crash report not copied"
+}

@@ -1,0 +1,24 @@
+Controlled 1 kHz stereo source ready (amplitude 0.001)
+tap=119, sourcePID=7859, rate=44100.0, channels=2, flags=9
+aggregate=120, inputChannels=2, outputChannels=2
+output format: id=1819304813, rate=44100.0, flags=9, bits=32, channels=2
+aggregate input format: rate=44100.0, flags=9, bits=32, channels=2
+Starting controlled capture; macOS may request system audio recording permission
+{
+  "frames" : 186368,
+  "outputGain" : 0.5,
+  "topology" : "one private aggregate, tap + physical output",
+  "latency" : "not measured",
+  "peak" : 0.00049999274779111147,
+  "tapRate" : 44100,
+  "invalidBuffers" : 0,
+  "inputEnergy" : 0.18631501998878386,
+  "output" : "Alto-falantes (MacBook Pro)",
+  "dryDuplication" : "requires output observation; not inferred from callback gain",
+  "source" : "controlled child process only; not global\/personal audio",
+  "blocks" : 364,
+  "aggregateRate" : 44100
+}
+PROBE PASS: captured nonzero controlled audio, wrote half-amplitude output
+destroyAggregate=0
+destroyTap=0

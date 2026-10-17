@@ -14,9 +14,9 @@ let package = Package(
                           exclude: ["Audio", "Models", "Persistence", "Branding", "App/AppState.swift", "Resources"],
                           sources: ["App/AuraApp.swift", "App/AppCommands.swift", "Views"]),
         .executableTarget(name: "AuraValidation", dependencies: ["AuraCore"], path: "Validation",
-                          exclude: ["EQCapabilityProbe.swift", "GenerateIcons.swift"], sources: ["EngineValidation.swift"]),
+                          exclude: ["EQCapabilityProbe.swift", "GenerateIcons.swift", "ProcessTapProbe.swift", "run-process-tap-probe.sh"], sources: ["EngineValidation.swift"]),
         .executableTarget(name: "AuraIconGenerator", dependencies: ["AuraCore"], path: "Validation",
-                          exclude: ["EQCapabilityProbe.swift", "EngineValidation.swift"], sources: ["GenerateIcons.swift"]),
+                          exclude: ["EQCapabilityProbe.swift", "EngineValidation.swift", "ProcessTapProbe.swift", "run-process-tap-probe.sh"], sources: ["GenerateIcons.swift"]),
         .testTarget(name: "AuraCoreTests", dependencies: ["AuraCore"], path: "Aura/AuraTests")
     ],
     swiftLanguageModes: [.v6]

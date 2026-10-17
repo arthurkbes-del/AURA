@@ -1,0 +1,15 @@
+{
+  "aggregateRate" : 44100,
+  "blocks" : 364,
+  "dryDuplication" : "requires output observation; not inferred from callback gain",
+  "frames" : 186368,
+  "inputEnergy" : 0.18631501998878386,
+  "invalidBuffers" : 0,
+  "latency" : "not measured",
+  "output" : "Alto-falantes (MacBook Pro)",
+  "outputGain" : 0.5,
+  "peak" : 0.00049999274779111147,
+  "source" : "controlled child process only; not global\/personal audio",
+  "tapRate" : 44100,
+  "topology" : "one private aggregate, tap + physical output"
+}

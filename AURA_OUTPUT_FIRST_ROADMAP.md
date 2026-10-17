@@ -27,7 +27,7 @@ Microphone processing, virtual microphone, HDMI video capture, multitrack record
 ## Gates and governance
 
 1. Do not interrupt or weaken P0. Its supported local-file source, four modules, 128-band capacity, tests and human audible-processing acceptance remain required.
-2. **Do not start P1 before P0 is complete and its validation report has been reviewed.** Current state: P0's audible-processing criterion is now confirmed by the Product Owner ("consegui escutar ele muda o som"). Menu icon visibility/panel opening are also confirmed. Review of the final P0 validation report remains pending.
+2. **Do not start P1 before P0 is complete and its validation report has been reviewed.** Current state: P0's audible-processing criterion is now confirmed by the Product Owner ("consegui escutar ele muda o som"). Menu icon visibility/panel opening are also confirmed. The subsequent Product Owner instruction "vamos para o p1" releases the report-review entry gate and authorizes P1 execution.
 3. At the P0 handoff, provide a proposed P1 architecture and execution package for review. Preparation is documentation only; it does not authorize starting capture, creating aggregate devices or changing routing now.
 4. No system-wide compatibility claim is valid until measured on the stated OS, hardware, application and output mode. Preserve evidence and state limitations.
 5. Repository publication, binary distribution and external notarization uploads still require explicit authorization. Confirm copyright ownership and artwork provenance before publication. Preparing a free/open-source release does not itself authorize publishing it.
@@ -39,4 +39,12 @@ Microphone processing, virtual microphone, HDMI video capture, multitrack record
 - Gated execution package: [docs/superpowers/plans/2026-10-17-aura-p1.md](docs/superpowers/plans/2026-10-17-aura-p1.md).
 - Current graph and future API assessment: [ARCHITECTURE.md](ARCHITECTURE.md).
 
-**P1 execution status: NOT STARTED.**
+**P1 execution status: STARTED by Product Owner instruction "vamos para o p1"; feasibility/implementation underway.**
+
+## Optional neural processing — future decision
+
+The Product Owner approved optional **AURA Neural Voice** (noise reduction/voice preservation, real time where viable) and **AURA Neural Video** (super-resolution, denoising/restoration/perceptual improvement). They remain future modules after the output-first priorities and do not change P1's scope or the deferred microphone/video ordering.
+
+Preserve AURA Core as a Universal 2 product with conventional features on compatible Intel Macs. Future neural modules use Core ML, runtime capability detection and measured acceleration; MLComputeUnits.all alone is not proof of Neural Engine execution. Processing stays local/offline. Each model requires quality/latency/memory/energy evidence and a compatible license review before integration. No model download or heavy dependency is authorized by this documentation task.
+
+Full decision: [docs/decisions/2026-10-17-optional-neural-processing.md](docs/decisions/2026-10-17-optional-neural-processing.md).

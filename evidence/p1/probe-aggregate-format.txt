@@ -1,0 +1,8 @@
+Controlled 1 kHz stereo source ready (amplitude 0.001)
+tap=118, sourcePID=7797, rate=48000.0, channels=2, flags=9
+aggregate=119, inputChannels=2, outputChannels=2
+output format: id=1819304813, rate=44100.0, flags=9, bits=32, channels=2
+aggregate input format: rate=48000.0, flags=9, bits=32, channels=2
+destroyAggregate=0
+destroyTap=0
+PROBE FAILED: Probe needs same-clock Float32 input/output; conversion not assumed

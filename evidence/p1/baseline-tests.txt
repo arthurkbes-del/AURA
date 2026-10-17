@@ -1,0 +1,95 @@
+Building for debugging...
+[1 / 12] AuraCoreTests-product
+Build complete! (0,21 seg)
+Test Suite 'All tests' started at 2026-10-17 09:37:56.311.
+Test Suite 'AuraCoreTests.xctest' started at 2026-10-17 09:37:56.311.
+Test Suite 'AppStateTests' started at 2026-10-17 09:37:56.311.
+Test Case '-[AuraCoreTests.AppStateTests testFileRateChangeClampsEditableConfigurationToNyquist]' started.
+Test Case '-[AuraCoreTests.AppStateTests testFileRateChangeClampsEditableConfigurationToNyquist]' passed (0.075 seconds).
+Test Case '-[AuraCoreTests.AppStateTests testFlushPersistsLatestChangeAndRelaunchRestoresIt]' started.
+Test Case '-[AuraCoreTests.AppStateTests testFlushPersistsLatestChangeAndRelaunchRestoresIt]' passed (0.001 seconds).
+Test Case '-[AuraCoreTests.AppStateTests testPresetRenameDeleteAndResetPreserveIndependentModules]' started.
+Test Case '-[AuraCoreTests.AppStateTests testPresetRenameDeleteAndResetPreserveIndependentModules]' passed (0.001 seconds).
+Test Case '-[AuraCoreTests.AppStateTests testTypingPresetRenamePreservesInteriorSpaces]' started.
+Test Case '-[AuraCoreTests.AppStateTests testTypingPresetRenamePreservesInteriorSpaces]' passed (0.001 seconds).
+Test Suite 'AppStateTests' passed at 2026-10-17 09:37:56.389.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 0.078 (0.078) seconds
+Test Suite 'DSPTests' started at 2026-10-17 09:37:56.389.
+Test Case '-[AuraCoreTests.DSPTests testAll128NonflatBandsProcessActualSamples]' started.
+Test Case '-[AuraCoreTests.DSPTests testAll128NonflatBandsProcessActualSamples]' passed (0.576 seconds).
+Test Case '-[AuraCoreTests.DSPTests testAllFiltersStableAtParameterExtremes]' started.
+Test Case '-[AuraCoreTests.DSPTests testAllFiltersStableAtParameterExtremes]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.DSPTests testBellCenterAndShelvesHaveSpecifiedGain]' started.
+Test Case '-[AuraCoreTests.DSPTests testBellCenterAndShelvesHaveSpecifiedGain]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.DSPTests testCombinedResponseRespectsModuleAndGlobalBypass]' started.
+Test Case '-[AuraCoreTests.DSPTests testCombinedResponseRespectsModuleAndGlobalBypass]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.DSPTests testFlatBellIsUnityAtAllFrequencies]' started.
+Test Case '-[AuraCoreTests.DSPTests testFlatBellIsUnityAtAllFrequencies]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.DSPTests testKernelRendersGainAndSmoothsBypassWithoutNonfiniteSamples]' started.
+Test Case '-[AuraCoreTests.DSPTests testKernelRendersGainAndSmoothsBypassWithoutNonfiniteSamples]' passed (0.010 seconds).
+Test Case '-[AuraCoreTests.DSPTests testLargeHighQFrequencyChangeDoesNotReuseIncompatibleHistory]' started.
+Test Case '-[AuraCoreTests.DSPTests testLargeHighQFrequencyChangeDoesNotReuseIncompatibleHistory]' passed (0.019 seconds).
+Test Case '-[AuraCoreTests.DSPTests testMetadataEditsPreserveEstablishedHighQFilterState]' started.
+Test Case '-[AuraCoreTests.DSPTests testMetadataEditsPreserveEstablishedHighQFilterState]' passed (0.081 seconds).
+Test Case '-[AuraCoreTests.DSPTests testNonfiniteInputIsSanitizedDuringGainTransition]' started.
+Test Case '-[AuraCoreTests.DSPTests testNonfiniteInputIsSanitizedDuringGainTransition]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.DSPTests testPassCutoffAndNotch]' started.
+Test Case '-[AuraCoreTests.DSPTests testPassCutoffAndNotch]' passed (0.000 seconds).
+Test Suite 'DSPTests' passed at 2026-10-17 09:37:57.077.
+	 Executed 10 tests, with 0 failures (0 unexpected) in 0.687 (0.687) seconds
+Test Suite 'ModelTests' started at 2026-10-17 09:37:57.077.
+Test Case '-[AuraCoreTests.ModelTests testBandCapacityAndLastBandProtection]' started.
+Test Case '-[AuraCoreTests.ModelTests testBandCapacityAndLastBandProtection]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.ModelTests testConfigurationNormalizesToFourIndependentModules]' started.
+Test Case '-[AuraCoreTests.ModelTests testConfigurationNormalizesToFourIndependentModules]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.ModelTests testFactoryPresetsContainActualDistinctParameters]' started.
+Test Case '-[AuraCoreTests.ModelTests testFactoryPresetsContainActualDistinctParameters]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.ModelTests testInvalidParametersAreFiniteAndClampedBelowNyquist]' started.
+Test Case '-[AuraCoreTests.ModelTests testInvalidParametersAreFiniteAndClampedBelowNyquist]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.ModelTests testNormalizationRepairsDuplicateIdentifiersAndEmptyBands]' started.
+Test Case '-[AuraCoreTests.ModelTests testNormalizationRepairsDuplicateIdentifiersAndEmptyBands]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.ModelTests testTypingModuleNamePreservesInteriorSpaces]' started.
+Test Case '-[AuraCoreTests.ModelTests testTypingModuleNamePreservesInteriorSpaces]' passed (0.000 seconds).
+Test Suite 'ModelTests' passed at 2026-10-17 09:37:57.077.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.001 (0.001) seconds
+Test Suite 'OfflineGraphTests' started at 2026-10-17 09:37:57.077.
+Test Case '-[AuraCoreTests.OfflineGraphTests testMonoPlayerFeedsBothStereoEQChannels]' started.
+Test Case '-[AuraCoreTests.OfflineGraphTests testMonoPlayerFeedsBothStereoEQChannels]' passed (0.006 seconds).
+Test Case '-[AuraCoreTests.OfflineGraphTests testNativeAudioUnitProcessesAll128BandsFromActualPlayerSamples]' started.
+Test Case '-[AuraCoreTests.OfflineGraphTests testNativeAudioUnitProcessesAll128BandsFromActualPlayerSamples]' passed (0.561 seconds).
+Test Case '-[AuraCoreTests.OfflineGraphTests testRenderedGraphReleasesItsAudioUnit]' started.
+Test Case '-[AuraCoreTests.OfflineGraphTests testRenderedGraphReleasesItsAudioUnit]' passed (0.005 seconds).
+Test Suite 'OfflineGraphTests' passed at 2026-10-17 09:37:57.649.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.572 (0.572) seconds
+Test Suite 'PlaybackStateTests' started at 2026-10-17 09:37:57.649.
+Test Case '-[AuraCoreTests.PlaybackStateTests testDelayedOldCompletionCannotOverwriteNewestCompletion]' started.
+Test Case '-[AuraCoreTests.PlaybackStateTests testDelayedOldCompletionCannotOverwriteNewestCompletion]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.PlaybackStateTests testEmptyPlaybackProducesRecoverableError]' started.
+Test Case '-[AuraCoreTests.PlaybackStateTests testEmptyPlaybackProducesRecoverableError]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.PlaybackStateTests testInvalidAndMissingFileDoNotStartEngine]' started.
+Test Case '-[AuraCoreTests.PlaybackStateTests testInvalidAndMissingFileDoNotStartEngine]' passed (0.005 seconds).
+Test Case '-[AuraCoreTests.PlaybackStateTests testLoadingRealWAVAndStopStateWithoutHardwarePlayback]' started.
+Test Case '-[AuraCoreTests.PlaybackStateTests testLoadingRealWAVAndStopStateWithoutHardwarePlayback]' passed (0.004 seconds).
+Test Case '-[AuraCoreTests.PlaybackStateTests testTransportRejectsStaleCompletionAndMakesPlayIdempotent]' started.
+Test Case '-[AuraCoreTests.PlaybackStateTests testTransportRejectsStaleCompletionAndMakesPlayIdempotent]' passed (0.000 seconds).
+Test Suite 'PlaybackStateTests' passed at 2026-10-17 09:37:57.658.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.009 (0.009) seconds
+Test Suite 'PresetStoreTests' started at 2026-10-17 09:37:57.658.
+Test Case '-[AuraCoreTests.PresetStoreTests testCorruptFileIsQuarantinedAndRecoversDefaults]' started.
+Test Case '-[AuraCoreTests.PresetStoreTests testCorruptFileIsQuarantinedAndRecoversDefaults]' passed (0.001 seconds).
+Test Case '-[AuraCoreTests.PresetStoreTests testFutureVersionIsPreservedAndCannotBeOverwritten]' started.
+Test Case '-[AuraCoreTests.PresetStoreTests testFutureVersionIsPreservedAndCannotBeOverwritten]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.PresetStoreTests testRoundTripPreservesBypassAndCustomPresets]' started.
+Test Case '-[AuraCoreTests.PresetStoreTests testRoundTripPreservesBypassAndCustomPresets]' passed (0.001 seconds).
+Test Case '-[AuraCoreTests.PresetStoreTests testVersionOneMigratesWithoutLosingParameters]' started.
+Test Case '-[AuraCoreTests.PresetStoreTests testVersionOneMigratesWithoutLosingParameters]' passed (0.001 seconds).
+Test Suite 'PresetStoreTests' passed at 2026-10-17 09:37:57.661.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 0.003 (0.003) seconds
+Test Suite 'AuraCoreTests.xctest' passed at 2026-10-17 09:37:57.661.
+	 Executed 32 tests, with 0 failures (0 unexpected) in 1.348 (1.350) seconds
+Test Suite 'All tests' passed at 2026-10-17 09:37:57.661.
+	 Executed 32 tests, with 0 failures (0 unexpected) in 1.348 (1.351) seconds
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.
