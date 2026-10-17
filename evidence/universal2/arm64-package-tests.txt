@@ -1,0 +1,184 @@
+Building for debugging...
+[1 / 3]
+Build complete! (0,38 seg)
+Test Suite 'All tests' started at 2026-10-17 16:26:14.213.
+Test Suite 'AuraValidationTests.xctest' started at 2026-10-17 16:26:14.214.
+Test Suite 'LatencyCorrelationTests' started at 2026-10-17 16:26:14.214.
+Test Case '-[AuraValidationTests.LatencyCorrelationTests testPeriodicToneCannotMasqueradeAsUniqueTimingMarker]' started.
+Test Case '-[AuraValidationTests.LatencyCorrelationTests testPeriodicToneCannotMasqueradeAsUniqueTimingMarker]' passed (0.009 seconds).
+Test Case '-[AuraValidationTests.LatencyCorrelationTests testRecoversKnownDelayedAndAdvancedReturnDespiteAmplitudeChange]' started.
+Test Case '-[AuraValidationTests.LatencyCorrelationTests testRecoversKnownDelayedAndAdvancedReturnDespiteAmplitudeChange]' passed (0.016 seconds).
+Test Case '-[AuraValidationTests.LatencyCorrelationTests testSilenceOrMismatchedSignalCannotProduceLatencyPass]' started.
+Test Case '-[AuraValidationTests.LatencyCorrelationTests testSilenceOrMismatchedSignalCannotProduceLatencyPass]' passed (0.015 seconds).
+Test Suite 'LatencyCorrelationTests' passed at 2026-10-17 16:26:14.254.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.040 (0.040) seconds
+Test Suite 'AuraValidationTests.xctest' passed at 2026-10-17 16:26:14.254.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.040 (0.040) seconds
+Test Suite 'All tests' passed at 2026-10-17 16:26:14.254.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.040 (0.041) seconds
+Test Suite 'All tests' started at 2026-10-17 16:26:14.319.
+Test Suite 'AuraCoreTests.xctest' started at 2026-10-17 16:26:14.320.
+Test Suite 'AppStateTests' started at 2026-10-17 16:26:14.320.
+Test Case '-[AuraCoreTests.AppStateTests testFileRateChangeClampsEditableConfigurationToNyquist]' started.
+Test Case '-[AuraCoreTests.AppStateTests testFileRateChangeClampsEditableConfigurationToNyquist]' passed (0.086 seconds).
+Test Case '-[AuraCoreTests.AppStateTests testFlushPersistsLatestChangeAndRelaunchRestoresIt]' started.
+Test Case '-[AuraCoreTests.AppStateTests testFlushPersistsLatestChangeAndRelaunchRestoresIt]' passed (0.001 seconds).
+Test Case '-[AuraCoreTests.AppStateTests testGraphStyleEditCanReadSourceStateWhileUpdatingBand]' started.
+Test Case '-[AuraCoreTests.AppStateTests testGraphStyleEditCanReadSourceStateWhileUpdatingBand]' passed (0.001 seconds).
+Test Case '-[AuraCoreTests.AppStateTests testPresetRenameDeleteAndResetPreserveIndependentModules]' started.
+Test Case '-[AuraCoreTests.AppStateTests testPresetRenameDeleteAndResetPreserveIndependentModules]' passed (0.001 seconds).
+Test Case '-[AuraCoreTests.AppStateTests testTypingPresetRenamePreservesInteriorSpaces]' started.
+Test Case '-[AuraCoreTests.AppStateTests testTypingPresetRenamePreservesInteriorSpaces]' passed (0.001 seconds).
+Test Suite 'AppStateTests' passed at 2026-10-17 16:26:14.411.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.090 (0.091) seconds
+Test Suite 'DSPTests' started at 2026-10-17 16:26:14.411.
+Test Case '-[AuraCoreTests.DSPTests testAll128NonflatBandsProcessActualSamples]' started.
+Test Case '-[AuraCoreTests.DSPTests testAll128NonflatBandsProcessActualSamples]' passed (0.590 seconds).
+Test Case '-[AuraCoreTests.DSPTests testAllFiltersStableAtParameterExtremes]' started.
+Test Case '-[AuraCoreTests.DSPTests testAllFiltersStableAtParameterExtremes]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.DSPTests testBellCenterAndShelvesHaveSpecifiedGain]' started.
+Test Case '-[AuraCoreTests.DSPTests testBellCenterAndShelvesHaveSpecifiedGain]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.DSPTests testCombinedResponseRespectsModuleAndGlobalBypass]' started.
+Test Case '-[AuraCoreTests.DSPTests testCombinedResponseRespectsModuleAndGlobalBypass]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.DSPTests testFlatBellIsUnityAtAllFrequencies]' started.
+Test Case '-[AuraCoreTests.DSPTests testFlatBellIsUnityAtAllFrequencies]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.DSPTests testKernelRendersGainAndSmoothsBypassWithoutNonfiniteSamples]' started.
+Test Case '-[AuraCoreTests.DSPTests testKernelRendersGainAndSmoothsBypassWithoutNonfiniteSamples]' passed (0.011 seconds).
+Test Case '-[AuraCoreTests.DSPTests testLargeHighQFrequencyChangeDoesNotReuseIncompatibleHistory]' started.
+Test Case '-[AuraCoreTests.DSPTests testLargeHighQFrequencyChangeDoesNotReuseIncompatibleHistory]' passed (0.020 seconds).
+Test Case '-[AuraCoreTests.DSPTests testMetadataEditsPreserveEstablishedHighQFilterState]' started.
+Test Case '-[AuraCoreTests.DSPTests testMetadataEditsPreserveEstablishedHighQFilterState]' passed (0.093 seconds).
+Test Case '-[AuraCoreTests.DSPTests testNonfiniteInputIsSanitizedDuringGainTransition]' started.
+Test Case '-[AuraCoreTests.DSPTests testNonfiniteInputIsSanitizedDuringGainTransition]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.DSPTests testPassCutoffAndNotch]' started.
+Test Case '-[AuraCoreTests.DSPTests testPassCutoffAndNotch]' passed (0.000 seconds).
+Test Suite 'DSPTests' passed at 2026-10-17 16:26:15.127.
+	 Executed 10 tests, with 0 failures (0 unexpected) in 0.716 (0.717) seconds
+Test Suite 'ModelTests' started at 2026-10-17 16:26:15.127.
+Test Case '-[AuraCoreTests.ModelTests testBandCapacityAndLastBandProtection]' started.
+Test Case '-[AuraCoreTests.ModelTests testBandCapacityAndLastBandProtection]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.ModelTests testConfigurationNormalizesToFourIndependentModules]' started.
+Test Case '-[AuraCoreTests.ModelTests testConfigurationNormalizesToFourIndependentModules]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.ModelTests testFactoryPresetsContainActualDistinctParameters]' started.
+Test Case '-[AuraCoreTests.ModelTests testFactoryPresetsContainActualDistinctParameters]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.ModelTests testInvalidParametersAreFiniteAndClampedBelowNyquist]' started.
+Test Case '-[AuraCoreTests.ModelTests testInvalidParametersAreFiniteAndClampedBelowNyquist]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.ModelTests testNormalizationRepairsDuplicateIdentifiersAndEmptyBands]' started.
+Test Case '-[AuraCoreTests.ModelTests testNormalizationRepairsDuplicateIdentifiersAndEmptyBands]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.ModelTests testTypingModuleNamePreservesInteriorSpaces]' started.
+Test Case '-[AuraCoreTests.ModelTests testTypingModuleNamePreservesInteriorSpaces]' passed (0.000 seconds).
+Test Suite 'ModelTests' passed at 2026-10-17 16:26:15.128.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.001 (0.001) seconds
+Test Suite 'OfflineGraphTests' started at 2026-10-17 16:26:15.128.
+Test Case '-[AuraCoreTests.OfflineGraphTests testMonoPlayerFeedsBothStereoEQChannels]' started.
+Test Case '-[AuraCoreTests.OfflineGraphTests testMonoPlayerFeedsBothStereoEQChannels]' passed (0.010 seconds).
+Test Case '-[AuraCoreTests.OfflineGraphTests testNativeAudioUnitProcessesAll128BandsFromActualPlayerSamples]' started.
+Test Case '-[AuraCoreTests.OfflineGraphTests testNativeAudioUnitProcessesAll128BandsFromActualPlayerSamples]' passed (0.599 seconds).
+Test Case '-[AuraCoreTests.OfflineGraphTests testRenderedGraphReleasesItsAudioUnit]' started.
+Test Case '-[AuraCoreTests.OfflineGraphTests testRenderedGraphReleasesItsAudioUnit]' passed (0.013 seconds).
+Test Suite 'OfflineGraphTests' passed at 2026-10-17 16:26:15.750.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.621 (0.622) seconds
+Test Suite 'PlaybackStateTests' started at 2026-10-17 16:26:15.750.
+Test Case '-[AuraCoreTests.PlaybackStateTests testDelayedOldCompletionCannotOverwriteNewestCompletion]' started.
+Test Case '-[AuraCoreTests.PlaybackStateTests testDelayedOldCompletionCannotOverwriteNewestCompletion]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.PlaybackStateTests testEmptyPlaybackProducesRecoverableError]' started.
+Test Case '-[AuraCoreTests.PlaybackStateTests testEmptyPlaybackProducesRecoverableError]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.PlaybackStateTests testInvalidAndMissingFileDoNotStartEngine]' started.
+Test Case '-[AuraCoreTests.PlaybackStateTests testInvalidAndMissingFileDoNotStartEngine]' passed (0.006 seconds).
+Test Case '-[AuraCoreTests.PlaybackStateTests testLoadingRealWAVAndStopStateWithoutHardwarePlayback]' started.
+Test Case '-[AuraCoreTests.PlaybackStateTests testLoadingRealWAVAndStopStateWithoutHardwarePlayback]' passed (0.006 seconds).
+Test Case '-[AuraCoreTests.PlaybackStateTests testTransportRejectsStaleCompletionAndMakesPlayIdempotent]' started.
+Test Case '-[AuraCoreTests.PlaybackStateTests testTransportRejectsStaleCompletionAndMakesPlayIdempotent]' passed (0.000 seconds).
+Test Suite 'PlaybackStateTests' passed at 2026-10-17 16:26:15.763.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.013 (0.014) seconds
+Test Suite 'PresetStoreTests' started at 2026-10-17 16:26:15.763.
+Test Case '-[AuraCoreTests.PresetStoreTests testCorruptFileIsQuarantinedAndRecoversDefaults]' started.
+Test Case '-[AuraCoreTests.PresetStoreTests testCorruptFileIsQuarantinedAndRecoversDefaults]' passed (0.001 seconds).
+Test Case '-[AuraCoreTests.PresetStoreTests testFutureVersionIsPreservedAndCannotBeOverwritten]' started.
+Test Case '-[AuraCoreTests.PresetStoreTests testFutureVersionIsPreservedAndCannotBeOverwritten]' passed (0.001 seconds).
+Test Case '-[AuraCoreTests.PresetStoreTests testRoundTripPreservesBypassAndCustomPresets]' started.
+Test Case '-[AuraCoreTests.PresetStoreTests testRoundTripPreservesBypassAndCustomPresets]' passed (0.001 seconds).
+Test Case '-[AuraCoreTests.PresetStoreTests testVersionOneMigratesWithoutLosingParameters]' started.
+Test Case '-[AuraCoreTests.PresetStoreTests testVersionOneMigratesWithoutLosingParameters]' passed (0.001 seconds).
+Test Case '-[AuraCoreTests.PresetStoreTests testVersionTwoWithoutCapturePreferencesMigratesWithoutLosingEQ]' started.
+Test Case '-[AuraCoreTests.PresetStoreTests testVersionTwoWithoutCapturePreferencesMigratesWithoutLosingEQ]' passed (0.001 seconds).
+Test Suite 'PresetStoreTests' passed at 2026-10-17 16:26:15.768.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.005 (0.005) seconds
+Test Suite 'SystemAudioCapturePolicyTests' started at 2026-10-17 16:26:15.768.
+Test Case '-[AuraCoreTests.SystemAudioCapturePolicyTests testAllApplicationsExcludesAuraAndItsHelpersBeforeOutputStarts]' started.
+Test Case '-[AuraCoreTests.SystemAudioCapturePolicyTests testAllApplicationsExcludesAuraAndItsHelpersBeforeOutputStarts]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.SystemAudioCapturePolicyTests testMissingOwnAudioRegistrationCannotEnableGlobalCapture]' started.
+Test Case '-[AuraCoreTests.SystemAudioCapturePolicyTests testMissingOwnAudioRegistrationCannotEnableGlobalCapture]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.SystemAudioCapturePolicyTests testReplacementHALObjectWithSamePIDAndBundleInvalidatesSelectedTap]' started.
+Test Case '-[AuraCoreTests.SystemAudioCapturePolicyTests testReplacementHALObjectWithSamePIDAndBundleInvalidatesSelectedTap]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.SystemAudioCapturePolicyTests testSelectedProcessMustStillMatchIdentityAndCannotBeAura]' started.
+Test Case '-[AuraCoreTests.SystemAudioCapturePolicyTests testSelectedProcessMustStillMatchIdentityAndCannotBeAura]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.SystemAudioCapturePolicyTests testUnresolvedSelectedAppCannotFallBackToAllApplications]' started.
+Test Case '-[AuraCoreTests.SystemAudioCapturePolicyTests testUnresolvedSelectedAppCannotFallBackToAllApplications]' passed (0.000 seconds).
+Test Suite 'SystemAudioCapturePolicyTests' passed at 2026-10-17 16:26:15.770.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.001 (0.001) seconds
+Test Suite 'SystemAudioHealthTests' started at 2026-10-17 16:26:15.770.
+Test Case '-[AuraCoreTests.SystemAudioHealthTests testNoCallbackProgressIsBoundedInsteadOfMutingIndefinitely]' started.
+Test Case '-[AuraCoreTests.SystemAudioHealthTests testNoCallbackProgressIsBoundedInsteadOfMutingIndefinitely]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.SystemAudioHealthTests testSignalLossRestoresOrdinaryPathAndCanRecover]' started.
+Test Case '-[AuraCoreTests.SystemAudioHealthTests testSignalLossRestoresOrdinaryPathAndCanRecover]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.SystemAudioHealthTests testTransientReleaseFailureOnExistingOwnedDeviceIsNotDiscarded]' started.
+Test Case '-[AuraCoreTests.SystemAudioHealthTests testTransientReleaseFailureOnExistingOwnedDeviceIsNotDiscarded]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.SystemAudioHealthTests testVanishedOrReusedDeviceDoesNotDestroyForeignRegistration]' started.
+Test Case '-[AuraCoreTests.SystemAudioHealthTests testVanishedOrReusedDeviceDoesNotDestroyForeignRegistration]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.SystemAudioHealthTests testZeroCaptureKeepsOrdinaryAudioUntilSignalIsVerified]' started.
+Test Case '-[AuraCoreTests.SystemAudioHealthTests testZeroCaptureKeepsOrdinaryAudioUntilSignalIsVerified]' passed (0.000 seconds).
+Test Suite 'SystemAudioHealthTests' passed at 2026-10-17 16:26:15.770.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+Test Suite 'SystemAudioRenderTests' started at 2026-10-17 16:26:15.770.
+Test Case '-[AuraCoreTests.SystemAudioRenderTests testAll128NonflatBandsProcessCapturedPCM]' started.
+Test Case '-[AuraCoreTests.SystemAudioRenderTests testAll128NonflatBandsProcessCapturedPCM]' passed (0.607 seconds).
+Test Case '-[AuraCoreTests.SystemAudioRenderTests testInvalidFormatAndFrameCapacityAreRejectedBeforeStartingHardware]' started.
+Test Case '-[AuraCoreTests.SystemAudioRenderTests testInvalidFormatAndFrameCapacityAreRejectedBeforeStartingHardware]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.SystemAudioRenderTests testLiveGlobalBypassAndNonfiniteInputRemainFinite]' started.
+Test Case '-[AuraCoreTests.SystemAudioRenderTests testLiveGlobalBypassAndNonfiniteInputRemainFinite]' passed (0.001 seconds).
+Test Case '-[AuraCoreTests.SystemAudioRenderTests testMissingInputAndTimingGapsHaveAccuratelyNamedCounters]' started.
+Test Case '-[AuraCoreTests.SystemAudioRenderTests testMissingInputAndTimingGapsHaveAccuratelyNamedCounters]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.SystemAudioRenderTests testOversizedAndMismatchedBuffersBecomeSilenceWithoutReadingPastBounds]' started.
+Test Case '-[AuraCoreTests.SystemAudioRenderTests testOversizedAndMismatchedBuffersBecomeSilenceWithoutReadingPastBounds]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.SystemAudioRenderTests testPlanarAndInterleavedPreserveChannelsAndHeadroom]' started.
+Test Case '-[AuraCoreTests.SystemAudioRenderTests testPlanarAndInterleavedPreserveChannelsAndHeadroom]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.SystemAudioRenderTests testUnverifiedCaptureIsOutputGatedAndValidatedActivationFadesIn]' started.
+Test Case '-[AuraCoreTests.SystemAudioRenderTests testUnverifiedCaptureIsOutputGatedAndValidatedActivationFadesIn]' passed (0.001 seconds).
+Test Suite 'SystemAudioRenderTests' passed at 2026-10-17 16:26:16.380.
+	 Executed 7 tests, with 0 failures (0 unexpected) in 0.609 (0.610) seconds
+Test Suite 'SystemAudioSessionTests' started at 2026-10-17 16:26:16.380.
+Test Case '-[AuraCoreTests.SystemAudioSessionTests testAppSwitchesSourcesExclusivelyAndUsesActualCaptureSampleRate]' started.
+Test Case '-[AuraCoreTests.SystemAudioSessionTests testAppSwitchesSourcesExclusivelyAndUsesActualCaptureSampleRate]' passed (0.003 seconds).
+Test Case '-[AuraCoreTests.SystemAudioSessionTests testCaptureSelectionPersistsStableHintsWithoutAutomaticallyStartingAfterRelaunch]' started.
+Test Case '-[AuraCoreTests.SystemAudioSessionTests testCaptureSelectionPersistsStableHintsWithoutAutomaticallyStartingAfterRelaunch]' passed (0.003 seconds).
+Test Case '-[AuraCoreTests.SystemAudioSessionTests testCleanupFailureKeepsOwnerAndPreventsStartingAnotherSessionUntilRetrySucceeds]' started.
+Test Case '-[AuraCoreTests.SystemAudioSessionTests testCleanupFailureKeepsOwnerAndPreventsStartingAnotherSessionUntilRetrySucceeds]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.SystemAudioSessionTests testFailedSystemStopDoesNotHideErrorBySwitchingToLocalFile]' started.
+Test Case '-[AuraCoreTests.SystemAudioSessionTests testFailedSystemStopDoesNotHideErrorBySwitchingToLocalFile]' passed (0.002 seconds).
+Test Case '-[AuraCoreTests.SystemAudioSessionTests testFailureAtEveryStartupStepRollsBackInReverseOrder]' started.
+Test Case '-[AuraCoreTests.SystemAudioSessionTests testFailureAtEveryStartupStepRollsBackInReverseOrder]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.SystemAudioSessionTests testOnlyOwnedResourcesAreDestroyed]' started.
+Test Case '-[AuraCoreTests.SystemAudioSessionTests testOnlyOwnedResourcesAreDestroyed]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.SystemAudioSessionTests testPermissionDeniedDoesNotMuteOrStartOutput]' started.
+Test Case '-[AuraCoreTests.SystemAudioSessionTests testPermissionDeniedDoesNotMuteOrStartOutput]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.SystemAudioSessionTests testProcessDisappearanceOrPermissionRevocationStopsAndReleasesSession]' started.
+Test Case '-[AuraCoreTests.SystemAudioSessionTests testProcessDisappearanceOrPermissionRevocationStopsAndReleasesSession]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.SystemAudioSessionTests testStaleGenerationCannotStopNewSession]' started.
+Test Case '-[AuraCoreTests.SystemAudioSessionTests testStaleGenerationCannotStopNewSession]' passed (0.000 seconds).
+Test Case '-[AuraCoreTests.SystemAudioSessionTests testStopIsIdempotent]' started.
+Test Case '-[AuraCoreTests.SystemAudioSessionTests testStopIsIdempotent]' passed (0.000 seconds).
+Test Suite 'SystemAudioSessionTests' passed at 2026-10-17 16:26:16.390.
+	 Executed 10 tests, with 0 failures (0 unexpected) in 0.010 (0.010) seconds
+Test Suite 'AuraCoreTests.xctest' passed at 2026-10-17 16:26:16.390.
+	 Executed 61 tests, with 0 failures (0 unexpected) in 2.066 (2.070) seconds
+Test Suite 'All tests' passed at 2026-10-17 16:26:16.390.
+	 Executed 61 tests, with 0 failures (0 unexpected) in 2.066 (2.071) seconds
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.

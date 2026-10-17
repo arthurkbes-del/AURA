@@ -1,0 +1,9 @@
+{
+  "generator": "Scripts/generate-project.py",
+  "outsideWorkingDirectory": "/tmp",
+  "projectAndSchemeUnchanged": true,
+  "files": [
+    "Aura/Aura.xcodeproj/project.pbxproj",
+    "Aura/Aura.xcodeproj/xcshareddata/xcschemes/Aura.xcscheme"
+  ]
+}

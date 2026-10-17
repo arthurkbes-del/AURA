@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "bundle": "/Users/arthurbes/Documents/ChatGPT/AURA/build/Universal2/DerivedData/Build/Products/Release/AURA.app",
+  "architectures": [
+    "arm64",
+    "x86_64"
+  ],
+  "bundleMinimumOS": "15.0",
+  "binaries": [
+    {
+      "path": "Contents/MacOS/AURA",
+      "architectures": [
+        "arm64",
+        "x86_64"
+      ],
+      "minimumOS": {
+        "arm64": "15.0",
+        "x86_64": "15.0"
+      }
+    }
+  ],
+  "executableSHA256": "1137602cc188f135bb4cdacf8a5ea43ec95f8a5cce2ff6b1e3550c317d6ba5a0",
+  "signing": "ad hoc development only; not Developer ID or notarized",
+  "license": "GPL-3.0-or-later; bundled notices match project",
+  "intelHardwareRuntime": "not established by binary inspection"
+}

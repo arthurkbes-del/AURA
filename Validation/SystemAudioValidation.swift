@@ -15,6 +15,11 @@ import Darwin
         if let index = CommandLine.arguments.firstIndex(of: "--worker"), index + 1 < CommandLine.arguments.count, let pid = Int32(CommandLine.arguments[index + 1]) {
             try await NativeAcceptance.worker(root, pid: pid); return
         }
+        var outputDirectory = root.appendingPathComponent("evidence/p1")
+        if let index = CommandLine.arguments.firstIndex(of: "--output-dir"), index + 1 < CommandLine.arguments.count {
+            outputDirectory = URL(fileURLWithPath: CommandLine.arguments[index + 1], isDirectory: true, relativeTo: root).standardizedFileURL
+        }
+        try FileManager.default.createDirectory(at: outputDirectory, withIntermediateDirectories: true)
         var observationCount = CommandLine.arguments.contains("--soak") ? 300 : 15
         if let index = CommandLine.arguments.firstIndex(of: "--seconds"), index + 1 < CommandLine.arguments.count,
            let seconds = Int(CommandLine.arguments[index + 1]), (1...300).contains(seconds) { observationCount = seconds * 10 }
@@ -80,11 +85,11 @@ import Darwin
         } catch {
             await session.stop()
             let partial = try JSONSerialization.data(withJSONObject: ["status": "INCOMPLETE", "completedScopes": results, "failure": error.localizedDescription], options: [.prettyPrinted, .sortedKeys])
-            try partial.write(to: root.appendingPathComponent("evidence/p1/native-session-incomplete.json"))
+            try partial.write(to: outputDirectory.appendingPathComponent("native-session-incomplete.json"))
             throw error
         }
         let data = try JSONSerialization.data(withJSONObject: ["results": results, "scopeSelection": CommandLine.arguments.contains("--selected-only") ? "selected process only" : "selected and all applications", "listening": "not human verified", "latency": "not measured"], options: [.prettyPrinted, .sortedKeys])
-        try data.write(to: root.appendingPathComponent("evidence/p1/native-session-result.json"))
+        try data.write(to: outputDirectory.appendingPathComponent("native-session-result.json"))
         FileHandle.standardOutput.write(data)
         FileHandle.standardOutput.write(Data("\nNATIVE SESSION PASS: requested scopes completed, four-stage EQ, live bypass and cleanup\n".utf8))
     }

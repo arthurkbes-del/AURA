@@ -1,0 +1,5 @@
+{
+  "binary": "/Users/arthurbes/Documents/ChatGPT/AURA/build/Universal2/SPM-x86/out/Products/Release/AuraSystemValidation",
+  "architectures": "x86_64",
+  "execution": "arch -x86_64 on Apple Silicon/Rosetta"
+}

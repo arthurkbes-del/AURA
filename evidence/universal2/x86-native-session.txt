@@ -1,0 +1,30 @@
+Controlled 1 kHz stereo source ready (amplitude 0.001)
+{
+  "latency" : "not measured",
+  "listening" : "not human verified",
+  "results" : [
+    {
+      "bands" : 128,
+      "blocks" : 264,
+      "frames" : 135168,
+      "halOverloadEvents" : 0,
+      "halOverloadMonitoring" : true,
+      "inputPeak" : 0.0010000554611906409,
+      "invalidBuffers" : 0,
+      "missingInputBlocks" : 0,
+      "observationWallSeconds" : 3.1366339921951294,
+      "output" : "Alto-falantes (MacBook Pro)",
+      "outputPeak" : 0.0019952342668275082,
+      "peakGainDB" : 5.9993961819510986,
+      "performanceScope" : "validator process including HAL\/control\/metrics, not callback-only CPU or hardware latency",
+      "processingOutputActive" : true,
+      "processPeakResidentBytes" : 8048640,
+      "processUserCPUSeconds" : 0.169573,
+      "sampleRate" : 44100,
+      "scope" : "controlled process",
+      "timestampGaps" : 1
+    }
+  ],
+  "scopeSelection" : "selected process only"
+}
+NATIVE SESSION PASS: requested scopes completed, four-stage EQ, live bypass and cleanup
