@@ -12,6 +12,7 @@ Review date: 2026-10-17. AURA project license: **GPL-3.0-or-later**.
 | SwiftUI, AppKit, Foundation, Observation, AVFoundation/AVFAudio, AudioToolbox, Core Audio, Synchronization and Darwin | Apple/Swift platform frameworks or libraries supplied by the development environment and target macOS. Linked as platform libraries; their framework binaries are not vendored into the repository. Their own vendor terms continue to apply. |
 | XCTest | Development/test framework supplied with Xcode; not part of the application bundle |
 | Swift compiler, Swift Package Manager, Xcode and Instruments | Development tools, not vendored application dependencies; respective vendor/toolchain licenses apply |
+| Python 3 standard library | Development-only project generation and bundle verification; no Python interpreter or package is bundled with AURA |
 | SF Symbols | System-rendered symbol names through native APIs; no exported symbol asset or external font is bundled |
 | Product Owner icon concept | Supplied as a visual reference. AURA's wave path and PNG sizes are generated from project Swift/Core Graphics source. The original reference image is not bundled. Confirm artwork provenance/rights before publication; no copyright owner is presumed. |
 

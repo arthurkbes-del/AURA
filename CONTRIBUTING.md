@@ -8,23 +8,26 @@ Contributors retain their rights unless a separate, explicit written agreement s
 
 ## Development
 
-- Use Swift 6 and official Apple frameworks. Current deployment target: macOS 15, Apple Silicon.
+- Use Swift 6 and official Apple frameworks. Current deployment target: macOS 15. Preserve both arm64 and x86_64 in Universal 2 Release builds; Debug builds the active architecture.
 - Preserve four independent EQ modules and the 32-band-per-module contract.
 - Keep audio callbacks free of file I/O, blocking locks, UI work, and dynamic allocation.
 - Add regression tests for changes to DSP, state, playback, or persistence. Keep deterministic tests separate from hardware/listening checks.
 - Never present generated test tones as measurements or claim listening results from automated tests.
 - Preserve the P0 file path while developing P1 capture. Use only session-owned taps/aggregates; reject unsupported formats, exclude AURA feedback and keep dry playback available until useful PCM is verified.
-- Follow AURA_OUTPUT_FIRST_ROADMAP.md for later packages. The Product Owner has released P1’s entry gate; current acceptance limits are in docs/P1_VALIDATION_REPORT.md. Preserve the path to Intel and Apple Silicon compatibility; P0's current validation is arm64 only.
+- Follow AURA_OUTPUT_FIRST_ROADMAP.md for later packages. P1 acceptance limits are in docs/P1_VALIDATION_REPORT.md. Universal 2 build and Rosetta evidence are in docs/UNIVERSAL2_VALIDATION_REPORT.md; physical Intel qualification remains pending.
 
 From the repository root:
 
 ```sh
 swift test
 xcodebuild -project Aura/Aura.xcodeproj -scheme Aura -configuration Debug \
-  -destination 'platform=macOS,arch=arm64' -derivedDataPath build/DerivedData build
+  -destination 'platform=macOS' -derivedDataPath build/DerivedData build
 xcodebuild -project Aura/Aura.xcodeproj -scheme Aura \
-  -destination 'platform=macOS,arch=arm64' -derivedDataPath build/DerivedData test
+  -destination 'platform=macOS' -derivedDataPath build/DerivedData test
+zsh Scripts/build-universal.sh
 ```
+
+Regenerate the checked-in Xcode project with `python3 Scripts/generate-project.py`. Keep Release `ONLY_ACTIVE_ARCH=NO` and standard architectures. Use the Universal 2 build verifier before recording architecture support; compilation or Rosetta execution alone does not establish physical Intel performance or audio-device behavior.
 
 Use `// SPDX-License-Identifier: GPL-3.0-or-later` in Swift files. In Package.swift, keep the `swift-tools-version` directive first and place SPDX immediately below it. Do not modify the GPL license text itself.
 

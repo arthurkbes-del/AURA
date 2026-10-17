@@ -1,0 +1,9 @@
+{
+  "hostArchitecture": "arm64",
+  "nativeArm64PackageTests": 64,
+  "x86_64CoreTests": 61,
+  "failures": 0,
+  "testBundleArchitecture": "x86_64",
+  "x86Runtime": "Rosetta on Apple Silicon; not physical Intel",
+  "x86HALCapture": "PASS; selected controlled source,128 bands; separate native-session result"
+}

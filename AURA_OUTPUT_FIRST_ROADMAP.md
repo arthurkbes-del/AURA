@@ -39,7 +39,9 @@ Microphone processing, virtual microphone, HDMI video capture, multitrack record
 - Gated execution package: [docs/superpowers/plans/2026-10-17-aura-p1.md](docs/superpowers/plans/2026-10-17-aura-p1.md).
 - Current graph and future API assessment: [ARCHITECTURE.md](ARCHITECTURE.md).
 
-**P1 execution status: functional acceptance complete for the tested support envelope after the Product Owner’s final confirmation. Native tests and human Spotify/JBL/sleep/forced-exit checks are recorded. Permission/physical checks are user-reported; quantified physical latency, clean-host behavior and untested hardware remain unqualified. Current app binary: arm64; Intel/Universal2 qualification remains required in P4.** See [P1 validation](docs/P1_VALIDATION_REPORT.md).
+**P1 execution status: functional acceptance complete for the tested support envelope after the Product Owner’s final confirmation. Native tests and human Spotify/JBL/sleep/forced-exit checks are recorded. Permission/physical checks are user-reported; quantified physical latency, clean-host behavior and untested hardware remain unqualified.** The app at P1 handoff was arm64. See [P1 validation](docs/P1_VALIDATION_REPORT.md).
+
+**Subsequent Product Owner instruction: prepare Universal 2 for Intel Macs.** This brings the architecture-build portion of P4 forward without starting P2 or changing the output-first priorities. A local Release app now contains arm64 and x86_64, with 64 native arm64 tests, 61 Rosetta x86_64 tests and an x86_64 capture session passing. See [Universal 2 validation](docs/UNIVERSAL2_VALIDATION_REPORT.md). Physical Intel/oldest-OS testing and the remaining P4 performance, accessibility and distribution qualification are still required. No publication or binary distribution is authorized.
 
 ## Optional neural processing — future decision
 

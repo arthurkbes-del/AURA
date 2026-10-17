@@ -65,6 +65,12 @@ A silent never-started output registration establishes AURA’s own HAL identity
 
 The render callback validates bounded planar/interleaved stereo Float32 buffers, processes the existing EQ, and publishes atomic peaks/overrange, missing-input, timestamp-gap and HAL overload-event counters. Counters do not establish audible dropout counts. No resampling, cross-device queue or microphone path is implemented. See the [validation report](docs/P1_VALIDATION_REPORT.md) for measured scope and pending tests.
 
+## Universal 2 build
+
+The shared conventional audio implementation builds for arm64 and x86_64 with a macOS 15 minimum. The Xcode project uses standard architectures; Debug builds the active architecture and Release sets `ONLY_ACTIVE_ARCH=NO`. `Scripts/generate-project.py` preserves those settings when regenerating the project. `Scripts/build-universal.sh` builds a generic macOS Release destination and verifies all bundled Mach-O files, deployment minima, license resources and the local ad hoc signature.
+
+The [Universal 2 report](docs/UNIVERSAL2_VALIDATION_REPORT.md) records native arm64 tests and x86_64 tests plus real capture under Rosetta. Physical Intel hardware and oldest-OS qualification remain pending. Architecture selection adds no feature restrictions or separate DSP path.
+
 ## Licensing and distribution
 
 Project source is designated GPL-3.0-or-later. See LICENSE, CONTRIBUTING.md and THIRD_PARTY_NOTICES.md. No external packages are used; platform-library treatment and the actual linked binary inventory are documented. Copyright ownership remains undetermined before publication. Independent Developer ID signing/notarization is prepared in DISTRIBUTION.md but not performed, and no repository or binary has been published/distributed.

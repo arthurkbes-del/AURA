@@ -1,6 +1,6 @@
 # AURA
 
-Native macOS application-audio processor, parametric equalizer and local-file player. Swift 6, SwiftUI, Apple Silicon. Bundle identifier: `com.evoluere.aura`. License: **[GPL-3.0-or-later](LICENSE)**.
+Native macOS application-audio processor, parametric equalizer and local-file player. Swift 6, SwiftUI, Universal 2 (Apple Silicon arm64 and Intel x86_64). Bundle identifier: `com.evoluere.aura`. License: **[GPL-3.0-or-later](LICENSE)**.
 
 **P0 is complete against its stated acceptance criteria.** The Product Owner confirmed menu icon/panel operation and hearing the EQ change the sound. This does not establish artifact-free operation across all settings/devices. See [VALIDATION_REPORT.md](VALIDATION_REPORT.md) for exact evidence and further checks.
 
@@ -23,7 +23,7 @@ Choose **Local file** for the preserved P0 file player. Only one source path run
 
 ## Build and run
 
-Development validated with macOS 27.0.1, Xcode 27.1, Swift 6.4 and the macOS 27 SDK. Deployment target: macOS 15.0, arm64. Operation on the oldest supported OS still needs separate hardware validation.
+Development validated with macOS 27.0.1, Xcode 27.1, Swift 6.4 and the macOS 27 SDK. Deployment target: macOS 15.0. Release builds contain arm64 and x86_64; Debug builds the active architecture. Native arm64 tests and x86_64 tests/capture under Rosetta passed. Physical Intel hardware and the oldest supported OS still need separate validation. See the [Universal 2 report](docs/UNIVERSAL2_VALIDATION_REPORT.md).
 
 Open `Aura/Aura.xcodeproj`, select the shared **Aura** scheme and build/run. A paid signing identity is not required for a local ad hoc build.
 
@@ -31,9 +31,18 @@ From the repository root:
 
 ```sh
 xcodebuild -project Aura/Aura.xcodeproj -scheme Aura -configuration Debug \
-  -destination 'platform=macOS,arch=arm64' -derivedDataPath build/DerivedData build
+  -destination 'platform=macOS' -derivedDataPath build/DerivedData build
 open build/DerivedData/Build/Products/Debug/AURA.app
 ```
+
+To build and verify the local Universal 2 Release app:
+
+```sh
+zsh Scripts/build-universal.sh
+open build/Universal2/DerivedData/Build/Products/Release/AURA.app
+```
+
+The script verifies both architectures, the macOS 15 minimum, bundled license/notices and the local ad hoc signature. It writes `build/Universal2/verification.json` only after verification succeeds. The tracked project generator is `python3 Scripts/generate-project.py`.
 
 The editor opens on launch and remains accessible from **Open Equalizer** in the menu bar. The app has no permanent Dock icon. For file playback choose **Local file**, use **Open File**, then Play; choose a module and edit its bands or apply a preset. A default −6 dB input pad and −6 dB master gain provide initial headroom. EQ bypass leaves those gain controls in effect.
 
@@ -44,7 +53,7 @@ Settings are stored at `~/Library/Application Support/com.evoluere.aura/configur
 ```sh
 swift test
 xcodebuild -project Aura/Aura.xcodeproj -scheme Aura \
-  -destination 'platform=macOS,arch=arm64' -derivedDataPath build/DerivedData test
+  -destination 'platform=macOS' -derivedDataPath build/DerivedData test
 swift run -c release AuraValidation --benchmark --play
 ```
 
@@ -64,4 +73,4 @@ Audio ownership, real-time constraints, DSP decisions and Core Audio capture own
 
 ## Product roadmap
 
-The Product Owner's [output-first roadmap](AURA_OUTPUT_FIRST_ROADMAP.md) prioritizes P1 system output processing, P2 professional DSP, P3 advanced output routing and P4 Intel/Apple Silicon/Universal 2 optimization and distribution. The product remains free and open source, with no subscriptions, paid features or artificial feature restrictions. Microphone/video/multitrack features are deferred. The Product Owner authorized P1 after P0 acceptance. P1 capture and controls have functional acceptance for the tested envelope; Intel/Universal 2 and broader qualification remain pending; [architecture](docs/P1_ARCHITECTURE.md), [execution package](docs/superpowers/plans/2026-10-17-aura-p1.md), and [report](docs/P1_VALIDATION_REPORT.md) record the current boundary. Optional neural modules are a future architectural decision only; no models or heavy dependencies were added.
+The Product Owner's [output-first roadmap](AURA_OUTPUT_FIRST_ROADMAP.md) prioritizes P1 system output processing, P2 professional DSP, P3 advanced output routing and P4 Intel/Apple Silicon/Universal 2 optimization and distribution. The product remains free and open source, with no subscriptions, paid features or artificial feature restrictions. Microphone/video/multitrack features are deferred. The Product Owner authorized P1 after P0 acceptance. P1 capture and controls have functional acceptance for the tested envelope; [architecture](docs/P1_ARCHITECTURE.md), [execution package](docs/superpowers/plans/2026-10-17-aura-p1.md), and [report](docs/P1_VALIDATION_REPORT.md) record that boundary. A subsequent explicit instruction brought Universal 2 build preparation forward: the dual-architecture artifact is verified, while physical Intel and broader P4 qualification remain pending. Optional neural modules are a future architectural decision only; no models or heavy dependencies were added.

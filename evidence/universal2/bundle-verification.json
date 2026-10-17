@@ -19,7 +19,7 @@
       }
     }
   ],
-  "executableSHA256": "1137602cc188f135bb4cdacf8a5ea43ec95f8a5cce2ff6b1e3550c317d6ba5a0",
+  "executableSHA256": "6b13e40530e2e1a6ed5bb8ee35d5caa07ae9ba6f22d2b4ecfc55417a236c1f4a",
   "signing": "ad hoc development only; not Developer ID or notarized",
   "license": "GPL-3.0-or-later; bundled notices match project",
   "intelHardwareRuntime": "not established by binary inspection"
