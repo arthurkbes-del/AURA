@@ -31,7 +31,7 @@ The selected-source soak avoids treating unrelated personal audio as part of a q
 
 The digital experiment uses two private process taps and a capture-only observer. It checks native-endian Float32 formats, a broadband source handshake and a unique correlation peak before reporting relative marker displacement. Observer Stop/IO/aggregate/tap releases are checked before completion. This includes observer alignment/conversion effects and excludes DAC/acoustics/Bluetooth transmission; it is not an observer-independent physical AURA latency.
 
-## Remaining macOS permission test — user available at the Mac
+## macOS permission test — reproduction checklist
 
 Use the existing AURA permission in System Settings → Privacy & Security → Screen & System Audio Recording → System Audio Recording Only. Touch only AURA; leave Codex/ChatGPT/other apps' permissions unchanged. Authentication, if requested, is performed by the user in macOS.
 
@@ -40,7 +40,7 @@ Use the existing AURA permission in System Settings → Privacy & Security → S
 3. Restore the same AURA permission, comply with any required app restart, then explicitly Start Processing. Confirm EQ/bypass difference and normal Stop restoration.
 4. Record the exact OS/build, output, source, status, audible result and whether grant/revocation took effect immediately or required relaunch. Do not mark the clean-host first-grant prompt tested on this already-authorized host.
 
-As of2026-10-17 the user could not disable the permission, so these steps remain open. No permission was changed by the agent.
+On2026-10-17 the user initially could not disable permission, then confirmed the remaining tests as OK. Treat that later result as human acceptance; the agent did not observe the toggles or change permissions. Keep this checklist for reproducible future qualification.
 
 ## Physical timing and release qualification
 

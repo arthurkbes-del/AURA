@@ -39,7 +39,7 @@ Microphone processing, virtual microphone, HDMI video capture, multitrack record
 - Gated execution package: [docs/superpowers/plans/2026-10-17-aura-p1.md](docs/superpowers/plans/2026-10-17-aura-p1.md).
 - Current graph and future API assessment: [ARCHITECTURE.md](ARCHITECTURE.md).
 
-**P1 execution status: implemented development candidate; native lifecycle/rate tests and human Spotify/JBL/sleep/forced-exit recovery are confirmed. Actual macOS permission denial/revocation/regrant remains open; physical latency and untested hardware remain unqualified.** See [P1 validation](docs/P1_VALIDATION_REPORT.md).
+**P1 execution status: functional acceptance complete for the tested support envelope after the Product Owner’s final confirmation. Native tests and human Spotify/JBL/sleep/forced-exit checks are recorded. Permission/physical checks are user-reported; quantified physical latency, clean-host behavior and untested hardware remain unqualified. Current app binary: arm64; Intel/Universal2 qualification remains required in P4.** See [P1 validation](docs/P1_VALIDATION_REPORT.md).
 
 ## Optional neural processing — future decision
 

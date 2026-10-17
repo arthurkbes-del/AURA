@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-17",
+  "statement": "já fiz esses testes e está ok",
+  "context": "User confirmation following remaining macOS permission deny/revoke/regrant and physical-latency checks",
+  "status": "Product Owner functional acceptance for tested setup",
+  "permissionFlow": {
+    "result": "user-reported OK",
+    "agentObserved": false,
+    "exactSequence": "not supplied"
+  },
+  "physicalLatencyCheck": {
+    "result": "user-reported OK",
+    "milliseconds": null,
+    "method": null,
+    "independentlyMeasuredByAgent": false
+  },
+  "digitalTapComparisonMilliseconds": 27.104166666666668,
+  "scope": "P1 tested support envelope, not universal hardware compatibility or release authorization",
+  "intelRuntime": "not validated; current application binary arm64 only"
+}
