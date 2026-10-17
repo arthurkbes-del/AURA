@@ -20,6 +20,10 @@ final class LatencyCorrelationTests: XCTestCase {
             XCTAssertGreaterThan(result.correlation, 0.9999)
         }
     }
+    func testPeriodicToneCannotMasqueradeAsUniqueTimingMarker() {
+        let tone = (0..<4096).map { Float(sin(2 * Double.pi * Double($0) / 48)) }
+        XCTAssertThrowsError(try LatencyCorrelation.estimate(reference: tone, returned: tone, start: 1000, window: 512, maximumLag: 100))
+    }
     func testSilenceOrMismatchedSignalCannotProduceLatencyPass() {
         let reference = marker(), silence = [Float](repeating: 0, count: 4096)
         XCTAssertThrowsError(try LatencyCorrelation.estimate(reference: reference, returned: silence, start: 1000, window: 512, maximumLag: 100))

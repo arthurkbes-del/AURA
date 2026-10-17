@@ -1,0 +1,28 @@
+Building for debugging...
+[3 / 33] AuraCore
+[5 / 34] AuraCore
+[9 / 20] AuraSystemValidation
+[17 / 23] AuraValidationTests-product
+[23 / 27] AuraValidationTests-product
+[25 / 27] AuraValidationTests-product
+Build complete! (2,07 seg)
+Test Suite 'Selected tests' started at 2026-10-17 16:07:58.784.
+Test Suite 'AuraValidationTests.xctest' started at 2026-10-17 16:07:58.784.
+Test Suite 'LatencyCorrelationTests' started at 2026-10-17 16:07:58.784.
+Test Case '-[AuraValidationTests.LatencyCorrelationTests testPeriodicToneCannotMasqueradeAsUniqueTimingMarker]' started.
+/Users/arthurbes/Documents/ChatGPT/AURA/ValidationTests/LatencyCorrelationTests.swift:25: error: -[AuraValidationTests.LatencyCorrelationTests testPeriodicToneCannotMasqueradeAsUniqueTimingMarker] : XCTAssertThrowsError failed: did not throw an error
+Test Case '-[AuraValidationTests.LatencyCorrelationTests testPeriodicToneCannotMasqueradeAsUniqueTimingMarker]' failed (0.121 seconds).
+Test Suite 'LatencyCorrelationTests' failed at 2026-10-17 16:07:58.906.
+	 Executed 1 test, with 1 failure (0 unexpected) in 0.121 (0.121) seconds
+Test Suite 'AuraValidationTests.xctest' failed at 2026-10-17 16:07:58.906.
+	 Executed 1 test, with 1 failure (0 unexpected) in 0.121 (0.121) seconds
+Test Suite 'Selected tests' failed at 2026-10-17 16:07:58.906.
+	 Executed 1 test, with 1 failure (0 unexpected) in 0.121 (0.122) seconds
+Test Suite 'Selected tests' started at 2026-10-17 16:07:58.981.
+Test Suite 'AuraCoreTests.xctest' started at 2026-10-17 16:07:58.982.
+Test Suite 'AuraCoreTests.xctest' passed at 2026-10-17 16:07:58.982.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.000) seconds
+Test Suite 'Selected tests' passed at 2026-10-17 16:07:58.982.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+Note: Some test targets reported failures:
+  - AuraValidationTests (XCTest)

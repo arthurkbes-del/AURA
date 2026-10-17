@@ -13,3 +13,10 @@ Hardened Release: reopened with all user modules/gains restored and capture idle
 After terminating the controlled fixture, GUI returned to waiting, ordinary audio active; timestamp gaps became2,missing input0,HAL overload0. Stop Processing returned Idle without error, then normal quit. No audible-restoration claim from UI alone.
 
 2026-10-17 Product Owner follow-up after rebuilt app and playback/graph retest request: "já fiz o teste funciona". Human retest following crash correction confirmed successful. Application/output/exact duration/individual gestures were not specified. This supersedes the earlier pending basic human retest; bypass/echo, forced-exit restoration, clean-host permissions, latency and broader device qualification remain pending.
+
+2026-10-17 acceptance follow-up, human reports (not instrumented):
+- Source: "spotfy com todas as saidas disponiveis por cercad e 10 minutos" (Spotify/all available outputs/about10min).
+- EQ/bypass clear difference, no echo/duplication, ordinary audio continued after Stop: "Sim, sem eco; o áudio continuou ao parar".
+- JBL disconnect/reconnect and physical sleep, ordinary audio retained and capture resumed with Start without crash/duplication: "Sim, nos dois casos".
+- Settings inspected read-only: AURA and AuraSystemValidation had system-audio-only permission enabled. No microphone or screen-recording grant was added. User could not disable AURA now; no setting was toggled. Denial/revocation remains untested.
+- Forced GUI exit while Spotify/AURA processed, followed by reopen/Start: user confirmed "Fiz: áudio continuou e processamento voltou sem eco". This closes the auditory forced-exit observation for the tested configuration; no general hardware crash-restoration guarantee is inferred.

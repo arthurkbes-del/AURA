@@ -124,7 +124,9 @@ private final class ProbeMetrics: @unchecked Sendable {
         player.scheduleBuffer(buffer, at: nil, options: .loops, completionHandler: nil)
         try engine.start(); player.play()
         defer { player.stop(); engine.stop() }
-        log("Controlled 1 kHz stereo source ready (amplitude 0.001)")
+        log(CommandLine.arguments.contains("--marker")
+            ? "AURA_TEST_SOURCE_MARKER=prbs-xorshift32-v1;seed=20903;frames=48000;amplitude=0.001"
+            : "Controlled 1 kHz stereo source ready (amplitude 0.001)")
         let duration: Double
         if let index = CommandLine.arguments.firstIndex(of: "--duration"), index + 1 < CommandLine.arguments.count,
            let requested = Double(CommandLine.arguments[index + 1]), requested.isFinite, (1...900).contains(requested) {

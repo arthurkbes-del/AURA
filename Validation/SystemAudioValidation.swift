@@ -34,7 +34,7 @@ import Darwin
         }
         var results: [[String: Any]] = []
         do {
-            for global in [false, true] {
+            for global in (CommandLine.arguments.contains("--selected-only") ? [false] : [false, true]) {
                 let selection = SystemAudioSelection(deviceUID: SystemAudioInventory.defaultOutputUID,
                     applicationPID: global ? nil : application.pid,
                     applicationBundleID: global ? nil : application.bundleID)
@@ -50,7 +50,7 @@ import Darwin
                     // Controlled fixture is quiet; abort promptly if a recursive
                     // path or unrelated loud source invalidates this experiment.
                     if tick > 0 && tick % 300 == 0 { NativeAcceptance.log("Progress: \(global ? "all-app" : "selected") \(tick / 10)s, frames=\(session.metrics.frames), gaps=\(session.metrics.timingDiscontinuities), overloads=\(session.metrics.overloadEvents)") }
-                    guard maxInput < 0.01, maxOutput < 0.03 else { throw SystemAudioError("Unexpected level: possible other audio or recursive capture. Test stopped.") }
+                    guard maxInput < 0.01, maxOutput < 0.03 else { throw SystemAudioError("Unexpected level input=\(maxInput), output=\(maxOutput): other audio or recursive capture cannot be excluded. Test stopped.") }
                 }
                 let stats = session.metrics
                 getrusage(RUSAGE_SELF, &usageAfter)
@@ -77,10 +77,15 @@ import Darwin
                 guard session.state == .idle else { throw SystemAudioError(session.errorMessage ?? "Cleanup failed") }
                 configuration.processingEnabled = true
             }
-        } catch { await session.stop(); throw error }
-        let data = try JSONSerialization.data(withJSONObject: ["results": results, "listening": "not human verified", "latency": "not measured"], options: [.prettyPrinted, .sortedKeys])
+        } catch {
+            await session.stop()
+            let partial = try JSONSerialization.data(withJSONObject: ["status": "INCOMPLETE", "completedScopes": results, "failure": error.localizedDescription], options: [.prettyPrinted, .sortedKeys])
+            try partial.write(to: root.appendingPathComponent("evidence/p1/native-session-incomplete.json"))
+            throw error
+        }
+        let data = try JSONSerialization.data(withJSONObject: ["results": results, "scopeSelection": CommandLine.arguments.contains("--selected-only") ? "selected process only" : "selected and all applications", "listening": "not human verified", "latency": "not measured"], options: [.prettyPrinted, .sortedKeys])
         try data.write(to: root.appendingPathComponent("evidence/p1/native-session-result.json"))
         FileHandle.standardOutput.write(data)
-        FileHandle.standardOutput.write(Data("\nNATIVE SESSION PASS: selected/global capture, four-stage EQ, live bypass and cleanup\n".utf8))
+        FileHandle.standardOutput.write(Data("\nNATIVE SESSION PASS: requested scopes completed, four-stage EQ, live bypass and cleanup\n".utf8))
     }
 }

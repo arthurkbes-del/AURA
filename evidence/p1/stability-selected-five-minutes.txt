@@ -1,0 +1,6 @@
+Controlled 1 kHz stereo source ready (amplitude 0.001)
+Progress: selected 30s, frames=1374720, gaps=1, overloads=0
+Progress: selected 60s, frames=2750464, gaps=1, overloads=0
+Progress: selected 90s, frames=4126208, gaps=1, overloads=0
+Progress: selected 120s, frames=5506560, gaps=1, overloads=0
+Progress: selected 150s, frames=6882816, gaps=1, overloads=0

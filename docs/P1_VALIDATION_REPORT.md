@@ -14,7 +14,7 @@ The user reported that processing worked but AURA closed after seconds, then rep
 
 A graph-style regression reproduced the abort before the fix (`evidence/p1/graph-exclusivity-red.txt`). Edit methods now work on local value copies, normalize, then assign back. The regression and full suite passed afterwards (`graph-exclusivity-green.txt`). A native numerical band edit during live capture also remained operational. Native CUA drag automation timed out, so that gesture is not claimed as a UI automation pass.
 
-After receiving the rebuilt app and a request to retry playback/graph editing, the Product Owner confirmed on 2026-10-17: **“já fiz o teste funciona”**. Record this as a successful human retest following the crash correction. The reply does not specify the application, output, exact duration or individual gestures; it does not establish latency, bypass/echo behavior or forced-exit recovery, and does not close all P1 acceptance conditions.
+After receiving the rebuilt app and a request to retry playback/graph editing, the Product Owner confirmed on 2026-10-17: **“já fiz o teste funciona”**. Record this as a successful human retest following the crash correction. The initial reply did not specify the test details. In the acceptance follow-up, the Product Owner identified **Spotify, all available outputs, about 10 minutes**, confirmed a clear EQ/bypass difference without echo/duplication and ordinary audio continuing after Stop Processing, and confirmed successful restart without crashes/duplication after JBL disconnect/reconnect and physical sleep. These are human-reported results, not instrumented hardware measurements; individual output names/modes and the exact per-output duration were not enumerated. The user subsequently confirmed actual forced GUI termination/reopen/Start with ordinary audio continuing and processing returning without echo. Permission denial/revocation remains a separate open check.
 
 ## Verification evidence
 
@@ -30,7 +30,7 @@ Host: macOS 27.0.1 build 26A434, Apple Silicon arm64, Xcode 27.1/Swift 6.4/macOS
 | Native live bypass and ordinary stop cleanup | Both modes stayed running during bypass and returned idle after stop | `native-session-soak.txt` |
 | Native diagnostics during soak | Each mode: invalid buffers0,missing input0,HAL overload events0,timestamp discontinuities1 | `native-session-soak.txt` |
 | Native GUI | Start/wait/signal/edit/stop and restored settings observed; real input/output peaks | `ui-validation.txt` |
-| Human retest after crash correction | Product Owner: “já fiz o teste funciona”; application/output/duration not specified | `ui-validation.txt` |
+| Human retest after crash correction | Spotify, all available outputs, approximately 10min; no echo, bypass difference and ordinary playback after Stop confirmed | `ui-validation.txt` |
 | Performance profile | Time Profiler capture completed; traces remain local under ignored build/P1 | `instruments-128-profile.txt` |
 | Licensing/source audit |46 Swift files with SPDX,unchanged GPLv3 SHA-256,zero external package dependencies | `license-audit.json` |
 
@@ -38,7 +38,7 @@ One timestamp discontinuity was observed in each native soak session; its cause 
 
 Soak performance covers the entire validator process including HAL/control/metrics, not the GUI or callback alone: selected-process 1.9392 user-CPU seconds over 31.122 s,peak RSS 17,629,184 bytes; all-app 2.1897 over 31.309 s,peak RSS 18,186,240 bytes. These are measured process figures, not hardware latency or a general CPU guarantee. Time Profiler does not establish zero allocations. No end-to-end latency number is fabricated.
 
-GUI observation also saw active 44.1 kHz application processing on JBL Wave Buds 2 before final hardening. A subsequent unsupported-stereo error occurred during output changes. This is preliminary Bluetooth evidence only; Bluetooth reconnect/format stability and auditory acceptance are not qualified. No USB output was tested.
+GUI observation also saw active 44.1 kHz application processing on JBL Wave Buds 2 before final hardening. A subsequent unsupported-stereo error occurred during output changes. That initial observation was preliminary Bluetooth evidence. The later human acceptance follow-up confirms JBL disconnect/reconnect, resumed processing and no echo for the tested setup. Other Bluetooth modes/formats and quantified transmission latency remain unqualified. No USB output was tested.
 
 ## Review rulings and corrective pass
 
@@ -52,15 +52,52 @@ One independent review covered the P1 snapshot against P0. Critical: the user’
 
 No minor issue was deferred from this review; the source-mode issue was regraded Important and fixed. Same-output/stereo restrictions, unmeasured latency/hardware combinations and deferred microphone/neural/limiter work remain explicit scope/QA boundaries, not silently completed findings. No second review loop was used.
 
-## Remaining acceptance and release conditions
+## Current closure status
 
-- Basic human retest after the crash correction is confirmed above. Application/output, exact duration and gesture coverage remain unspecified; broader sustained-use qualification is pending. Earlier P0 audible acceptance remains valid.
-- Human bypass comparison, no dry duplication/echo, ordinary audio continuing after stop and forced process termination. Successful API cleanup/UI states alone do not prove audible restoration.
-- Clean-host permission grant/denial/revocation and protected/unavailable content behavior.
-- Physical removal/reconnect, sample-rate changes and sleep/wake on actual hardware; USB and Bluetooth qualification beyond preliminary GUI observation.
-- Reproducible end-to-end latency, long stability/energy/performance and allocation profiling under stated workloads. The roughly one-minute two-mode soak is a regression check, not prolonged production qualification.
-- Intel/Apple Silicon/Universal 2,oldest supported OS, accessibility and release signing/notarization qualification as planned in P4. No P2 feature starts implicitly.
+Confirmed human checks: Spotify across the available outputs for about 10minutes, clear EQ/bypass difference, no echo/duplication, ordinary Stop restoration, JBL disconnect/reconnect, physical sleep/restart and actual forced GUI exit/reopen/Start. Native lifecycle and rate tests pass. The remaining functional gate is actual macOS permission denial/revocation/regrant. The first-grant prompt on a clean host is also unqualified; this Mac already had permission. The uninterrupted automated selected-source soak is now PASS:311.92seconds,128 bands,13,753,344frames at44.1kHz. Externally interrupted runs are not accepted as completion. Physical output latency and untested hardware remain explicitly unqualified.
+
+## Acceptance closure run — 2026-10-17
+
+The validation-only tools added in `5d181da` do not change the production app or its DSP. [Native acceptance results](../evidence/p1/acceptance-native-result.json) cover:
+
+- 20 actual start/stop cycles with128 nonflat bands; each returns the caller-visible private tap/aggregate inventory to its baseline. HAL inventory publication settled after up to100ms in observed cycles. Early harness assertions before publication settled failed; the bounded inventory wait corrected the measurement harness, not a production audio defect. Unknown/foreign resources are never destroyed by the test.
+- Actual controlled source process termination triggers the production identity listener, safely stops, releases resources and permits capture of a fresh process.
+- Delivery of the native workspace sleep notification exercises the production listener/cleanup. Separately, an un-injected sleep notification stopped the first prolonged run safely (`stability-five-minutes.txt`); that interrupted run is not a stability PASS. The user independently confirms physical sleep/restart.
+- SIGKILL of a child executing the actual ProcessTapBackend, followed by successful capture in a fresh session. Private cross-process HAL inventory and audible dry-path restoration cannot be inferred from the fresh session. The GUI itself was not killed in this experiment.
+- Actual built-in output44.1→48kHz: failure/recovery listener, successful capture after explicit restart at48kHz, then exact restoration to44.1kHz. Available/settable rates are checked. The global default output and volume are not changed.
+
+### Uninterrupted selected-source stability
+
+The final selected-process run completed **311.92seconds (5min12s),128 active nonflat bands,13,753,344frames** on MacBook Pro44.1kHz. Invalid buffers0,missing input blocks0,HAL overload events0,timestamp discontinuities1. The one observed timestamp gap did not grow during the run; its cause remains unisolated. These counters do not prove zero audible artifacts. Live bypass and ordinary cleanup completed after observation. Evidence: [full log](../evidence/p1/stability-selected-uninterrupted.txt), [result](../evidence/p1/stability-selected-uninterrupted-result.json).
+
+The validator used21.6861 process user-CPU seconds across311.9218wall seconds,peak resident17,760,256bytes. Scope includes HAL/control/metrics and excludes the GUI; no callback-only CPU, energy or physical-latency guarantee follows. Peak maxima include transients, so the+5.64dB peak-ratio check is not a precision frequency-response measurement. Long all-app quiet-fixture attempts were interrupted/level-contaminated; the successful controlled all-app baseline and the user's approximately10-minute Spotify session remain separate evidence.
+
+The native tool reports device latency56frames, safety offset48frames, buffer512frames and stream latency639frames on MacBook Pro44.1kHz. These are separate HAL-reported components, not a measured total. Apple documents the [latency selector](https://developer.apple.com/documentation/coreaudio/kaudiodevicepropertylatency) and [safety offset selector](https://developer.apple.com/documentation/coreaudio/kaudiodevicepropertysafetyoffset); local SDK declarations were also inspected.
+
+### Controlled digital timing measurement
+
+[Digital marker evidence](../evidence/p1/digital-latency-result.json): a quiet deterministic broadband marker in a separate source process, a unity-gain production-backend return on the same built-in44.1kHz output, and a capture-only private aggregate observing those two process taps at48kHz. No microphone, physical input or audio recording file is used. After stopping observer I/O, offline normalized cross-correlation searches ±100ms over4096-frame windows. Known +37/−23-frame shifts, gain changes, silence, unrelated data and ambiguous periodic tones are checked by three analysis tests. A source handshake verifies the PRBS fixture, and a strong competing non-neighbor correlation peak rejects the measurement. The regression first failed on a periodic1kHz tone before that ambiguity check was added (`latency-ambiguity-red.txt`).
+
+Three repeated-marker windows at1,2,3seconds yielded1301frames, **27.104ms**, correlation approximately0.9550–0.9558, with246,272captured frames and zero invalid observer buffers. This measures the relative displacement of the source tap and unity return tap in this observer topology, including tap/aggregate scheduling and conversion. It excludes DAC, speaker/acoustic and Bluetooth transmission delay; tap aggregation/alignment is part of the observation. The final rerun verified the marker protocol and observer cleanup before completion; it overlapped a separately selected-source soak, so it is not an isolated CPU benchmark. It is not a general end-to-end physical latency number, a limiter delay, or an Intel/other-device qualification.
+
+### Remaining acceptance and release conditions
+
+- Real macOS permission denial/revocation and regrant: **not run**. The Settings UI showed AURA’s existing system-audio-only permission enabled. The user replied “Não consigo desativar agora”; no permission was changed or reset. Injected failures and silent-capture fail-open tests do not replace this OS test.
+- Physical end-to-end latency requires a defined independent output reference/loopback; no microphone or new hardware capability was added to manufacture this evidence. USB, protected-content modes, oldest supported OS and untested output formats remain unqualified.
+- Intel/Apple Silicon/Universal2,accessibility,extensive performance/energy/allocation and Developer ID/notarization qualification remain inP4. Current P1 tests do not authorize P2 or an external release.
 
 GPL-3.0-or-later remains selected, LICENSE is the full unaltered official GPLv3, and source SPDX/notices are retained. Current inventory has no incompatible external package dependency; Apple platform libraries are not vendored. **Copyright ownership, authority to release and icon artwork provenance remain pending before publication.** See [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md) and [DISTRIBUTION.md](../DISTRIBUTION.md). Local ad hoc builds are not Developer ID/notarized releases. No remote repository publication, binary distribution or external notarization upload was performed.
 
 Optional Neural Voice/Video remains [documentation only](decisions/2026-10-17-optional-neural-processing.md), preserving conventional Intel features and the future Universal 2/CoreML capability/licensing requirements.
+
+## Reproduction and review disposition
+
+See [P1 acceptance runbook](P1_ACCEPTANCE_RUNBOOK.md) for exact commands and the remaining permission sequence. Existing permissions were inspected read-only and preserved.
+
+The independent validation-tool review found one Important issue: a stale tone fixture could silently ignore --marker and yield an ambiguous correlation peak. Accepted and corrected with a failing periodic-tone regression, explicit marker protocol verification, peak uniqueness and a successful rerun (`digital-latency-reviewed.txt`); observer releases also returned success before completion. Observer cleanup-status reporting and big-endian rejection were also corrected before final evidence. No production source was changed in this acceptance run. The complete package regression run passes 61 core tests plus 3 measurement-analysis tests (64 total), and the Release app still builds; see acceptance-full-suite-final-pass.txt and acceptance-app-build.txt. The updated license audit checks 50 Swift files, zero missing SPDX notices, the unchanged official GPLv3 hash and zero external dependencies.
+
+Review scope rulings: physical latency/dropouts require an independent physical reference; SIGKILL restart does not substitute for hearing (now separately supplied); human Spotify/sleep/reconnect results are reported as human evidence; interrupted/contaminated soaks are never PASS; permission denial/revocation/protected modes and untested USB/Intel/oldest OS/release conditions remain outside measured evidence; unchanged P0 behavior is supported by the full regression run rather than a new broad production review. Costs of these limits are explicit unqualified hardware/permission claims and an open P1 acceptance gate. No minor finding remains deferred in this validation-tool pass.
+
+Interrupted soak records are preserved in [stability-interruptions.json](../evidence/p1/stability-interruptions.json). The SIGTERM source is unknown; no final pass or production-crash conclusion is inferred. The all-app level-guard stop also remains unqualified as a quiet fixture, not silently rewritten as a success.
+
+**Closure decision:** functional use/recovery and the defined automated stability run are validated for the stated envelope. P1 is not marked fully accepted: actual macOS permission denial/revocation/regrant is unavailable now. Physical end-to-end latency, clean-host first grant and untested hardware remain unqualified. No publication/distribution or P2 start is implied.

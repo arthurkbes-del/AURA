@@ -1,27 +1,29 @@
 {
-  "frames" : 243200,
+  "frames" : 246272,
   "invalidBuffers" : 0,
+  "observerCleanup" : "PASS; stop\/IO\/aggregate\/tap releases checked before completion",
   "observerRate" : 48000,
   "physicalEndToEndLatency" : "not measured",
   "results" : [
     {
-      "correlation" : 0.95539033129182571,
+      "correlation" : 0.95575504524139976,
       "lagFrames" : 1301,
       "lagMilliseconds" : 27.104166666666668,
       "referenceSecond" : 1
     },
     {
-      "correlation" : 0.95542524848657395,
+      "correlation" : 0.95504253192494348,
       "lagFrames" : 1301,
       "lagMilliseconds" : 27.104166666666668,
       "referenceSecond" : 2
     },
     {
-      "correlation" : 0.95540444649503664,
+      "correlation" : 0.9549908243541021,
       "lagFrames" : 1301,
       "lagMilliseconds" : 27.104166666666668,
       "referenceSecond" : 3
     }
   ],
-  "scope" : "Controlled source process tap to unity AURA return process tap, capture-only observer. Includes tap\/aggregate scheduling and conversion; excludes DAC, speaker and acoustic path."
+  "scope" : "Controlled source process tap to unity AURA return process tap, capture-only observer. Includes tap\/aggregate scheduling and conversion; excludes DAC, speaker and acoustic path.",
+  "verifiedMarkerProtocol" : "AURA_TEST_SOURCE_MARKER=prbs-xorshift32-v1;seed=20903;frames=48000;amplitude=0.001"
 }

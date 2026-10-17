@@ -1,0 +1,6 @@
+Controlled 1 kHz stereo source ready (amplitude 0.001)
+Progress: selected 30s, frames=1383424, gaps=1, overloads=0
+Progress: selected 60s, frames=2759680, gaps=1, overloads=0
+Progress: selected 90s, frames=4140032, gaps=1, overloads=0
+Progress: selected 120s, frames=5515776, gaps=1, overloads=0
+VALIDATION FAILED: SystemAudioError(message: "Unexpected level: possible other audio or recursive capture. Test stopped.")

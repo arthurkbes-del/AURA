@@ -18,6 +18,7 @@ cat > build/P1/ProcessTapProbe.app/Contents/Info.plist <<'PLIST'
 PLIST
 swiftc -swift-version 6 -parse-as-library -target arm64-apple-macos15.0 Validation/ProcessTapProbe.swift -o build/P1/ProcessTapProbe.app/Contents/MacOS/ProcessTapProbe
 swiftc -swift-version 6 -parse-as-library -target x86_64-apple-macos15.0 Validation/ProcessTapProbe.swift -o build/P1/ProcessTapProbe-x86_64
+cp build/P1/ProcessTapProbe.app/Contents/MacOS/ProcessTapProbe build/P1/AURATestSource
 codesign --force --sign - --timestamp=none build/P1/ProcessTapProbe.app
 if [[ "${1:-}" != "--compile-only" ]]; then
     build/P1/ProcessTapProbe.app/Contents/MacOS/ProcessTapProbe

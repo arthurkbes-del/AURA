@@ -1,0 +1,8 @@
+Another instance of SwiftPM (PID: 32949) is already running using '/Users/arthurbes/Documents/ChatGPT/AURA/.build', waiting until that process has finished execution...Building for production...
+[3 / 10] AuraCore
+[5 / 11] AuraCore
+[8 / 10] AuraSystemValidation-product
+[9 / 11] AuraSystemValidation-product
+[12 / 14] AuraSystemValidation-product
+[14 / 14] AuraSystemValidation-product
+Build complete! (5,03 seg)

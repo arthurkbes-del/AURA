@@ -4,7 +4,7 @@ Native macOS application-audio processor, parametric equalizer and local-file pl
 
 **P0 is complete against its stated acceptance criteria.** The Product Owner confirmed menu icon/panel operation and hearing the EQ change the sound. This does not establish artifact-free operation across all settings/devices. See [VALIDATION_REPORT.md](VALIDATION_REPORT.md) for exact evidence and further checks.
 
-**P1 is implemented as a development candidate; acceptance is still in progress.** See [P1 validation](docs/P1_VALIDATION_REPORT.md) for hardware evidence, the graph-edit crash fix and remaining checks.
+**P1 is implemented as a development candidate; acceptance is still in progress.** Human Spotify use for approximately10 minutes, bypass/ordinary Stop and JBL/sleep recovery are confirmed. See [P1 validation](docs/P1_VALIDATION_REPORT.md) for native fault tests, controlled digital timing, the graph-edit crash fix and remaining permission/physical-measurement checks.
 
 ## Features
 

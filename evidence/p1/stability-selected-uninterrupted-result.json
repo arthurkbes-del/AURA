@@ -1,0 +1,28 @@
+{
+  "latency": "not measured",
+  "listening": "not human verified",
+  "results": [
+    {
+      "bands": 128,
+      "blocks": 26862,
+      "frames": 13753344,
+      "halOverloadEvents": 0,
+      "halOverloadMonitoring": true,
+      "inputPeak": 0.0010420194594189525,
+      "invalidBuffers": 0,
+      "missingInputBlocks": 0,
+      "observationWallSeconds": 311.92178201675415,
+      "output": "Alto-falantes (MacBook Pro)",
+      "outputPeak": 0.0019952342668275135,
+      "peakGainDB": 5.642361311054805,
+      "performanceScope": "validator process including HAL/control/metrics, not callback-only CPU or hardware latency",
+      "processingOutputActive": true,
+      "processPeakResidentBytes": 17760256,
+      "processUserCPUSeconds": 21.686147,
+      "sampleRate": 44100,
+      "scope": "controlled process",
+      "timestampGaps": 1
+    }
+  ],
+  "scopeSelection": "selected process only"
+}

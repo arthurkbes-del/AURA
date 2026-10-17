@@ -1,0 +1,39 @@
+Controlled 1 kHz stereo source ready (amplitude 0.001)
+Progress: selected 30s, frames=1379328, gaps=1, overloads=0
+Progress: selected 60s, frames=2755072, gaps=1, overloads=0
+Progress: selected 90s, frames=4135424, gaps=1, overloads=0
+Progress: selected 120s, frames=5515776, gaps=1, overloads=0
+Progress: selected 150s, frames=6896128, gaps=1, overloads=0
+Progress: selected 180s, frames=8271872, gaps=1, overloads=0
+Progress: selected 210s, frames=9652224, gaps=1, overloads=0
+Progress: selected 240s, frames=11014656, gaps=1, overloads=0
+Progress: selected 270s, frames=12386304, gaps=1, overloads=0
+{
+  "latency" : "not measured",
+  "listening" : "not human verified",
+  "results" : [
+    {
+      "bands" : 128,
+      "blocks" : 26862,
+      "frames" : 13753344,
+      "halOverloadEvents" : 0,
+      "halOverloadMonitoring" : true,
+      "inputPeak" : 0.0010420194594189525,
+      "invalidBuffers" : 0,
+      "missingInputBlocks" : 0,
+      "observationWallSeconds" : 311.92178201675415,
+      "output" : "Alto-falantes (MacBook Pro)",
+      "outputPeak" : 0.0019952342668275135,
+      "peakGainDB" : 5.6423613110548052,
+      "performanceScope" : "validator process including HAL\/control\/metrics, not callback-only CPU or hardware latency",
+      "processingOutputActive" : true,
+      "processPeakResidentBytes" : 17760256,
+      "processUserCPUSeconds" : 21.686146999999998,
+      "sampleRate" : 44100,
+      "scope" : "controlled process",
+      "timestampGaps" : 1
+    }
+  ],
+  "scopeSelection" : "selected process only"
+}
+NATIVE SESSION PASS: requested scopes completed, four-stage EQ, live bypass and cleanup

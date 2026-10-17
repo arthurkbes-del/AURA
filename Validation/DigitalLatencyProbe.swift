@@ -43,9 +43,20 @@ private final class MarkerCapture: @unchecked Sendable {
     static func run(_ root: URL) async throws {
         let source = Process(); source.executableURL = root.appendingPathComponent("build/P1/AURATestSource")
         source.arguments = ["--source", "--marker", "--duration", "30"]
-        source.standardOutput = FileHandle.nullDevice
+        let markerProtocolURL = root.appendingPathComponent("build/P1/marker-source-protocol.txt")
+        FileManager.default.createFile(atPath: markerProtocolURL.path, contents: Data())
+        let markerProtocolHandle = try FileHandle(forWritingTo: markerProtocolURL)
+        defer { try? markerProtocolHandle.close() }
+        source.standardOutput = markerProtocolHandle
         try source.run()
         defer { if source.isRunning { source.terminate(); source.waitUntilExit() } }
+        let markerProtocol = "AURA_TEST_SOURCE_MARKER=prbs-xorshift32-v1;seed=20903;frames=48000;amplitude=0.001"
+        for _ in 0..<30 {
+            if (try? String(contentsOf: markerProtocolURL, encoding: .utf8))?.contains(markerProtocol) == true { break }
+            try await Task.sleep(for: .milliseconds(100))
+        }
+        try NativeAcceptance.require((try? String(contentsOf: markerProtocolURL, encoding: .utf8))?.contains(markerProtocol) == true,
+            "Source did not confirm the required broadband marker protocol; rebuild AURATestSource")
         let app = try await NativeAcceptance.application(source)
         let worker = Process(); worker.executableURL = URL(fileURLWithPath: CommandLine.arguments[0]).standardizedFileURL
         worker.arguments = ["--worker", String(app.pid), "--unity-worker"]; worker.standardOutput = FileHandle.nullDevice
@@ -61,11 +72,27 @@ private final class MarkerCapture: @unchecked Sendable {
         let workerApp = try await NativeAcceptance.application(worker)
         var taps: [AudioObjectID] = [], aggregate: AudioObjectID = 0, io: AudioDeviceIOProcID?
         var attemptedStart = false
+        func cleanupObserver() throws {
+            if attemptedStart, let current = io {
+                try NativeAcceptance.require(AudioDeviceStop(aggregate, current) == noErr, "Observer cleanup Stop failed")
+                attemptedStart = false
+            }
+            if let current = io {
+                try NativeAcceptance.require(AudioDeviceDestroyIOProcID(aggregate, current) == noErr, "Observer callback cleanup failed")
+                io = nil
+            }
+            if aggregate != 0 {
+                try NativeAcceptance.require(AudioHardwareDestroyAggregateDevice(aggregate) == noErr, "Observer aggregate cleanup failed")
+                aggregate = 0
+            }
+            while let tap = taps.last {
+                try NativeAcceptance.require(AudioHardwareDestroyProcessTap(tap) == noErr, "Observer tap cleanup failed")
+                taps.removeLast()
+            }
+        }
         defer {
-            if attemptedStart, let io { _ = AudioDeviceStop(aggregate, io) }
-            if let io { _ = AudioDeviceDestroyIOProcID(aggregate, io) }
-            if aggregate != 0 { _ = AudioHardwareDestroyAggregateDevice(aggregate) }
-            for tap in taps.reversed() { _ = AudioHardwareDestroyProcessTap(tap) }
+            do { try cleanupObserver() }
+            catch { NativeAcceptance.log("OBSERVER CLEANUP FAILED: \(error)") }
         }
         var tapEntries: [[String: Any]] = []
         for process in [app.objectID, workerApp.objectID] {
@@ -87,7 +114,7 @@ private final class MarkerCapture: @unchecked Sendable {
         let streams = try NativeAcceptance.ids(aggregate, kAudioDevicePropertyStreams, scope: kAudioObjectPropertyScopeInput)
         let formats = try streams.map { try NativeAcceptance.read($0, kAudioStreamPropertyVirtualFormat, initial: AudioStreamBasicDescription()) }
         try NativeAcceptance.require(formats.reduce(0, { $0 + Int($1.mChannelsPerFrame) }) == 4 && formats.allSatisfy {
-            $0.mFormatID == kAudioFormatLinearPCM && $0.mFormatFlags & kAudioFormatFlagIsFloat != 0 && $0.mBitsPerChannel == 32 && $0.mSampleRate == format.mSampleRate
+            $0.mFormatID == kAudioFormatLinearPCM && $0.mFormatFlags & kAudioFormatFlagIsFloat != 0 && $0.mFormatFlags & kAudioFormatFlagIsBigEndian == 0 && $0.mBitsPerChannel == 32 && $0.mSampleRate == format.mSampleRate
         }, "Observer stream formats unsupported: \(formats)")
         let capture = MarkerCapture()
         try NativeAcceptance.require(AudioDeviceCreateIOProcIDWithBlock(&io, aggregate, nil, callback(capture)) == noErr, "Observer callback")
@@ -106,8 +133,9 @@ private final class MarkerCapture: @unchecked Sendable {
             results.append(["referenceSecond": second, "lagFrames": value.lagFrames, "correlation": value.correlation,
                             "lagMilliseconds": Double(value.lagFrames) * 1000 / format.mSampleRate])
         }
-        let data = try JSONSerialization.data(withJSONObject: ["scope": "Controlled source process tap to unity AURA return process tap, capture-only observer. Includes tap/aggregate scheduling and conversion; excludes DAC, speaker and acoustic path.",
-            "physicalEndToEndLatency": "not measured", "observerRate": format.mSampleRate, "frames": capture.frames, "invalidBuffers": capture.invalid, "results": results], options: [.prettyPrinted, .sortedKeys])
+        try cleanupObserver()
+        let data = try JSONSerialization.data(withJSONObject: ["observerCleanup": "PASS; stop/IO/aggregate/tap releases checked before completion", "scope": "Controlled source process tap to unity AURA return process tap, capture-only observer. Includes tap/aggregate scheduling and conversion; excludes DAC, speaker and acoustic path.",
+            "physicalEndToEndLatency": "not measured", "verifiedMarkerProtocol": markerProtocol, "observerRate": format.mSampleRate, "frames": capture.frames, "invalidBuffers": capture.invalid, "results": results], options: [.prettyPrinted, .sortedKeys])
         try data.write(to: root.appendingPathComponent("evidence/p1/digital-latency-result.json"))
         FileHandle.standardOutput.write(data); NativeAcceptance.log("\nCONTROLLED DIGITAL MARKER MEASUREMENT COMPLETE")
     }

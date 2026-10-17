@@ -1,0 +1,21 @@
+{
+  "runs": [
+    {
+      "evidence": "stability-five-minutes.txt",
+      "status": "INCOMPLETE",
+      "observedReason": "Production sleep listener safely stopped capture on OS willSleep notification"
+    },
+    {
+      "evidence": "stability-five-minutes-final.txt",
+      "status": "INCOMPLETE",
+      "observedReason": "Level guard stopped all-app phase; unrelated audio or recursion could not be excluded; not a clean controlled fixture"
+    },
+    {
+      "evidence": "stability-selected-five-minutes.txt",
+      "status": "INCOMPLETE",
+      "exitCode": 143,
+      "observedReason": "External SIGTERM; no final pass/result was emitted; source of signal not established"
+    }
+  ],
+  "interpretation": "None is an uninterrupted-soak PASS. No production code was changed to hide these outcomes."
+}

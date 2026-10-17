@@ -1,0 +1,31 @@
+Validation/ProcessTapProbe.swift:124:16: warning: consider using asynchronous alternative function
+122 |         }
+123 |         engine.attach(player); engine.connect(player, to: engine.mainMixerNode, format: format)
+124 |         player.scheduleBuffer(buffer, at: nil, options: .loops, completionHandler: nil)
+    |                `- warning: consider using asynchronous alternative function
+125 |         try engine.start(); player.play()
+126 |         defer { player.stop(); engine.stop() }
+
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk/System/Library/Frameworks/AVFAudio.framework/Headers/AVAudioPlayerNode.h:202:1: note: 'scheduleBuffer(_:at:options:)' declared here
+200 | 		or before the buffer is played completely.
+201 | */
+202 | - (void)scheduleBuffer:(AVAudioPCMBuffer *)buffer atTime:(AVAudioTime * __nullable)when options:(AVAudioPlayerNodeBufferOptions)options completionHandler:(AVAudioNodeCompletionHandler __nullable)completionHandler;
+    | `- note: 'scheduleBuffer(_:at:options:)' declared here
+203 | 
+204 | /*! @method scheduleBuffer:atTime:options:completionCallbackType:completionHandler:
+Validation/ProcessTapProbe.swift:124:16: warning: consider using asynchronous alternative function
+122 |         }
+123 |         engine.attach(player); engine.connect(player, to: engine.mainMixerNode, format: format)
+124 |         player.scheduleBuffer(buffer, at: nil, options: .loops, completionHandler: nil)
+    |                `- warning: consider using asynchronous alternative function
+125 |         try engine.start(); player.play()
+126 |         defer { player.stop(); engine.stop() }
+
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk/System/Library/Frameworks/AVFAudio.framework/Headers/AVAudioPlayerNode.h:202:1: note: 'scheduleBuffer(_:at:options:)' declared here
+200 | 		or before the buffer is played completely.
+201 | */
+202 | - (void)scheduleBuffer:(AVAudioPCMBuffer *)buffer atTime:(AVAudioTime * __nullable)when options:(AVAudioPlayerNodeBufferOptions)options completionHandler:(AVAudioNodeCompletionHandler __nullable)completionHandler;
+    | `- note: 'scheduleBuffer(_:at:options:)' declared here
+203 | 
+204 | /*! @method scheduleBuffer:atTime:options:completionCallbackType:completionHandler:
+build/P1/ProcessTapProbe.app: replacing existing signature

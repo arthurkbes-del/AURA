@@ -1,0 +1,9 @@
+Building for production...
+[2 / 9]
+[3 / 10] AuraCore
+[5 / 11] AuraCore
+[8 / 10] AuraSystemValidation-product
+[9 / 11] AuraSystemValidation-product
+[12 / 14] AuraSystemValidation-product
+[13 / 14] AuraSystemValidation-product
+Build complete! (5,32 seg)
