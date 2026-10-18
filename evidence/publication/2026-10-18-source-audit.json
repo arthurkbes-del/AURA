@@ -1,0 +1,10 @@
+{
+  "date": "2026-10-18",
+  "scope": "local Git history blobs and current project files; bounded credential/file-type check, not a full security audit",
+  "historicalBlobsChecked": 373,
+  "largestBlobBytes": 917766,
+  "findings": [],
+  "generatedAppsTracked": false,
+  "rightsDeclaration": "COPYRIGHT.md and docs/decisions/2026-10-18-source-publication.md",
+  "binaryRelease": "not authorized or uploaded"
+}

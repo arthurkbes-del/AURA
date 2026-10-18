@@ -73,7 +73,7 @@ The [Universal 2 report](docs/UNIVERSAL2_VALIDATION_REPORT.md) records native ar
 
 ## Licensing and distribution
 
-Project source is designated GPL-3.0-or-later. See LICENSE, CONTRIBUTING.md and THIRD_PARTY_NOTICES.md. No external packages are used; platform-library treatment and the actual linked binary inventory are documented. Copyright ownership remains undetermined before publication. Independent Developer ID signing/notarization is prepared in DISTRIBUTION.md but not performed, and no repository or binary has been published/distributed.
+Project source is designated GPL-3.0-or-later. See LICENSE, CONTRIBUTING.md and THIRD_PARTY_NOTICES.md. No external packages are used; platform-library treatment and the actual linked binary inventory are documented. Arthur Bes explicitly declared rights and authority to publish the code and icon on 2026-10-18; see COPYRIGHT.md and the [publication decision](docs/decisions/2026-10-18-source-publication.md). Source publication to arthurkbes-del/AURA is authorized. Independent Developer ID signing/notarization is prepared in DISTRIBUTION.md but not performed; binary distribution still requires separate authorization.
 
 ## Output-first roadmap and P1 handoff
 

@@ -30,7 +30,7 @@ Microphone processing, virtual microphone, HDMI video capture, multitrack record
 2. **Do not start P1 before P0 is complete and its validation report has been reviewed.** Current state: P0's audible-processing criterion is now confirmed by the Product Owner ("consegui escutar ele muda o som"). Menu icon visibility/panel opening are also confirmed. The subsequent Product Owner instruction "vamos para o p1" releases the report-review entry gate and authorizes P1 execution.
 3. At the P0 handoff, provide a proposed P1 architecture and execution package for review. That P0 preparation was documentation only. The subsequent explicit P1 instruction authorizes capture implementation and local validation.
 4. No system-wide compatibility claim is valid until measured on the stated OS, hardware, application and output mode. Preserve evidence and state limitations.
-5. Repository publication, binary distribution and external notarization uploads still require explicit authorization. Confirm copyright ownership and artwork provenance before publication. Preparing a free/open-source release does not itself authorize publishing it.
+5. Publication requires explicit authorization and recorded rights/artwork provenance. Arthur Bes supplied that declaration and authorized source publication to arthurkbes-del/AURA on 2026-10-18; see [the decision](docs/decisions/2026-10-18-source-publication.md). Binary distribution and external notarization uploads still require separate authorization.
 
 ## Prepared handoff
 

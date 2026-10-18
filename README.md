@@ -65,7 +65,7 @@ The validation executable generates a clearly identified four-second test-tone W
 
 The Product Owner selected **GPL-3.0-or-later**. LICENSE contains the complete, unaltered official GPL v3 text; project source files carry `SPDX-License-Identifier: GPL-3.0-or-later`.
 
-Copyright ownership and authority to release remain **pending determination**. No individual or company is presumed to own the entire project. Repository publication, external uploads and binary distribution require explicit authorization; none has been performed. Local builds are development artifacts, not published releases.
+Copyright (C) 2026 **Arthur Bes**, recorded on his explicit declaration of authority to publish the code and icon under GPL-3.0-or-later. See [COPYRIGHT.md](COPYRIGHT.md) and the [source-publication decision](docs/decisions/2026-10-18-source-publication.md). The authorized public source repository is [arthurkbes-del/AURA](https://github.com/arthurkbes-del/AURA). Binary distribution and notarization submissions require separate authorization; local builds remain development artifacts.
 
 Read [CONTRIBUTING.md](CONTRIBUTING.md), [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md), and [DISTRIBUTION.md](DISTRIBUTION.md). The current package has no external dependencies. Independent macOS signing/notarization is prepared as a future process and has not been submitted to Apple.
 

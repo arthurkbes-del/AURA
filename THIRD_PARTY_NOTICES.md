@@ -1,6 +1,6 @@
 # Third-party notices and dependency review
 
-Review date: 2026-10-17. AURA project license: **GPL-3.0-or-later**.
+Review date: 2026-10-18. AURA project license: **GPL-3.0-or-later**.
 
 ## Dependency inventory
 
@@ -8,13 +8,13 @@ Review date: 2026-10-17. AURA project license: **GPL-3.0-or-later**.
 
 | Component | Use and licensing treatment |
 |---|---|
-| AURA source and local AuraCore package | GPL-3.0-or-later; rights-holder definition remains pending |
+| AURA source and local AuraCore package | GPL-3.0-or-later; Arthur Bes, by explicit declaration dated 2026-10-18; see COPYRIGHT.md |
 | SwiftUI, AppKit, Foundation, Observation, AVFoundation/AVFAudio, AudioToolbox, Core Audio, Synchronization and Darwin | Apple/Swift platform frameworks or libraries supplied by the development environment and target macOS. Linked as platform libraries; their framework binaries are not vendored into the repository. Their own vendor terms continue to apply. |
 | XCTest | Development/test framework supplied with Xcode; not part of the application bundle |
 | Swift compiler, Swift Package Manager, Xcode and Instruments | Development tools, not vendored application dependencies; respective vendor/toolchain licenses apply |
 | Python 3 standard library | Development-only project generation and bundle verification; no Python interpreter or package is bundled with AURA |
 | SF Symbols | System-rendered symbol names through native APIs; no exported symbol asset or external font is bundled |
-| Product Owner icon concept | Supplied as a visual reference. AURA's wave path and PNG sizes are generated from project Swift/Core Graphics source. The original reference image is not bundled. Confirm artwork provenance/rights before publication; no copyright owner is presumed. |
+| Product Owner icon concept | Supplied as a visual reference. AURA's wave path and PNG sizes are generated from project Swift/Core Graphics source. The original reference image is not bundled. Arthur Bes explicitly confirmed authority to publish the icon under GPL-3.0-or-later on 2026-10-18; see COPYRIGHT.md and the publication decision. |
 
 GPLv3 section 1 defines System Libraries and excludes them from Corresponding Source. This is the basis for the platform-library treatment above, not a claim to relicense Apple's frameworks. Verify the actual linked and bundled libraries for every release, particularly if a future toolchain embeds Swift runtime components. See the [official GPLv3 text](https://www.gnu.org/licenses/gpl-3.0.html).
 
@@ -36,8 +36,8 @@ The project selects **GPL-3.0-or-later** through SPDX notices and README. The GP
 
 ## Release obligations and pending decisions
 
-- Establish copyright ownership and authority to release before publication; no Product Owner, company, or individual is presumed to own all contributions.
+- Arthur Bes's explicit rights and publication-authority declaration is recorded in COPYRIGHT.md. Preserve rights/provenance records for subsequent contributions; no third-party rights are assigned by this declaration.
 - Review contribution provenance and any future dependencies/assets before release.
 - For an authorized binary release, provide the applicable license/notices and GPL-compliant access to the Corresponding Source and build instructions for that exact release. Do not substitute a source URL that does not exist or an unreviewed promise of future access.
 - Review any applicable installation-information obligations, signing/distribution terms, and recipient restrictions for the intended channel. The preparation currently targets independent macOS distribution, not the Mac App Store.
-- No public repository, external upload, notarization submission, or binary distribution is authorized by the current work.
+- Source publication to arthurkbes-del/AURA is authorized by the 2026-10-18 decision. Binary releases, other distribution channels and notarization submissions still require separate authorization.

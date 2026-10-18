@@ -1,6 +1,6 @@
 # Independent macOS distribution preparation
 
-**Preparation only. No publication, external upload, notarization submission, or binary distribution is authorized.** Copyright ownership and authority to release must be settled before publication. The project license is GPL-3.0-or-later; LICENSE is the complete, unchanged GPL v3 text.
+**Source publication authorized; binary distribution and notarization remain preparation only.** On 2026-10-18, Arthur Bes directed that rights be recorded in his name, confirmed authority to publish the code and icon under GPL-3.0-or-later, and authorized sending the project to [arthurkbes-del/AURA](https://github.com/arthurkbes-del/AURA). See [COPYRIGHT.md](COPYRIGHT.md) and the [decision](docs/decisions/2026-10-18-source-publication.md). LICENSE remains the complete, unchanged GPL v3 text.
 
 ## Current local build
 
@@ -23,8 +23,8 @@ The [Universal 2 report](docs/UNIVERSAL2_VALIDATION_REPORT.md) records 64 native
 
 ## Before an authorized release
 
-1. Record confirmed rights holders and contribution provenance. Do not infer ownership from authorship of a prompt, a Git identity, a bundle identifier, or the selected license.
-2. Obtain explicit Product Owner authorization for the exact source publication and binary distribution/channel. Notarization itself uploads software to Apple and must be authorized.
+1. Preserve the explicit Arthur Bes rights/authority declaration and verify any subsequent contribution/dependency provenance. Do not infer ownership from a Git identity, bundle identifier or selected license.
+2. Source publication to the stated GitHub repository is authorized. Obtain separate Product Owner authorization for binary distribution/channel and any external notarization submission; notarization uploads software to Apple.
 3. Preserve P0/P1 acceptance and complete release hardware/listening/recovery checks on both processor families and the oldest supported OS, license/dependency review, and any relevant GPL installation-information assessment.
 4. Select a release version and immutable Git commit; assemble its complete Corresponding Source, build instructions and notices. Agree how every binary recipient receives GPL-compliant source access before distributing the binary.
 5. Use the owner's own Apple Developer membership and Developer ID Application certificate. Configure identity/team explicitly; never commit certificates, private keys, credentials, or a guessed identity.

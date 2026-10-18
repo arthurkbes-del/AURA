@@ -4,7 +4,7 @@ AURA uses **GPL-3.0-or-later**. Read the complete, unmodified license in [LICENS
 
 Submit only work you have the right to contribute under GPL-3.0-or-later. Identify any copied or adapted third-party code, its original source, copyright notices, license, and modifications. Record approved dependencies in THIRD_PARTY_NOTICES.md. Do not introduce dependencies with unverified or incompatible terms.
 
-Contributors retain their rights unless a separate, explicit written agreement says otherwise. Contribution does not imply copyright assignment. The project's copyright ownership has not yet been determined; do not invent an owner or add a blanket ownership claim. Confirmation of ownership and authority to release is required before publication.
+Contributors retain their rights unless a separate, explicit written agreement says otherwise. Contribution does not imply copyright assignment. Arthur Bes is the project's declared rights holder and explicitly confirmed authority to publish its code and icon under GPL-3.0-or-later on 2026-10-18; see [COPYRIGHT.md](COPYRIGHT.md). Preserve third-party and contributor notices.
 
 ## Development
 
@@ -37,4 +37,4 @@ Keep commits focused and document evidence, remaining limitations, and performan
 
 ## Publication and distribution
 
-The Product Owner has **not authorized repository publication or binary distribution**. Local builds and tests are authorized. Opening a public repository, pushing to an external remote, uploading releases, submitting for notarization, or distributing builds requires explicit authorization. Follow [DISTRIBUTION.md](DISTRIBUTION.md) when a release is authorized.
+The Product Owner authorized source publication to [arthurkbes-del/AURA](https://github.com/arthurkbes-del/AURA) on 2026-10-18; see the [decision](docs/decisions/2026-10-18-source-publication.md). Local builds and tests remain authorized. Binary releases, distribution to other channels and notarization submissions require separate authorization. Follow [DISTRIBUTION.md](DISTRIBUTION.md) when a binary release is authorized.
